@@ -46,11 +46,11 @@ class OkibenManagePage extends StatelessWidget {
               child: Column(
                 // mainAxisSize: MainAxisSize.min,
                 children: [
-                  OkibenItemTile(title: '数学の教科書', value: false),
-                  OkibenItemTile(title: '数学の教科書', value: false),
-                  OkibenItemTile(title: '数学の教科書', value: false),
-                  OkibenItemTile(title: '数学の教科書', value: false),
-                  OkibenItemTile(title: '数学の教科書', value: false),
+                  OkibenItemTile(image: 'assets/images/bread.png', title: '数学の教科書', value: false),
+                  OkibenItemTile(image: 'assets/images/big_image_sample.png', title: '国語の教科書', value: false),
+                  // OkibenItemTile(image: '', title: '科学の教科書', value: false),
+                  // OkibenItemTile(image: '', title: '生物の教科書', value: false),
+                  // OkibenItemTile(image: '', title: '公民の教科書', value: false),
                 ],
               ),
             ),

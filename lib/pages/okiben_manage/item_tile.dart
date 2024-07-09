@@ -6,11 +6,13 @@ import 'package:okiben/customs.dart';
 
 class OkibenItemTile extends StatelessWidget {
   const OkibenItemTile({
+    required this.image,
     required this.title,
     required this.value,
     // required this.onChanged,
   });
 
+  final String image;
   final String title;
   final bool value;
   // final void Function(bool)? onChanged;
@@ -18,21 +20,36 @@ class OkibenItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 300,
       child: ListTile(
-        leading: null,
+        leading: Container(
+          constraints: BoxConstraints(
+            maxHeight: 100.0,
+          ),
+          child: Image.asset(
+            image,
+            fit: BoxFit.contain,
+          ),
+        ),
         title: Text(
           title,
           style: TextStyle(fontSize: okibenItemTileTitleSize()),
         ),
-        trailing: CupertinoSwitch(
-          value: value,
-          onChanged: null,
+        trailing: Transform.scale(
+          scale: 1.3,
+          child: CupertinoSwitch(
+            value: value,
+            onChanged: null,
+          ),
         ),
       ),
-      margin: EdgeInsets.only(top: okibenItemTileMergeTBSize(), bottom: okibenItemTileMergeTBSize()),
+      padding: EdgeInsets.fromLTRB(5, 20, 10, 20),
+      margin: EdgeInsets.only(
+          top: okibenItemTileMergeTBSize(),
+          bottom: okibenItemTileMergeTBSize()),
       decoration: BoxDecoration(
-        border: Border.all(color: itemTileColor(), width: 1),   // 枠線
-        borderRadius: BorderRadius.circular(8),   // 角丸
+        border: Border.all(color: itemTileColor(), width: 1), // 枠線
+        borderRadius: BorderRadius.circular(8), // 角丸
       ),
     );
   }
