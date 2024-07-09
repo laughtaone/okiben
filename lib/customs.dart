@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-
 // サンプル
 /*
 // BottomNavigationBarの各アイコンの色
@@ -11,3 +10,20 @@ import 'package:flutter/material.dart';
 //   return bottomIconButtonColor;
 // }
 */
+
+Color itemTileColor() {
+  final bottomIconButtonColor = Color(0xFF949494);
+  return bottomIconButtonColor;
+}
+
+
+// OkibenItemTile系
+double okibenItemTileMergeTBSize() {
+  final okibenItemTileMergeTBSize = 10.0;
+  return okibenItemTileMergeTBSize;
+}
+
+double okibenItemTileTitleSize() {
+  final okibenItemTileTitleSize = 23.0;
+  return okibenItemTileTitleSize;
+}
