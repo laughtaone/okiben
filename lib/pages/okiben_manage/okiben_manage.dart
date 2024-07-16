@@ -1,5 +1,5 @@
 // 置き勉管理画面
-// flutter run -d chrome chrome lib/pages/okiben_manage/okiben_manage.dart
+// flutter run -d chrome lib/pages/okiben_manage/okiben_manage.dart
 
 import 'package:flutter/material.dart';
 import 'package:okiben/customs.dart';
