@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:okiben/customs.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:okiben/pages/okiben_manage/item_tile.dart';
 
 void main() {
@@ -19,13 +20,24 @@ class OkibenManagePageHome extends StatelessWidget {
   }
 }
 
-class OkibenManagePage extends StatelessWidget {
-  // 持ち物を管理するリスト
-  List<Map<String, dynamic>> itemList = [
-    {'name': 'OSの教科書', 'isOkiben': true, 'imagePath': 'assets/images/bread.png'},
-    {'name': '確率の教科書', 'isOkiben': true, 'imagePath': 'assets/images/big_image_sample.png'},
-  ];
+class OkibenManagePage extends StatefulWidget {
+  @override
+  _OkibenManagePageState createState() => _OkibenManagePageState();
+}
 
+class _OkibenManagePageState extends State<OkibenManagePage> {
+  List<Map<String, dynamic>> itemList = [
+    {
+      'name': 'OSの教科書',
+      'isOkiben': true,
+      'imagePath': 'assets/images/bread.png'
+    },
+    {
+      'name': '確率の教科書',
+      'isOkiben': true,
+      'imagePath': 'assets/images/big_image_sample.png'
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +60,38 @@ class OkibenManagePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
             child: Center(
-              child: Column(
-                // mainAxisSize: MainAxisSize.min,
-                children: [
-                  OkibenItemTile(image: 'assets/images/bread.png', title: '数学の教科書', value: false),
-                  OkibenItemTile(image: 'assets/images/big_image_sample.png', title: '国語の教科書', value: false),
-                  // OkibenItemTile(image: '', title: '科学の教科書', value: false),
-                  // OkibenItemTile(image: '', title: '生物の教科書', value: false),
-                  // OkibenItemTile(image: '', title: '公民の教科書', value: false),
-                ],
-              ),
+              // child: Column(  // 置き換えA1
+              //   // mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     OkibenItemTile(image: 'assets/images/bread.png', title: '数学の教科書', value: false),
+              //     OkibenItemTile(image: 'assets/images/big_image_sample.png', title: '国語の教科書', value: false),
+              //     // OkibenItemTile(image: '', title: '科学の教科書', value: false),
+              //     // OkibenItemTile(image: '', title: '生物の教科書', value: false),
+              //     // OkibenItemTile(image: '', title: '公民の教科書', value: false),
+              //   ],
+              // ),
+              child: ListView.builder(
+                  // 置き換えA2
+                  itemCount: itemList.length,
+                  itemBuilder: (context, index) {
+                    // return ListTile(
+                    //   title: Text(
+                    //     itemList[index]['name'],
+                    //     style: TextStyle(fontSize: okibenItemTileTitleSize()),
+                    //   ),
+                    //   trailing: Transform.scale(
+                    //     scale: 1.3,
+                    //     child: CupertinoSwitch(
+                    //       value: itemList[index]['isOkiben'],
+                    //       onChanged: null,
+                    //     ),
+                    //   ),
+                    // );
+                    return Text(
+                      itemList[index]['name'],
+                      style: TextStyle(fontSize: okibenItemTileTitleSize()),
+                    );
+                  }),
             ),
           ),
         ),
