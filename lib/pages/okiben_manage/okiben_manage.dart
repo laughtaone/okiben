@@ -56,43 +56,29 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
             )
           ],
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
-            child: Center(
-              // child: Column(  // 置き換えA1
-              //   // mainAxisSize: MainAxisSize.min,
-              //   children: [
-              //     OkibenItemTile(image: 'assets/images/bread.png', title: '数学の教科書', value: false),
-              //     OkibenItemTile(image: 'assets/images/big_image_sample.png', title: '国語の教科書', value: false),
-              //     // OkibenItemTile(image: '', title: '科学の教科書', value: false),
-              //     // OkibenItemTile(image: '', title: '生物の教科書', value: false),
-              //     // OkibenItemTile(image: '', title: '公民の教科書', value: false),
-              //   ],
-              // ),
-              child: ListView.builder(
-                  // 置き換えA2
-                  itemCount: itemList.length,
-                  itemBuilder: (context, index) {
-                    // return ListTile(
-                    //   title: Text(
-                    //     itemList[index]['name'],
-                    //     style: TextStyle(fontSize: okibenItemTileTitleSize()),
-                    //   ),
-                    //   trailing: Transform.scale(
-                    //     scale: 1.3,
-                    //     child: CupertinoSwitch(
-                    //       value: itemList[index]['isOkiben'],
-                    //       onChanged: null,
-                    //     ),
-                    //   ),
-                    // );
-                    return Text(
-                      itemList[index]['name'],
-                      style: TextStyle(fontSize: okibenItemTileTitleSize()),
-                    );
-                  }),
-            ),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+          child: ListView.builder(
+              itemCount: itemList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    itemList[index]['name'],
+                    style: TextStyle(fontSize: okibenItemTileTitleSize()),
+                  ),
+                  trailing: Transform.scale(
+                    scale: 1.3,
+                    child: CupertinoSwitch(
+                      value: itemList[index]['isOkiben'],
+                      onChanged: null,
+                    ),
+                  ),
+                );
+                // return Text(
+                //   itemList[index]['name'],
+                //   style: TextStyle(fontSize: okibenItemTileTitleSize()),
+                // );
+              }
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
