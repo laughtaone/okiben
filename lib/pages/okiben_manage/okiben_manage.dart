@@ -74,10 +74,6 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                     ),
                   ),
                 );
-                // return Text(
-                //   itemList[index]['name'],
-                //   style: TextStyle(fontSize: okibenItemTileTitleSize()),
-                // );
               }
           ),
         ),
