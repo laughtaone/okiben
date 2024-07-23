@@ -61,21 +61,28 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
           child: ListView.builder(
               itemCount: itemList.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    itemList[index]['name'],
-                    style: TextStyle(fontSize: okibenItemTileTitleSize()),
-                  ),
-                  trailing: Transform.scale(
-                    scale: 1.3,
-                    child: CupertinoSwitch(
-                      value: itemList[index]['isOkiben'],
-                      onChanged: null,
-                    ),
-                  ),
+                return Column(
+                  children: [
+                    OkibenItemTile(
+                        image: 'assets/images/bread.png',
+                        title: itemList[index]['name'],
+                        value: itemList[index]['isOkiben']),
+                  ],
                 );
-              }
-          ),
+                // return ListTile(
+                //   title: Text(
+                //     itemList[index]['name'],
+                //     style: TextStyle(fontSize: okibenItemTileTitleSize()),
+                //   ),
+                //   trailing: Transform.scale(
+                //     scale: 1.3,
+                //     child: CupertinoSwitch(
+                //       value: itemList[index]['isOkiben'],
+                //       onChanged: null,
+                //     ),
+                //   ),
+                // );
+              }),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
