@@ -39,6 +39,9 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     },
   ];
 
+  var _editItemText = '';
+  var _finalItemText = '';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -69,20 +72,48 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                         value: itemList[index]['isOkiben']),
                   ],
                 );
-                // return ListTile(
-                //   title: Text(
-                //     itemList[index]['name'],
-                //     style: TextStyle(fontSize: okibenItemTileTitleSize()),
-                //   ),
-                //   trailing: Transform.scale(
-                //     scale: 1.3,
-                //     child: CupertinoSwitch(
-                //       value: itemList[index]['isOkiben'],
-                //       onChanged: null,
-                //     ),
-                //   ),
-                // );
               }),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text('新しいアイテムを追加'),
+                  content: TextField(
+                    // controller: controller,
+                    decoration: InputDecoration(labelText: 'アイテムの名前を入力'),
+                    onChanged: (value) {
+                      setState(() {
+                        _editItemText = value;
+                        print('_editItemTextは$_editItemText');
+                      });
+                    },
+                  ),
+                  actions: [
+                    TextButton(
+                      child: Text('キャンセル'),
+                      onPressed: () {
+                        Navigator.pop(context); //画面を閉じる
+                      },
+                    ),
+                    TextButton(
+                      child: Text('追加'),
+                      onPressed: () {
+                        setState(() {
+                          _finalItemText = _editItemText; //編集用を保存用に
+                        });
+                        Navigator.pop(context);
+                        print('_finalItemTextは$_finalItemText');
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: Icon(Icons.add),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
