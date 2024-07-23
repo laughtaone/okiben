@@ -1,4 +1,6 @@
 // 置き勉管理画面 の教材のボタン部分
+// okiben_manage.dartで利用
+// flutter run -d chrome lib/pages/okiben_manage/okiben_manage.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,37 +22,39 @@ class OkibenItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
-      child: ListTile(
-        leading: Container(
-          constraints: BoxConstraints(
-            maxHeight: 100.0,
+      height: 100,
+      child: Center(
+        child: ListTile(
+          // leading: Container(
+          //   constraints: BoxConstraints(
+          //     maxHeight: 100.0,
+          //   ),
+          //   child: Image.asset(
+          //     image,
+          //     fit: BoxFit.contain,
+          //   ),
+          // ),
+          title: Text(
+            title,
+            style: TextStyle(fontSize: okibenItemTileTitleSize()),
           ),
-          child: Image.asset(
-            image,
-            fit: BoxFit.contain,
-          ),
-        ),
-        title: Text(
-          title,
-          style: TextStyle(fontSize: okibenItemTileTitleSize()),
-        ),
-        trailing: Transform.scale(
-          scale: 1.3,
-          child: CupertinoSwitch(
-            value: value,
-            onChanged: null,
+          trailing: Transform.scale(
+            scale: 1.3,
+            child: CupertinoSwitch(
+              value: value,
+              onChanged: null,
+            ),
           ),
         ),
       ),
       padding: EdgeInsets.fromLTRB(5, 20, 10, 20),
-      margin: EdgeInsets.only(
-          top: okibenItemTileMergeTBSize(),
-          bottom: okibenItemTileMergeTBSize()),
-      decoration: BoxDecoration(
-        border: Border.all(color: itemTileColor(), width: 1), // 枠線
-        borderRadius: BorderRadius.circular(8), // 角丸
-      ),
+        margin: EdgeInsets.only(
+            top: okibenItemTileMergeTBSize(),
+            bottom: okibenItemTileMergeTBSize()),
+        decoration: BoxDecoration(
+          border: Border.all(color: itemTileColor(), width: 1), // 枠線
+          borderRadius: BorderRadius.circular(8), // 角丸
+        ),
     );
   }
 }

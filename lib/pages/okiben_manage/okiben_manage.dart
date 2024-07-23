@@ -20,7 +20,12 @@ class OkibenManagePageHome extends StatelessWidget {
 }
 
 class OkibenManagePage extends StatelessWidget {
-  const OkibenManagePage({Key? key}) : super(key: key);
+  // 持ち物を管理するリスト
+  List<Map<String, dynamic>> itemList = [
+    {'name': 'OSの教科書', 'isOkiben': true, 'imagePath': 'assets/images/bread.png'},
+    {'name': '確率の教科書', 'isOkiben': true, 'imagePath': 'assets/images/big_image_sample.png'},
+  ];
+
 
   @override
   Widget build(BuildContext context) {

@@ -10,16 +10,26 @@ void main() {
 }
 
 class StartPageHome extends StatelessWidget {
+  const StartPageHome({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: StartPage(),
+      home: StartPageWidget(),
     );
   }
 }
 
-class StartPage extends StatelessWidget {
-  const StartPage({Key? key}) : super(key: key);
+class StartPageWidget extends StatefulWidget {
+  const StartPageWidget({Key? key}) : super(key: key);
+
+  @override
+  State<StartPageWidget> createState() => _StartPageWidgetState();
+}
+
+
+class _StartPageWidgetState extends State<StartPageWidget> {
+  // const _StartPageWidgetState({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
