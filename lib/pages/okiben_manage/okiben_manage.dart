@@ -34,7 +34,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     },
     {
       'name': '確率の教科書',
-      'isOkiben': true,
+      'isOkiben': false,
       'imagePath': 'assets/images/big_image_sample.png'
     },
   ];
@@ -104,6 +104,12 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                         setState(() {
                           _finalItemText = _editItemText; //編集用を保存用に
                         });
+                        itemList.add({
+                          'name': _finalItemText,
+                          'isOkiben': false,
+                          'imagePath': ''
+                        });
+                        print(itemList);
                         Navigator.pop(context);
                         print('_finalItemTextは$_finalItemText');
                       },
