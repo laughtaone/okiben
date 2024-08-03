@@ -16,7 +16,6 @@ Color itemTileColor() {
   return bottomIconButtonColor;
 }
 
-
 // OkibenItemTile系
 double okibenItemTileMergeTBSize() {
   final okibenItemTileMergeTBSize = 10.0;
@@ -26,4 +25,19 @@ double okibenItemTileMergeTBSize() {
 double okibenItemTileTitleSize() {
   final okibenItemTileTitleSize = 23.0;
   return okibenItemTileTitleSize;
+}
+
+TextStyle okibenItemDialogActionsTextStyle(String textColor) {
+  if (textColor == 'red') {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.red,
+    );
+  } else {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.bold,
+    );
+  }
 }

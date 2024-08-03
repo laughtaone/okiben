@@ -71,16 +71,17 @@ class OkibenItemTile extends StatelessWidget {
                     onPressed: () => Navigator.pop(context),
                     child: Text(
                       'キャンセル',
-                      style: TextStyle(
-                        color: Colors.red,
-                      ),
+                      style: okibenItemDialogActionsTextStyle('red'),
                     ),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context, newName); // 新しい名前を返す
                     },
-                    child: Text('保存'),
+                    child: Text(
+                      '保存',
+                      style: okibenItemDialogActionsTextStyle(''),
+                    ),
                   ),
                 ],
               );
