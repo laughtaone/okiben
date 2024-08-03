@@ -6,19 +6,19 @@ import 'package:okiben/customs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:okiben/pages/okiben_manage/item_tile.dart';
 
-void main() {
-  runApp(OkibenManagePageHome());
-}
+// void main() {
+//   runApp(OkibenManagePageHome());
+// }
 
-class OkibenManagePageHome extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: OkibenManagePage(),
-    );
-  }
-}
+// class OkibenManagePageHome extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: OkibenManagePage(),
+//     );
+//   }
+// }
 
 class OkibenManagePage extends StatefulWidget {
   @override
@@ -164,22 +164,6 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
           );
         },
         child: Icon(Icons.add),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.swap_horiz),
-            label: '貸し借り管理',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: '置き勉管理',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.checklist),
-            label: 'リマインド',
-          ),
-        ],
       ),
     );
   }

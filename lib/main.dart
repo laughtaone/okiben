@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
+import 'package:okiben/pages/view/view.dart';
 
 
 void main() {
@@ -30,41 +31,41 @@ class StartPageWidget extends StatefulWidget {
 
 class _StartPageWidgetState extends State<StartPageWidget> {
   // const _StartPageWidgetState({Key? key}) : super(key: key);
+  var _currentIndex = 0;
+
+  var _pages = <Widget>[
+    OkibenManagePage(),
+    ViewPage()
+  ];
+
+  void _onTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.lightBlue[800],
-        // fontFamily: 'Georgia',
-      ),
-      home: Scaffold(
-        appBar: AppBar(title: Text('ホーム'),),
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('置き勉管理アプリ')
-            ],
+    return Scaffold(
+      // theme: ThemeData(
+      //   brightness: Brightness.dark,
+      //   primaryColor: Colors.lightBlue[800],
+      //   // fontFamily: 'Georgia',
+      // ),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: '置き勉管理',
           ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.swap_horiz),
-              label: '貸し借り管理',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag),
-              label: '置き勉管理',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.checklist),
-              label: 'リマインド',
-            ),
-          ],
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.location_on_outlined),
+            label: 'ビュー',
+          ),
+        ],
+        currentIndex: _currentIndex, // 現在のインデックスを設定
+        onTap: _onTap, // タップ時に呼ばれるメソッドを設定
       ),
     );
   }

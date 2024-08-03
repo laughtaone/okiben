@@ -358,34 +358,6 @@ class OkibenItemTile extends StatelessWidget {
                 ),
 
                 actions: [
-                  // Row(
-                  //   children: [
-                  // TextButton(
-                  //   onPressed: () {
-                  //     delete(indexNum); // 要素を削除する関数を呼び出す
-                  //     Navigator.pop(context);
-                  //   },
-                  //   child: Text(
-                  //     '完全に削除',
-                  //     style: okibenItemDialogActionsTextStyle('small-red'),
-                  //   ),
-                  // ),
-                  // TextButton(
-                  //   onPressed: () => Navigator.pop(context),
-                  //   child: Text(
-                  //     'キャンセル',
-                  //     style: okibenItemDialogActionsTextStyle('red'),
-                  //   ),
-                  // ),
-                  // TextButton(
-                  //   onPressed: () {
-                  //     Navigator.pop(context, newName); // 新しい名前を返す
-                  //   },
-                  //   child: Text(
-                  //     '保存',
-                  //     style: okibenItemDialogActionsTextStyle(''),
-                  //   ),
-                  // ),
                   TextButton(
                     onPressed: () => Navigator.pop(context),
                     child: Text(
