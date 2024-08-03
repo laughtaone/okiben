@@ -50,6 +50,12 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
 
   int displayNum = 0;
 
+  void _updateItemTitle(int index, String newTitle) {
+    setState(() {
+      itemList[index]['name'] = newTitle;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -63,11 +69,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                 onPressed: () => {}, icon: const Icon(Icons.create_new_folder)),
             TextButton(
               child: Text('編集'),
-              onPressed: () => {
-                displayNum = 1,
-                print(displayNum),
-
-              },
+              onPressed: () => {},
             )
           ],
         ),
@@ -79,11 +81,14 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                 return Column(
                   children: [
                     OkibenItemTile(
-                        image: 'assets/images/bread.png',
-                        title: itemList[index]['name'],
-                        value: itemList[index]['isOkiben'],
-                        onChanged: (newValue) =>
-                            _toggleSwitch(index, newValue)),
+                      image: 'assets/images/bread.png',
+                      title: itemList[index]['name'],
+                      value: itemList[index]['isOkiben'],
+                      onChanged: (newValue) => _toggleSwitch(index, newValue),
+                      onNameChanged: (String newName) {
+                        _updateItemTitle(index, newName); // タイトルを更新
+                      },
+                    ),
                   ],
                 );
               }),

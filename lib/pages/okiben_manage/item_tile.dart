@@ -12,12 +12,14 @@ class OkibenItemTile extends StatelessWidget {
     required this.title,
     required this.value,
     required this.onChanged,
+    required this.onNameChanged
   });
 
   final String image;
   final String title;
   final bool value;
   final void Function(bool)? onChanged;
+  final void Function(String) onNameChanged;
 
   // int displayNum = 0;
 
@@ -49,7 +51,46 @@ class OkibenItemTile extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              String newName = title;
+              return AlertDialog(
+                title: Text("編集"),
+                content: TextField(
+                  style: TextStyle(fontSize: 23),
+                  decoration: InputDecoration(labelText: '元の名前：$title'),
+                  onChanged: (value) {
+                    newName = value; // テキストフィールドの変更を反映
+                  },
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(
+                      'キャンセル',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, newName); // 新しい名前を返す
+                    },
+                    child: Text('保存'),
+                  ),
+                ],
+              );
+            },
+          ).then((newName) {
+            if (newName != null && newName.isNotEmpty) {
+              onNameChanged(newName);
+            }
+          });
+        },
         style: OutlinedButton.styleFrom(
           padding: EdgeInsets.fromLTRB(5, 20, 10, 20),
           fixedSize: Size(double.infinity, 100),
@@ -63,9 +104,8 @@ class OkibenItemTile extends StatelessWidget {
         ),
       ),
       margin: EdgeInsets.only(
-        top: okibenItemTileMergeTBSize(),
-        bottom: okibenItemTileMergeTBSize()
-      ),
+          top: okibenItemTileMergeTBSize(),
+          bottom: okibenItemTileMergeTBSize()),
     );
   }
 }
