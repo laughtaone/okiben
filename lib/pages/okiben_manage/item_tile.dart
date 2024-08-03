@@ -85,11 +85,21 @@ class OkibenItemTile extends StatelessWidget {
                                 builder: (BuildContext context) {
                                   String newName = title;
                                   return AlertDialog(
-                                    title: Text("編集"),
+                                    title: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("編集"),
+                                        SizedBox(height: 6),
+                                        Text(
+                                          '元の名前：$title',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
                                     content: TextField(
                                       style: TextStyle(fontSize: 23),
                                       decoration: InputDecoration(
-                                          labelText: '元の名前：$title'),
+                                          labelText: '変更後の名前を入力'),
                                       onChanged: (value) {
                                         newName = value; // テキストフィールドの変更を反映
                                       },
@@ -148,12 +158,70 @@ class OkibenItemTile extends StatelessWidget {
                         SizedBox(width: 12),
                         Expanded(
                           child: TextButton(
-                            onPressed: null,
+                            onPressed: () {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  String newName = title;
+                                  return AlertDialog(
+                                    title: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("編集"),
+                                        SizedBox(height: 6),
+                                        Text(
+                                          '元の名前：$title',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                    content: TextField(
+                                      style: TextStyle(fontSize: 23),
+                                      decoration: InputDecoration(
+                                          labelText: '変更後の名前を入力'),
+                                      onChanged: (value) {
+                                        newName = value; // テキストフィールドの変更を反映
+                                      },
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context),
+                                        child: Text(
+                                          'キャンセル',
+                                          style:
+                                              okibenItemDialogActionsTextStyle(
+                                                  'red'),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(
+                                              context, newName); // 新しい名前を返す
+                                        },
+                                        child: Text(
+                                          '保存',
+                                          style:
+                                              okibenItemDialogActionsTextStyle(
+                                                  ''),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+                              ).then((newName) {
+                                if (newName != null && newName.isNotEmpty) {
+                                  onNameChanged(newName);
+                                }
+                              });
+                            },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
-                                  Icons.add_comment_outlined,
+                                  Icons.local_offer_outlined,
                                   size: 40,
                                 ),
                                 Text('メモ', style: TextStyle(fontSize: 20))
@@ -161,7 +229,7 @@ class OkibenItemTile extends StatelessWidget {
                             ),
                             style: TextButton.styleFrom(
                               backgroundColor: Colors.yellow,
-                              fixedSize: const Size(120, 90),
+                              fixedSize: const Size(70, 90),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -171,7 +239,65 @@ class OkibenItemTile extends StatelessWidget {
                         SizedBox(width: 12),
                         Expanded(
                           child: TextButton(
-                            onPressed: null,
+                            onPressed: () {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  String newName = title;
+                                  return AlertDialog(
+                                    title: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("編集"),
+                                        SizedBox(height: 6),
+                                        Text(
+                                          '元の名前：$title',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                    content: TextField(
+                                      style: TextStyle(fontSize: 23),
+                                      decoration: InputDecoration(
+                                          labelText: '変更後の名前を入力'),
+                                      onChanged: (value) {
+                                        newName = value; // テキストフィールドの変更を反映
+                                      },
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context),
+                                        child: Text(
+                                          'キャンセル',
+                                          style:
+                                              okibenItemDialogActionsTextStyle(
+                                                  'red'),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(
+                                              context, newName); // 新しい名前を返す
+                                        },
+                                        child: Text(
+                                          '保存',
+                                          style:
+                                              okibenItemDialogActionsTextStyle(
+                                                  ''),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+                              ).then((newName) {
+                                if (newName != null && newName.isNotEmpty) {
+                                  onNameChanged(newName);
+                                }
+                              });
+                            },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
