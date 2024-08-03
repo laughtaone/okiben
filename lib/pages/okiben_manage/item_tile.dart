@@ -11,13 +11,13 @@ class OkibenItemTile extends StatelessWidget {
     required this.image,
     required this.title,
     required this.value,
-    // required this.onChanged,
+    required this.onChanged,
   });
 
   final String image;
   final String title;
   final bool value;
-  // final void Function(bool)? onChanged;
+  final void Function(bool)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class OkibenItemTile extends StatelessWidget {
             scale: 1.3,
             child: CupertinoSwitch(
               value: value,
-              onChanged: null,
+              onChanged: onChanged,
             ),
           ),
         ),
