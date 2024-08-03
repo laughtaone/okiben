@@ -49,8 +49,6 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     print(itemList);
   }
 
-  int displayNum = 0;
-
   void _updateItemTitle(int index, String newTitle) {
     setState(() {
       itemList[index]['name'] = newTitle;
@@ -67,110 +65,107 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.shopping_bag,
-                color: Colors.black54,
-              ),
-              SizedBox(width: 5),
-              Text('置き勉管理'),
-            ],
-          ),
-          centerTitle: true,
-          actions: [],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-          child: ListView.builder(
-              itemCount: itemList.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    OkibenItemTile(
-                      image: 'assets/images/bread.png',
-                      title: itemList[index]['name'],
-                      value: itemList[index]['isOkiben'],
-                      indexNum: index,
-                      onChanged: (newValue) => _toggleSwitch(index, newValue),
-                      onNameChanged: (String newName) {
-                        _updateItemTitle(index, newName); // タイトルを更新
-                      },
-                      delete: (int index) {
-                        _deleteItem(index);
-                      }),
-                  ],
-                );
-              }),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('新しいアイテムを追加'),
-                  content: TextField(
-                    // controller: controller,
-                    decoration: InputDecoration(labelText: 'アイテムの名前を入力'),
-                    onChanged: (value) {
-                      setState(() {
-                        _editItemText = value;
-                        print('_editItemTextは$_editItemText');
-                      });
-                    },
-                  ),
-                  actions: [
-                    TextButton(
-                      child: Text('キャンセル'),
-                      onPressed: () {
-                        Navigator.pop(context); //画面を閉じる
-                      },
-                    ),
-                    TextButton(
-                      child: Text('追加'),
-                      onPressed: () {
-                        setState(() {
-                          _finalItemText = _editItemText; //編集用を保存用に
-                        });
-                        itemList.add({
-                          'name': _finalItemText,
-                          'isOkiben': false,
-                          'imagePath': ''
-                        });
-                        print(itemList);
-                        Navigator.pop(context);
-                        print('_finalItemTextは$_finalItemText');
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          child: Icon(Icons.add),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.swap_horiz),
-              label: '貸し借り管理',
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.shopping_bag,
+              color: Colors.black54,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag),
-              label: '置き勉管理',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.checklist),
-              label: 'リマインド',
-            ),
+            SizedBox(width: 5),
+            Text('置き勉管理'),
           ],
         ),
+        centerTitle: true,
+        actions: [],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+        child: ListView.builder(
+            itemCount: itemList.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  OkibenItemTile(
+                    image: 'assets/images/bread.png',
+                    title: itemList[index]['name'],
+                    value: itemList[index]['isOkiben'],
+                    indexNum: index,
+                    onChanged: (newValue) => _toggleSwitch(index, newValue),
+                    onNameChanged: (String newName) {
+                      _updateItemTitle(index, newName); // タイトルを更新
+                    },
+                    delete: (int index) {
+                      _deleteItem(index);
+                    }),
+                ],
+              );
+            }),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('新しいアイテムを追加'),
+                content: TextField(
+                  // controller: controller,
+                  decoration: InputDecoration(labelText: 'アイテムの名前を入力'),
+                  onChanged: (value) {
+                    setState(() {
+                      _editItemText = value;
+                      print('_editItemTextは$_editItemText');
+                    });
+                  },
+                ),
+                actions: [
+                  TextButton(
+                    child: Text('キャンセル'),
+                    onPressed: () {
+                      Navigator.pop(context); //画面を閉じる
+                    },
+                  ),
+                  TextButton(
+                    child: Text('追加'),
+                    onPressed: () {
+                      setState(() {
+                        _finalItemText = _editItemText; //編集用を保存用に
+                      });
+                      itemList.add({
+                        'name': _finalItemText,
+                        'isOkiben': false,
+                        'imagePath': ''
+                      });
+                      print(itemList);
+                      Navigator.pop(context);
+                      print('_finalItemTextは$_finalItemText');
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.swap_horiz),
+            label: '貸し借り管理',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: '置き勉管理',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.checklist),
+            label: 'リマインド',
+          ),
+        ],
       ),
     );
   }

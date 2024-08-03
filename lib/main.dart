@@ -34,6 +34,11 @@ class _StartPageWidgetState extends State<StartPageWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.lightBlue[800],
+        // fontFamily: 'Georgia',
+      ),
       home: Scaffold(
         appBar: AppBar(title: Text('ホーム'),),
         body: Center(
