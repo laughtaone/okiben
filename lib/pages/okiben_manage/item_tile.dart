@@ -44,11 +44,26 @@ class OkibenItemTile extends StatelessWidget {
             //     fit: BoxFit.contain,
             //   ),
             // ),
-            title: Text(
-              title,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: okibenItemTileTitleSize()),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: okibenItemTileTitleSize()
+                  ),
+                  softWrap: false,
+                ),
+                Text(
+                  memo,
+                  style: TextStyle(
+                    fontSize: okibenItemTileMemoSize()
+                  ),
+                  maxLines: 2,
+                )
+              ],
             ),
             trailing: Transform.scale(
               scale: 1.3,
@@ -181,10 +196,12 @@ class OkibenItemTile extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      content: TextField(
+                                      content: TextFormField(
                                         style: TextStyle(fontSize: 23),
+                                        initialValue: memo,
                                         decoration: InputDecoration(
-                                            labelText: '変更後の名前を入力'),
+                                          labelText: '変更後の名前を入力'
+                                        ),
                                         onChanged: (value) {
                                           newMemo = value; // テキストフィールドの変更を反映
                                         },
@@ -216,7 +233,7 @@ class OkibenItemTile extends StatelessWidget {
                                     );
                                   }).then((newMemo) {
                                 if (newMemo != null && newMemo.isNotEmpty) {
-                                  onNameChanged(newMemo);
+                                  onMemoChanged(newMemo);
                                 }
                               });
                             },
@@ -384,7 +401,7 @@ class OkibenItemTile extends StatelessWidget {
           );
         },
         style: OutlinedButton.styleFrom(
-          padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
           fixedSize: Size(double.infinity, 95),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8), // 角丸

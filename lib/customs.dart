@@ -27,6 +27,11 @@ double okibenItemTileTitleSize() {
   return okibenItemTileTitleSize;
 }
 
+double okibenItemTileMemoSize() {
+  final okibenItemTileMemoSize = 13.0;
+  return okibenItemTileMemoSize;
+}
+
 TextStyle okibenItemDialogActionsTextStyle(String textColor) {
   if (textColor == 'red') {
     return TextStyle(
