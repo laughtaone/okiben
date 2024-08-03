@@ -42,6 +42,12 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
   var _editItemText = '';
   var _finalItemText = '';
 
+  void _toggleSwitch(int index, bool newValue) {
+    setState(() {
+      itemList[index]['isOkiben'] = newValue;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -67,9 +73,11 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                 return Column(
                   children: [
                     OkibenItemTile(
-                        image: 'assets/images/bread.png',
-                        title: itemList[index]['name'],
-                        value: itemList[index]['isOkiben']),
+                      image: 'assets/images/bread.png',
+                      title: itemList[index]['name'],
+                      value: itemList[index]['isOkiben'],
+                      onChanged: (newValue) => _toggleSwitch(index, newValue)
+                    ),
                   ],
                 );
               }),
