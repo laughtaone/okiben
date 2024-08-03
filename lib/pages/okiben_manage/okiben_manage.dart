@@ -46,6 +46,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     setState(() {
       itemList[index]['isOkiben'] = newValue;
     });
+    print(itemList);
   }
 
   int displayNum = 0;
@@ -54,6 +55,14 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     setState(() {
       itemList[index]['name'] = newTitle;
     });
+    print(itemList);
+  }
+
+  void _deleteItem(int index) {
+    setState(() {
+      itemList.removeAt(index);
+    });
+    print(itemList);
   }
 
   @override
@@ -62,19 +71,22 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('置き勉管理'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.shopping_bag,
+                color: Colors.black54,
+              ),
+              SizedBox(width: 5),
+              Text('置き勉管理'),
+            ],
+          ),
           centerTitle: true,
-          actions: [
-            IconButton(
-                onPressed: () => {}, icon: const Icon(Icons.create_new_folder)),
-            TextButton(
-              child: Text('編集'),
-              onPressed: () => {},
-            )
-          ],
+          actions: [],
         ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
           child: ListView.builder(
               itemCount: itemList.length,
               itemBuilder: (context, index) {
@@ -84,11 +96,14 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                       image: 'assets/images/bread.png',
                       title: itemList[index]['name'],
                       value: itemList[index]['isOkiben'],
+                      indexNum: index,
                       onChanged: (newValue) => _toggleSwitch(index, newValue),
                       onNameChanged: (String newName) {
                         _updateItemTitle(index, newName); // タイトルを更新
                       },
-                    ),
+                      delete: (int index) {
+                        _deleteItem(index);
+                      }),
                   ],
                 );
               }),

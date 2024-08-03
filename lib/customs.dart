@@ -30,13 +30,19 @@ double okibenItemTileTitleSize() {
 TextStyle okibenItemDialogActionsTextStyle(String textColor) {
   if (textColor == 'red') {
     return TextStyle(
-      fontSize: 16.0,
+      fontSize: 15.0,
       fontWeight: FontWeight.bold,
       color: Colors.red,
     );
+  } else if (textColor == 'small-red') {
+    return TextStyle(
+      fontSize: 12.0,
+      fontWeight: FontWeight.bold,
+      color: Color(0xfff08080),
+    );
   } else {
     return TextStyle(
-      fontSize: 16.0,
+      fontSize: 15.0,
       fontWeight: FontWeight.bold,
     );
   }

@@ -11,17 +11,19 @@ class OkibenItemTile extends StatelessWidget {
     required this.image,
     required this.title,
     required this.value,
+    required this.indexNum,
     required this.onChanged,
-    required this.onNameChanged
+    required this.onNameChanged,
+    required this.delete,
   });
 
   final String image;
   final String title;
   final bool value;
+  final int indexNum;
   final void Function(bool)? onChanged;
   final void Function(String) onNameChanged;
-
-  // int displayNum = 0;
+  final void Function(int) delete;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,10 @@ class OkibenItemTile extends StatelessWidget {
             // ),
             title: Text(
               title,
-              style: TextStyle(fontSize: okibenItemTileTitleSize()),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: okibenItemTileTitleSize()
+              ),
             ),
             trailing: Transform.scale(
               scale: 1.3,
@@ -67,6 +72,18 @@ class OkibenItemTile extends StatelessWidget {
                   },
                 ),
                 actions: [
+                  // Row(
+                  //   children: [
+                  TextButton(
+                    onPressed: () {
+                      delete(indexNum); // 要素を削除する関数を呼び出す
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      '完全に削除',
+                      style: okibenItemDialogActionsTextStyle('small-red'),
+                    ),
+                  ),
                   TextButton(
                     onPressed: () => Navigator.pop(context),
                     child: Text(
@@ -84,6 +101,8 @@ class OkibenItemTile extends StatelessWidget {
                     ),
                   ),
                 ],
+                // ),
+                // ],
               );
             },
           ).then((newName) {
@@ -93,8 +112,8 @@ class OkibenItemTile extends StatelessWidget {
           });
         },
         style: OutlinedButton.styleFrom(
-          padding: EdgeInsets.fromLTRB(5, 20, 10, 20),
-          fixedSize: Size(double.infinity, 100),
+          padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+          fixedSize: Size(double.infinity, 95),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8), // 角丸
           ),
