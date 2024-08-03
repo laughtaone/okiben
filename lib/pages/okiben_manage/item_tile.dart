@@ -19,42 +19,53 @@ class OkibenItemTile extends StatelessWidget {
   final bool value;
   final void Function(bool)? onChanged;
 
+  // int displayNum = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      child: Center(
-        child: ListTile(
-          // leading: Container(
-          //   constraints: BoxConstraints(
-          //     maxHeight: 100.0,
-          //   ),
-          //   child: Image.asset(
-          //     image,
-          //     fit: BoxFit.contain,
-          //   ),
-          // ),
-          title: Text(
-            title,
-            style: TextStyle(fontSize: okibenItemTileTitleSize()),
-          ),
-          trailing: Transform.scale(
-            scale: 1.3,
-            child: CupertinoSwitch(
-              value: value,
-              onChanged: onChanged,
+      child: OutlinedButton(
+        child: Center(
+          child: ListTile(
+            // leading: Container(
+            //   constraints: BoxConstraints(
+            //     maxHeight: 100.0,
+            //   ),
+            //   child: Image.asset(
+            //     image,
+            //     fit: BoxFit.contain,
+            //   ),
+            // ),
+            title: Text(
+              title,
+              style: TextStyle(fontSize: okibenItemTileTitleSize()),
+            ),
+            trailing: Transform.scale(
+              scale: 1.3,
+              child: CupertinoSwitch(
+                value: value,
+                onChanged: onChanged,
+              ),
             ),
           ),
         ),
-      ),
-      padding: EdgeInsets.fromLTRB(5, 20, 10, 20),
-        margin: EdgeInsets.only(
-            top: okibenItemTileMergeTBSize(),
-            bottom: okibenItemTileMergeTBSize()),
-        decoration: BoxDecoration(
-          border: Border.all(color: itemTileColor(), width: 1), // 枠線
-          borderRadius: BorderRadius.circular(8), // 角丸
+        onPressed: () {},
+        style: OutlinedButton.styleFrom(
+          padding: EdgeInsets.fromLTRB(5, 20, 10, 20),
+          fixedSize: Size(double.infinity, 100),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8), // 角丸
+          ),
+          side: BorderSide(
+            color: itemTileColor(), //枠線の色
+            width: 1, //枠線の太さ
+          ),
         ),
+      ),
+      margin: EdgeInsets.only(
+        top: okibenItemTileMergeTBSize(),
+        bottom: okibenItemTileMergeTBSize()
+      ),
     );
   }
 }
