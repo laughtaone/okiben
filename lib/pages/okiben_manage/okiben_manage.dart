@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:okiben/customs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:okiben/pages/okiben_manage/item_tile.dart';
+import 'package:okiben/pages/view/view.dart';
+import 'package:okiben/pages/view/caution.dart';
 
 // void main() {
 //   runApp(OkibenManagePageHome());
@@ -41,6 +43,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     },
   ];
 
+
   var _editItemText = '';
   var _finalItemText = '';
 
@@ -71,6 +74,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     });
     print(itemList);
   }
+
 
   @override
   Widget build(BuildContext context) {

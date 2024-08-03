@@ -4,8 +4,9 @@
 import 'package:flutter/material.dart';
 import 'package:okiben/customs.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:okiben/pages/view/view.dart';
 import 'package:okiben/pages/view/caution.dart';
+import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
+
 
 // void main() {
 //   runApp(ViewPageHome());
@@ -27,6 +28,9 @@ class ViewPage extends StatefulWidget {
 }
 
 class _ViewPageState extends State<ViewPage> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +55,22 @@ class _ViewPageState extends State<ViewPage> {
           child: Column(
             children: [
               CautionWidget(cautionText:'持ち物がどこにあるか一目でわかります', backColor:Colors.black12, textSize:15.0, cautionIcon: Icons.check),
+              SizedBox(height: 25),
+              Row(
+                children: [
+                  Container(
+                    child: Image.asset('assets/images/switch/switch_on.png'),
+                    width: 40,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    '学校にあるもの',
+                    style: TextStyle(
+                      fontSize: 20
+                    ),
+                  )
+                ]
+              )
             ],
           ),
         ),
