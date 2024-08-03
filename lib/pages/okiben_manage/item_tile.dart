@@ -356,7 +356,6 @@ class OkibenItemTile extends StatelessWidget {
                     )
                   ],
                 ),
-
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),

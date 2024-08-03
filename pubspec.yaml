@@ -59,6 +59,8 @@ flutter:
   assets:
     - assets/images/bread.png
     - assets/images/big_image_sample.png
+    - assets/images/switch/switch_on.png
+    - assets/images/switch/switch_off.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
