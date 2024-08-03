@@ -29,11 +29,13 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
   List<Map<String, dynamic>> itemList = [
     {
       'name': 'OSの教科書',
+      'memo': 'Aくんに貸した',
       'isOkiben': true,
       'imagePath': 'assets/images/bread.png'
     },
     {
       'name': '確率の教科書',
+      'memo': '来週の確率の授業で必要！',
       'isOkiben': false,
       'imagePath': 'assets/images/big_image_sample.png'
     },
@@ -52,6 +54,13 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
   void _updateItemTitle(int index, String newTitle) {
     setState(() {
       itemList[index]['name'] = newTitle;
+    });
+    print(itemList);
+  }
+
+    void _updateItemMemo(int index, String newMemo) {
+    setState(() {
+      itemList[index]['memo'] = newMemo;
     });
     print(itemList);
   }
@@ -92,10 +101,14 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                     image: 'assets/images/bread.png',
                     title: itemList[index]['name'],
                     value: itemList[index]['isOkiben'],
+                    memo: itemList[index]['memo'],
                     indexNum: index,
                     onChanged: (newValue) => _toggleSwitch(index, newValue),
                     onNameChanged: (String newName) {
                       _updateItemTitle(index, newName); // タイトルを更新
+                    },
+                    onMemoChanged: (String newMemo) {
+                      _updateItemMemo(index, newMemo); // メモを更新
                     },
                     delete: (int index) {
                       _deleteItem(index);
@@ -136,6 +149,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                       });
                       itemList.add({
                         'name': _finalItemText,
+                        'memo': '',
                         'isOkiben': false,
                         'imagePath': ''
                       });
