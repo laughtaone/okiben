@@ -8,7 +8,6 @@ import 'package:okiben/pages/view/caution.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:provider/provider.dart';
 
-
 // void main() {
 //   runApp(ViewPageHome());
 // }
@@ -75,52 +74,106 @@ class _ViewPageState extends State<ViewPage> {
       // ),
       body: Consumer<OkibenManageModel>(
         builder: (context, model, child) {
+          // ----------------------------------- 変数の処理 始　-----------------------------------
+          final itemListInSchoolCount = model.itemList
+              .where((element) =>
+                  element['isOkiben'] == true)
+              .length;
+          print('itemListInSchoolCountは $itemListInSchoolCount');
+          final itemListInHomeCount = model.itemList
+              .where((element) =>
+                  element['isOkiben'] == false)
+              .length;
+          print('itemListInHomeCountは $itemListInHomeCount');
+          // ----------------------------------- 変数の処理 終　-----------------------------------
+
           return Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+            padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
             child: Column(
               children: [
                 CautionWidget(
                   cautionText: '持ち物がどこにあるか一目でわかります',
                   backColor: Colors.black12,
                   textSize: 15.0,
-                  cautionIcon: Icons.check,
+                  cautionIcon: Icons.info_outlined,
                 ),
                 SizedBox(height: 40),
                 Expanded(
                   child: model.itemList.isEmpty
-                    ? Text(
-                        '登録されている持ち物は0個です',
-                        style: TextStyle(fontSize: 18),
-                      )
-                    : Column(
-                      children: [
-                        Row(
+                      ? Text(
+                          '登録されている持ち物は0個です',
+                          style: TextStyle(fontSize: 18),
+                        )
+                      : Column(
                           children: [
-                            Container(
-                              child: Image.asset('assets/images/switch/switch_on.png'),
-                              width: 40,
-                            ),
-                            SizedBox(width: 10),
-                            Text(
-                              '学校にあるもの',
-                              style: TextStyle(
-                                fontSize: 20
+                            Row(children: [
+                              Container(
+                                child: Image.asset(
+                                    'assets/images/switch/switch_on.png'),
+                                width: 40,
                               ),
-                            )
-                          ]
+                              SizedBox(width: 10),
+                              Text(
+                                '学校にあるもの',
+                                style: TextStyle(fontSize: 20),
+                              )
+                            ]),
+                            Expanded(
+                              child: itemListInSchoolCount == 0
+                                  ? Text('該当する持ち物はありません')
+                                  : ListView.builder(
+                                      itemCount: model.itemList.length,
+                                      itemBuilder: (context, index) {
+                                        final itemListCopy =
+                                            model.itemList[index];
+                                        if (itemListCopy['isOkiben'] == true) {
+                                          return Text(
+                                            itemListCopy['name'] ?? '名前なし',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black),
+                                          );
+                                        } else {
+                                          return SizedBox.shrink();// この条件分岐に到達することはあり得ないけどnull safetyのために書く
+                                        }
+                                      },
+                                    ),
+                            ),
+                            Row(children: [
+                              Container(
+                                child: Image.asset(
+                                    'assets/images/switch/switch_off.png'),
+                                width: 40,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                '家にあるもの',
+                                style: TextStyle(fontSize: 20),
+                              )
+                            ]),
+                            Expanded(
+                              child: itemListInHomeCount == 0
+                                  ? Text('該当する持ち物はありません')
+                                  : ListView.builder(
+                                      itemCount: model.itemList.length,
+                                      itemBuilder: (context, index) {
+                                        final itemListCopy =
+                                            model.itemList[index];
+                                        if (itemListCopy['isOkiben'] == false) {
+                                          return Text(
+                                            itemListCopy['name'] ?? '名前なし',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black),
+                                          );
+                                        } else {
+                                          return SizedBox.shrink();// この条件分岐に到達することはあり得ないけどnull safetyのために書く
+                                        }
+                                      },
+                                    ),
+                            ),
+                          ],
                         ),
-                        ListView.builder(
-                          itemCount: model.itemList.length,
-                          itemBuilder: (context, index) {
-                            final itemListCopy = model.itemList[index];
-                            return Text(
-                            itemListCopy['name'],
-                            style: TextStyle(fontSize: 30, color: Colors.black),
-                            );
-                          },
-                          ),
-                      ],
-                    ),
                 ),
               ],
             ),

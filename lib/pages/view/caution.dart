@@ -24,7 +24,7 @@ class CautionWidget extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: backColor),
           padding: EdgeInsets.all(5),
-          margin: EdgeInsets.only(left: 5, right: 5),
+          margin: EdgeInsets.only(left: 0, right: 0),
           child: Column(
             children: [
               Container(
