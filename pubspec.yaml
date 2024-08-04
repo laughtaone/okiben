@@ -17,11 +17,13 @@ dependencies:
 
   cupertino_icons: ^1.0.6
   flutter_native_splash: ^2.4.0
+  flutter_launcher_icons: ^0.13.1
+  provider: ^6.1.2
 
 
 flutter_native_splash:
   color: '#ffffff'   # 背景色
-  image: 'assets/images/bread.png'
+  image: "assets/images/icon/app_icon.png"
   # color_dark: '#262626'
   # image_dark: 'assets/images/bread.png'
   fullscreen: true
@@ -30,7 +32,7 @@ flutter_native_splash:
   web_image_mode: center
   android_12:
     icon_background_color: '#ffffff'
-    image: 'assets/images/bread.png'
+    image: "assets/images/icon/app_icon.png"
     # icon_background_color_dark: '#262626'
     # image_dark: 'assets/images/splash_android12.png'
 
@@ -58,6 +60,8 @@ flutter:
   assets:
     - assets/images/bread.png
     - assets/images/big_image_sample.png
+    - assets/images/switch/switch_on.png
+    - assets/images/switch/switch_off.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -84,3 +88,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+# アプリアイコン
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon/app_icon.png"

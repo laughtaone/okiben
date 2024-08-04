@@ -16,7 +16,6 @@ Color itemTileColor() {
   return bottomIconButtonColor;
 }
 
-
 // OkibenItemTile系
 double okibenItemTileMergeTBSize() {
   final okibenItemTileMergeTBSize = 10.0;
@@ -26,4 +25,30 @@ double okibenItemTileMergeTBSize() {
 double okibenItemTileTitleSize() {
   final okibenItemTileTitleSize = 23.0;
   return okibenItemTileTitleSize;
+}
+
+double okibenItemTileMemoSize() {
+  final okibenItemTileMemoSize = 13.0;
+  return okibenItemTileMemoSize;
+}
+
+TextStyle okibenItemDialogActionsTextStyle(String textColor) {
+  if (textColor == 'red') {
+    return TextStyle(
+      fontSize: 15.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.red,
+    );
+  } else if (textColor == 'small-red') {
+    return TextStyle(
+      fontSize: 12.0,
+      fontWeight: FontWeight.bold,
+      color: Color(0xfff08080),
+    );
+  } else {
+    return TextStyle(
+      fontSize: 15.0,
+      fontWeight: FontWeight.bold,
+    );
+  }
 }
