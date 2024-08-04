@@ -28,9 +28,6 @@ class ViewPage extends StatefulWidget {
 }
 
 class _ViewPageState extends State<ViewPage> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +65,7 @@ class _ViewPageState extends State<ViewPage> {
                     style: TextStyle(
                       fontSize: 20
                     ),
-                  )
+                  ),
                 ]
               )
             ],

@@ -43,7 +43,6 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     },
   ];
 
-
   var _editItemText = '';
   var _finalItemText = '';
 
@@ -61,7 +60,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     print(itemList);
   }
 
-    void _updateItemMemo(int index, String newMemo) {
+  void _updateItemMemo(int index, String newMemo) {
     setState(() {
       itemList[index]['memo'] = newMemo;
     });
@@ -102,21 +101,21 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
               return Column(
                 children: [
                   OkibenItemTile(
-                    image: 'assets/images/bread.png',
-                    title: itemList[index]['name'],
-                    value: itemList[index]['isOkiben'],
-                    memo: itemList[index]['memo'],
-                    indexNum: index,
-                    onChanged: (newValue) => _toggleSwitch(index, newValue),
-                    onNameChanged: (String newName) {
-                      _updateItemTitle(index, newName); // タイトルを更新
-                    },
-                    onMemoChanged: (String newMemo) {
-                      _updateItemMemo(index, newMemo); // メモを更新
-                    },
-                    delete: (int index) {
-                      _deleteItem(index);
-                    }),
+                      image: 'assets/images/bread.png',
+                      title: itemList[index]['name'],
+                      value: itemList[index]['isOkiben'],
+                      memo: itemList[index]['memo'],
+                      indexNum: index,
+                      onChanged: (newValue) => _toggleSwitch(index, newValue),
+                      onNameChanged: (String newName) {
+                        _updateItemTitle(index, newName); // タイトルを更新
+                      },
+                      onMemoChanged: (String newMemo) {
+                        _updateItemMemo(index, newMemo); // メモを更新
+                      },
+                      delete: (int index) {
+                        _deleteItem(index);
+                      }),
                 ],
               );
             }),
