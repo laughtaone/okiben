@@ -3,6 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:okiben/pages/view/view.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart'; // 追加
 
 
 void main() {
@@ -21,6 +22,14 @@ class StartPageHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: StartPageWidget(),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        colorScheme: ColorScheme.light(
+          primary: Color(0xFF0A0E21),
+        ),
+        fontFamily: 'IBM_Plex_Sans_JP',
+      ),
+      themeMode: ThemeMode.light,
     );
   }
 }
@@ -51,11 +60,6 @@ class _StartPageWidgetState extends State<StartPageWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // theme: ThemeData(
-      //   brightness: Brightness.dark,
-      //   primaryColor: Colors.lightBlue[800],
-      //   // fontFamily: 'Georgia',
-      // ),
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: [

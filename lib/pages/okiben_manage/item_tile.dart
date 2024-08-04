@@ -161,8 +161,8 @@ class OkibenItemTile extends StatelessWidget {
                               ],
                             ),
                             style: TextButton.styleFrom(
-                              backgroundColor: Colors.yellow,
-                              fixedSize: const Size(70, 90),
+                              backgroundColor: itemTileOperateEditButtonColor(),
+                              fixedSize: itemTileOperateButtonSize(),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -248,8 +248,8 @@ class OkibenItemTile extends StatelessWidget {
                               ],
                             ),
                             style: TextButton.styleFrom(
-                              backgroundColor: Colors.yellow,
-                              fixedSize: const Size(70, 90),
+                              backgroundColor: itemTileOperateMemoButtonColor(),
+                              fixedSize: itemTileOperateButtonSize(),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -343,8 +343,8 @@ class OkibenItemTile extends StatelessWidget {
                               ],
                             ),
                             style: TextButton.styleFrom(
-                              backgroundColor: Colors.yellow,
-                              fixedSize: const Size(70, 90),
+                              backgroundColor: itemTileOperateDeleteButtonColor(),
+                              fixedSize: itemTileOperateButtonSize(),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),

@@ -93,13 +93,15 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
           children: [
             Icon(
               Icons.shopping_bag,
-              color: Colors.black54,
+              color: Colors.black,
             ),
             SizedBox(width: 5),
-            Text('置き勉管理'),
+            Text(
+              '置き勉管理',
+            ),
           ],
         ),
-        centerTitle: true,
+        // backgroundColor: Color(0xfff0f0f0), // 明示的に背景色を指定
         actions: [],
       ),
       body: Consumer<OkibenManageModel>(builder: (context, model, child) {

@@ -45,33 +45,8 @@ class _ViewPageState extends State<ViewPage> {
         ),
         centerTitle: true,
         actions: [],
+        // backgroundColor: Color(0xfff0f0f0),
       ),
-      // body: Padding(
-      //   padding: const EdgeInsets.only(left: 18, right: 18, top: 10),
-      //   child: Center(
-      //     child: Column(
-      //       children: [
-      //         CautionWidget(cautionText:'持ち物がどこにあるか一目でわかります', backColor:Colors.black12, textSize:15.0, cautionIcon: Icons.check),
-      //         SizedBox(height: 25),
-      //         Row(
-      //           children: [
-      //             Container(
-      //               child: Image.asset('assets/images/switch/switch_on.png'),
-      //               width: 40,
-      //             ),
-      //             SizedBox(width: 10),
-      //             Text(
-      //               '学校にあるもの',
-      //               style: TextStyle(
-      //                 fontSize: 20
-      //               ),
-      //             ),
-      //           ]
-      //         )
-      //       ],
-      //     ),
-      //   ),
-      // ),
       body: Consumer<OkibenManageModel>(
         builder: (context, model, child) {
           // ----------------------------------- 変数の処理 始　-----------------------------------
@@ -91,13 +66,21 @@ class _ViewPageState extends State<ViewPage> {
             padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
             child: Column(
               children: [
+                SizedBox(height: 5),
                 CautionWidget(
                   cautionText: '持ち物がどこにあるか一目でわかります',
                   backColor: Colors.black12,
                   textSize: 15.0,
                   cautionIcon: Icons.info_outlined,
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: 5),
+                CautionWidget(
+                  cautionText: 'スクロール可能です',
+                  backColor: Colors.black12,
+                  textSize: 15.0,
+                  cautionIcon: Icons.info_outlined,
+                ),
+                SizedBox(height: 15),
                 Expanded(
                   child: model.itemList.isEmpty
                       ? Text(
@@ -106,6 +89,7 @@ class _ViewPageState extends State<ViewPage> {
                         )
                       : Column(
                           children: [
+                            // ----------------------------------------------------- 学校にあるもの 始　-----------------------------------------------------
                             Row(children: [
                               Container(
                                 child: Image.asset(
@@ -115,30 +99,50 @@ class _ViewPageState extends State<ViewPage> {
                               SizedBox(width: 10),
                               Text(
                                 '学校にあるもの',
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                               )
                             ]),
+                            SizedBox(height: 5),
                             Expanded(
                               child: itemListInSchoolCount == 0
                                   ? Text('該当する持ち物はありません')
-                                  : ListView.builder(
-                                      itemCount: model.itemList.length,
-                                      itemBuilder: (context, index) {
-                                        final itemListCopy =
+                                  : Container(
+                                    padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black38,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                    ),
+                                    child: Scrollbar(
+                                      thumbVisibility: true,
+                                      thickness: viewScrollBarThicknessSize(),
+                                      child: ListView.builder(
+                                        itemCount: model.itemList.length,
+                                        itemBuilder: (context, index) {
+                                          final itemListCopy =
                                             model.itemList[index];
-                                        if (itemListCopy['isOkiben'] == true) {
+                                          if (itemListCopy['isOkiben'] == true) {
                                           return Text(
                                             itemListCopy['name'] ?? '名前なし',
                                             style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.black),
+                                              fontSize: 20,
+                                              color: Colors.black),
                                           );
-                                        } else {
+                                          } else {
                                           return SizedBox.shrink();// この条件分岐に到達することはあり得ないけどnull safetyのために書く
-                                        }
-                                      },
+                                          }
+                                        },
+                                        ),
                                     ),
-                            ),
+                                  ),
+                                ),
+                            // ----------------------------------------------------- 学校にあるもの 終　-----------------------------------------------------
+
+                            // ----------------------------------------------------- 家にあるもの 始　-----------------------------------------------------
+                            SizedBox(height: 15),
                             Row(children: [
                               Container(
                                 child: Image.asset(
@@ -148,42 +152,54 @@ class _ViewPageState extends State<ViewPage> {
                               SizedBox(width: 10),
                               Text(
                                 '家にあるもの',
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                               )
                             ]),
+                            SizedBox(height: 5),
                             Expanded(
                               child: itemListInHomeCount == 0
                                   ? Text('該当する持ち物はありません')
-                                  : ListView.builder(
-                                      itemCount: model.itemList.length,
-                                      itemBuilder: (context, index) {
-                                        final itemListCopy =
-                                            model.itemList[index];
-                                        if (itemListCopy['isOkiben'] == false) {
-                                          return Text(
-                                            itemListCopy['name'] ?? '名前なし',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.black),
-                                          );
-                                        } else {
-                                          return SizedBox.shrink();// この条件分岐に到達することはあり得ないけどnull safetyのために書く
-                                        }
-                                      },
+                                  : Container(
+                                    padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black38,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
                                     ),
+                                    child: Scrollbar(
+                                      thumbVisibility: true,
+                                      thickness: viewScrollBarThicknessSize(),
+                                      child: ListView.builder(
+                                          itemCount: model.itemList.length,
+                                          itemBuilder: (context, index) {
+                                            final itemListCopy =
+                                                model.itemList[index];
+                                            if (itemListCopy['isOkiben'] == false) {
+                                              return Text(
+                                                itemListCopy['name'] ?? '名前なし',
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.black),
+                                              );
+                                            } else {
+                                              return SizedBox.shrink();// この条件分岐に到達することはあり得ないがnull safetyのために書く
+                                            }
+                                          },
+                                        ),
+                                    ),
+                                  ),
                             ),
+                            // ----------------------------------------------------- 家にあるもの 終　-----------------------------------------------------
+                            SizedBox(height: 5),
                           ],
                         ),
                 ),
               ],
             ),
           );
-          // if (model.itemList.length >= 0) {
-          // } else {
-          //   return Center(
-          //     child: Text('アイテムがありません'),
-          //   );
-          // }
         },
       ),
     );

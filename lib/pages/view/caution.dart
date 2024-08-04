@@ -28,7 +28,7 @@ class CautionWidget extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(1),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -45,7 +45,6 @@ class CautionWidget extends StatelessWidget {
                         padding: EdgeInsets.only(left: 8.0),
                         child: Text(
                           cautionText,
-                          textAlign: TextAlign.start,
                           style: TextStyle(fontSize: textSize),
                         ),
                       ),

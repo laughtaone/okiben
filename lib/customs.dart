@@ -52,3 +52,33 @@ TextStyle okibenItemDialogActionsTextStyle(String textColor) {
     );
   }
 }
+
+Size itemTileOperateButtonSize() {
+  final itemTileOperateButtonSize = Size(80, 90);
+  return itemTileOperateButtonSize;
+}
+
+Color itemTileOperateButtonColor() {
+  final itemTileOperateButtonColor = Color(0xffe0e0e0);
+  return itemTileOperateButtonColor;
+}
+
+Color itemTileOperateEditButtonColor() {
+  final itemTileOperateButtonColor = Color(0xffe0e0ff);
+  return itemTileOperateButtonColor;
+}
+
+Color itemTileOperateMemoButtonColor() {
+  final itemTileOperateButtonColor = Color(0xffffffd0);
+  return itemTileOperateButtonColor;
+}
+
+Color itemTileOperateDeleteButtonColor() {
+  final itemTileOperateButtonColor = Color(0xffffe0e0);
+  return itemTileOperateButtonColor;
+}
+
+double viewScrollBarThicknessSize() {
+  final viewScrollBarThicknessSize = 2.0;
+  return viewScrollBarThicknessSize;
+}
