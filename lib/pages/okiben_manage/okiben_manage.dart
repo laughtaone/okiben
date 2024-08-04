@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:okiben/pages/okiben_manage/item_tile.dart';
 import 'package:okiben/pages/view/view.dart';
 import 'package:okiben/pages/view/caution.dart';
+import 'package:provider/provider.dart';
 
 // void main() {
 //   runApp(OkibenManagePageHome());
@@ -27,8 +28,8 @@ class OkibenManagePage extends StatefulWidget {
   _OkibenManagePageState createState() => _OkibenManagePageState();
 }
 
-class _OkibenManagePageState extends State<OkibenManagePage> {
-  List<Map<String, dynamic>> itemList = [
+class OkibenManageModel extends ChangeNotifier {
+  List<Map<String, dynamic>> _itemList = [
     {
       'name': 'OSの教科書',
       'memo': 'Aくんに貸した',
@@ -43,37 +44,45 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
     },
   ];
 
+  List<Map<String, dynamic>> get itemList => _itemList;
+
+
+  void toggleSwitch(int index, bool newValue) {
+    _itemList[index]['isOkiben'] = newValue;
+    notifyListeners();
+    print(_itemList);
+  }
+  void removeItem(int index) {
+    if (index >= 0 && index < _itemList.length) {
+      _itemList.removeAt(index);
+      notifyListeners();
+    }
+  }
+  void updateItemTitle(int index, String newTitle) {
+    _itemList[index]['name'] = newTitle;
+    notifyListeners();
+    print(_itemList);
+  }
+  void updateItemMemo(int index, String newMemo) {
+    _itemList[index]['memo'] = newMemo;
+    notifyListeners();
+    print(_itemList);
+  }
+  void addItem(String newItemName) {
+    _itemList.add({
+      'name': newItemName,
+      'memo': '',
+      'isOkiben': false,
+      'imagePath': ''
+    });
+    notifyListeners();
+    print(_itemList);
+  }
+}
+
+class _OkibenManagePageState extends State<OkibenManagePage> {
   var _editItemText = '';
   var _finalItemText = '';
-
-  void _toggleSwitch(int index, bool newValue) {
-    setState(() {
-      itemList[index]['isOkiben'] = newValue;
-    });
-    print(itemList);
-  }
-
-  void _updateItemTitle(int index, String newTitle) {
-    setState(() {
-      itemList[index]['name'] = newTitle;
-    });
-    print(itemList);
-  }
-
-  void _updateItemMemo(int index, String newMemo) {
-    setState(() {
-      itemList[index]['memo'] = newMemo;
-    });
-    print(itemList);
-  }
-
-  void _deleteItem(int index) {
-    setState(() {
-      itemList.removeAt(index);
-    });
-    print(itemList);
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,33 +102,38 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
         centerTitle: true,
         actions: [],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-        child: ListView.builder(
-            itemCount: itemList.length,
+      body: Consumer<OkibenManageModel>(builder: (context, model, child) {
+        return Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+          child: ListView.builder(
+            itemCount: model.itemList.length,
             itemBuilder: (context, index) {
+              final itemListCopy = model.itemList[index];
               return Column(
                 children: [
                   OkibenItemTile(
-                      image: 'assets/images/bread.png',
-                      title: itemList[index]['name'],
-                      value: itemList[index]['isOkiben'],
-                      memo: itemList[index]['memo'],
-                      indexNum: index,
-                      onChanged: (newValue) => _toggleSwitch(index, newValue),
-                      onNameChanged: (String newName) {
-                        _updateItemTitle(index, newName); // タイトルを更新
-                      },
-                      onMemoChanged: (String newMemo) {
-                        _updateItemMemo(index, newMemo); // メモを更新
-                      },
-                      delete: (int index) {
-                        _deleteItem(index);
-                      }),
+                    image: 'assets/images/bread.png',
+                    title: itemListCopy['name'],
+                    value: itemListCopy['isOkiben'],
+                    memo: itemListCopy['memo'],
+                    indexNum: index,
+                    onChanged: (newValue) => model.toggleSwitch(index, newValue),
+                    onNameChanged: (String newName) {
+                      model.updateItemTitle(index, newName); // タイトルを更新
+                    },
+                    onMemoChanged: (String newMemo) {
+                      model.updateItemMemo(index, newMemo); // メモを更新
+                    },
+                    delete: (int index) {
+                      model.removeItem(index);
+                    }
+                  ),
                 ],
               );
-            }),
-      ),
+            }
+          ),
+        );
+      }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -150,13 +164,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                       setState(() {
                         _finalItemText = _editItemText; //編集用を保存用に
                       });
-                      itemList.add({
-                        'name': _finalItemText,
-                        'memo': '',
-                        'isOkiben': false,
-                        'imagePath': ''
-                      });
-                      print(itemList);
+                      Provider.of<OkibenManageModel>(context, listen: false).addItem(_finalItemText);  // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
                       Navigator.pop(context);
                       print('_finalItemTextは$_finalItemText');
                     },

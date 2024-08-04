@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:okiben/pages/view/view.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
   runApp(
-    StartPageHome()
+    ChangeNotifierProvider(
+      create: (context) => OkibenManageModel(),
+      child: StartPageHome(),
+    ),
   );
 }
 
