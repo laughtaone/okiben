@@ -101,7 +101,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
             ),
           ],
         ),
-        // backgroundColor: Color(0xfff0f0f0), // 明示的に背景色を指定
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
         actions: [],
       ),
       body: Consumer<OkibenManageModel>(builder: (context, model, child) {

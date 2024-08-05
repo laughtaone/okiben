@@ -27,6 +27,9 @@ class StartPageHome extends StatelessWidget {
         colorScheme: ColorScheme.light(
           primary: Color(0xFF0A0E21),
         ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xfff0f0f0),
+          ),
         fontFamily: 'IBM_Plex_Sans_JP',
       ),
       themeMode: ThemeMode.light,

@@ -64,17 +64,19 @@ Color itemTileOperateButtonColor() {
 }
 
 Color itemTileOperateEditButtonColor() {
+  // final itemTileOperateButtonColor = Color(0xffe0e0ff);
   final itemTileOperateButtonColor = Color(0xffe0e0ff);
   return itemTileOperateButtonColor;
 }
 
 Color itemTileOperateMemoButtonColor() {
-  final itemTileOperateButtonColor = Color(0xffffffd0);
+  // final itemTileOperateButtonColor = Color(0xffffffd0);
+  final itemTileOperateButtonColor = Color(0xffe0e0ff);
   return itemTileOperateButtonColor;
 }
 
 Color itemTileOperateDeleteButtonColor() {
-  final itemTileOperateButtonColor = Color(0xffffe0e0);
+  final itemTileOperateButtonColor = Color(0xffe0e0e0);
   return itemTileOperateButtonColor;
 }
 

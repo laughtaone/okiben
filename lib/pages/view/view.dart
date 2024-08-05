@@ -45,7 +45,7 @@ class _ViewPageState extends State<ViewPage> {
         ),
         centerTitle: true,
         actions: [],
-        // backgroundColor: Color(0xfff0f0f0),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
       ),
       body: Consumer<OkibenManageModel>(
         builder: (context, model, child) {
@@ -66,7 +66,7 @@ class _ViewPageState extends State<ViewPage> {
             padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
             child: Column(
               children: [
-                SizedBox(height: 5),
+                SizedBox(height: 8),
                 CautionWidget(
                   cautionText: '持ち物がどこにあるか一目でわかります',
                   backColor: Colors.black12,
@@ -120,6 +120,7 @@ class _ViewPageState extends State<ViewPage> {
                                       thumbVisibility: true,
                                       thickness: viewScrollBarThicknessSize(),
                                       child: ListView.builder(
+                                        controller: ScrollController(),
                                         itemCount: model.itemList.length,
                                         itemBuilder: (context, index) {
                                           final itemListCopy =
@@ -173,6 +174,7 @@ class _ViewPageState extends State<ViewPage> {
                                       thumbVisibility: true,
                                       thickness: viewScrollBarThicknessSize(),
                                       child: ListView.builder(
+                                        controller: ScrollController(),
                                           itemCount: model.itemList.length,
                                           itemBuilder: (context, index) {
                                             final itemListCopy =
