@@ -108,32 +108,32 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
         return Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
           child: ListView.builder(
-            itemCount: model.itemList.length,
-            itemBuilder: (context, index) {
-              final itemListCopy = model.itemList[index];
-              return Column(
-                children: [
-                  OkibenItemTile(
-                    image: 'assets/images/bread.png',
-                    title: itemListCopy['name'],
-                    value: itemListCopy['isOkiben'],
-                    memo: itemListCopy['memo'],
-                    indexNum: index,
-                    onChanged: (newValue) => model.toggleSwitch(index, newValue),
-                    onNameChanged: (String newName) {
-                      model.updateItemTitle(index, newName); // タイトルを更新
-                    },
-                    onMemoChanged: (String newMemo) {
-                      model.updateItemMemo(index, newMemo); // メモを更新
-                    },
-                    delete: (int index) {
-                      model.removeItem(index);
-                    }
-                  ),
-                ],
-              );
-            }
-          ),
+              itemCount: model.itemList.length,
+              itemBuilder: (context, index) {
+                final itemListCopy = model.itemList[index];
+                return Column(
+                  children: [
+                    OkibenItemTile(
+                      image: 'assets/images/bread.png',
+                      title: itemListCopy['name'],
+                      value: itemListCopy['isOkiben'],
+                      memo: itemListCopy['memo'],
+                      indexNum: index,
+                      onChanged: (newValue) => model.toggleSwitch(index, newValue),
+                      onNameChanged: (String newName) {
+                        model.updateItemTitle(index, newName); // タイトルを更新
+                      },
+                      onMemoChanged: (String newMemo) {
+                        model.updateItemMemo(index, newMemo); // メモを更新
+                      },
+                      delete: (int index) {
+                        model.removeItem(index);
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
         );
       }),
       floatingActionButton: FloatingActionButton(
