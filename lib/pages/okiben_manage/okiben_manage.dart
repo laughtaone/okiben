@@ -10,6 +10,7 @@ import 'package:okiben/pages/view/caution.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:okiben/pages/setting/setting.dart';
 
 // void main() {
 //   runApp(OkibenManagePageHome());
@@ -93,12 +94,8 @@ class OkibenManageModel extends ChangeNotifier {
   }
 
   void addItem(String newItemName) {
-    _itemList.add({
-      'name': newItemName,
-      'memo': '',
-      'isOkiben': false,
-      'imagePath': ''
-    });
+    _itemList.add(
+        {'name': newItemName, 'memo': '', 'isOkiben': false, 'imagePath': ''});
     _saveItemList();
     notifyListeners();
   }
@@ -127,45 +124,55 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
             ),
           ],
         ),
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
+        backgroundColor:
+            Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
         leading: IconButton(
-          icon: Icon(
-            Icons.settings,
-            color: Colors.black87,
-          ),
-          onPressed: null,
-        ),
+            icon: Icon(
+              Icons.settings,
+              color: Colors.black87,
+              size: 26,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingPage(),
+                  fullscreenDialog: true,
+                ),
+              );
+            }),
       ),
       body: Consumer<OkibenManageModel>(builder: (context, model, child) {
         return Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
           child: ListView.builder(
-              itemCount: model.itemList.length,
-              itemBuilder: (context, index) {
-                final itemListCopy = model.itemList[index];
-                return Column(
-                  children: [
-                    OkibenItemTile(
-                      image: 'assets/images/bread.png',
-                      title: itemListCopy['name'],
-                      value: itemListCopy['isOkiben'],
-                      memo: itemListCopy['memo'],
-                      indexNum: index,
-                      onChanged: (newValue) => model.toggleSwitch(index, newValue),
-                      onNameChanged: (String newName) {
-                        model.updateItemTitle(index, newName); // タイトルを更新
-                      },
-                      onMemoChanged: (String newMemo) {
-                        model.updateItemMemo(index, newMemo); // メモを更新
-                      },
-                      delete: (int index) {
-                        model.removeItem(index);
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
+            itemCount: model.itemList.length,
+            itemBuilder: (context, index) {
+              final itemListCopy = model.itemList[index];
+              return Column(
+                children: [
+                  OkibenItemTile(
+                    image: 'assets/images/bread.png',
+                    title: itemListCopy['name'],
+                    value: itemListCopy['isOkiben'],
+                    memo: itemListCopy['memo'],
+                    indexNum: index,
+                    onChanged: (newValue) =>
+                        model.toggleSwitch(index, newValue),
+                    onNameChanged: (String newName) {
+                      model.updateItemTitle(index, newName); // タイトルを更新
+                    },
+                    onMemoChanged: (String newMemo) {
+                      model.updateItemMemo(index, newMemo); // メモを更新
+                    },
+                    delete: (int index) {
+                      model.removeItem(index);
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
         );
       }),
       floatingActionButton: FloatingActionButton(
@@ -200,7 +207,9 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                       setState(() {
                         _finalItemText = _editItemText; //編集用を保存用に
                       });
-                      Provider.of<OkibenManageModel>(context, listen: false).addItem(_finalItemText);  // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
+                      Provider.of<OkibenManageModel>(context, listen: false)
+                          .addItem(
+                              _finalItemText); // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
                       Navigator.pop(context);
                       print('_finalItemTextは$_finalItemText');
                     },
