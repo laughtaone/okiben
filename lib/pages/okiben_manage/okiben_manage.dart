@@ -8,6 +8,8 @@ import 'package:okiben/pages/okiben_manage/item_tile.dart';
 import 'package:okiben/pages/view/view.dart';
 import 'package:okiben/pages/view/caution.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 // void main() {
 //   runApp(OkibenManagePageHome());
@@ -44,30 +46,52 @@ class OkibenManageModel extends ChangeNotifier {
     },
   ];
 
+  OkibenManageModel() {
+    _loadItemList();
+  }
+
   List<Map<String, dynamic>> get itemList => _itemList;
 
-
-  void toggleSwitch(int index, bool newValue) {
-    _itemList[index]['isOkiben'] = newValue;
-    notifyListeners();
-    print(_itemList);
-  }
-  void removeItem(int index) {
-    if (index >= 0 && index < _itemList.length) {
-      _itemList.removeAt(index);
+  void _loadItemList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? itemListString = prefs.getString('itemList');
+    if (itemListString != null) {
+      _itemList = List<Map<String, dynamic>>.from(json.decode(itemListString));
       notifyListeners();
     }
   }
+
+  void _saveItemList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('itemList', json.encode(_itemList));
+  }
+
+  void toggleSwitch(int index, bool newValue) {
+    _itemList[index]['isOkiben'] = newValue;
+    _saveItemList();
+    notifyListeners();
+  }
+
+  void removeItem(int index) {
+    if (index >= 0 && index < _itemList.length) {
+      _itemList.removeAt(index);
+      _saveItemList();
+      notifyListeners();
+    }
+  }
+
   void updateItemTitle(int index, String newTitle) {
     _itemList[index]['name'] = newTitle;
+    _saveItemList();
     notifyListeners();
-    print(_itemList);
   }
+
   void updateItemMemo(int index, String newMemo) {
     _itemList[index]['memo'] = newMemo;
+    _saveItemList();
     notifyListeners();
-    print(_itemList);
   }
+
   void addItem(String newItemName) {
     _itemList.add({
       'name': newItemName,
@@ -75,8 +99,8 @@ class OkibenManageModel extends ChangeNotifier {
       'isOkiben': false,
       'imagePath': ''
     });
+    _saveItemList();
     notifyListeners();
-    print(_itemList);
   }
 }
 
@@ -88,8 +112,10 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               Icons.shopping_bag,
@@ -102,7 +128,13 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
           ],
         ),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
-        actions: [],
+        leading: IconButton(
+          icon: Icon(
+            Icons.settings,
+            color: Colors.black87,
+          ),
+          onPressed: null,
+        ),
       ),
       body: Consumer<OkibenManageModel>(builder: (context, model, child) {
         return Padding(
