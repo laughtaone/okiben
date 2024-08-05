@@ -288,18 +288,25 @@ class OkibenItemTile extends StatelessWidget {
                                           ),
                                           SizedBox(height: 11),
                                           Text(
-                                            '削除する名前',
+                                            '削除するアイテム名',
                                             style: TextStyle(fontSize: 15, color: Colors.black),
                                           ),
                                           SizedBox(height: 5),
                                           Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: Colors.black38,
+                                                width: 0.5,
+                                              ),
+                                              borderRadius: BorderRadius.circular(10),
+                                              color: Colors.white,
+                                            ),
                                             child: Center(
                                               child: Text(
                                                 title
                                               ),
                                             ),
-                                            color: Colors.white,
-                                            height: 60,
+                                            height: 80,
                                           )
                                         ],
                                       ),
@@ -310,7 +317,7 @@ class OkibenItemTile extends StatelessWidget {
                                           child: Text(
                                             'キャンセル',
                                             style:
-                                                okibenItemDialogActionsTextStyle('red'),
+                                                okibenItemDialogActionsTextStyle(''),
                                           ),
                                         ),
                                         TextButton(

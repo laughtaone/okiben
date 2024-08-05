@@ -161,7 +161,9 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                     },
                   ),
                   TextButton(
-                    child: Text('追加'),
+                    child: Text(
+                      '追加',
+                    ),
                     onPressed: () {
                       setState(() {
                         _finalItemText = _editItemText; //編集用を保存用に

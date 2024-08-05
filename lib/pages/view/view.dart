@@ -67,18 +67,80 @@ class _ViewPageState extends State<ViewPage> {
             child: Column(
               children: [
                 SizedBox(height: 8),
-                CautionWidget(
-                  cautionText: '持ち物がどこにあるか一目でわかります',
-                  backColor: Colors.black12,
-                  textSize: 15.0,
-                  cautionIcon: Icons.info_outlined,
-                ),
-                SizedBox(height: 5),
-                CautionWidget(
-                  cautionText: 'スクロール可能です',
-                  backColor: Colors.black12,
-                  textSize: 15.0,
-                  cautionIcon: Icons.info_outlined,
+                // CautionWidget(
+                //   cautionText: '持ち物がどこにあるか一目でわかります',
+                //   backColor: Colors.black12,
+                //   textSize: 15.0,
+                //   cautionIcon: Icons.info_outlined,
+                // ),
+                // SizedBox(height: 5),
+                // CautionWidget(
+                //   cautionText: 'スクロール可能です',
+                //   backColor: Colors.black12,
+                //   textSize: 15.0,
+                //   cautionIcon: Icons.info_outlined,
+                // ),
+                Wrap(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8), color: Color(0xffededed)),
+                      padding: EdgeInsets.fromLTRB(10,8,8,8),
+                      margin: EdgeInsets.only(left: 0, right: 0),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(top: 0),
+                                  child: Icon(
+                                    Icons.check,
+                                    size: 20,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      '持ち物がどこにあるか一目でわかります',
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(top: 0),
+                                  child: Icon(
+                                    Icons.check,
+                                    size: 20,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'スクロール可能です',
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 15),
                 Expanded(
