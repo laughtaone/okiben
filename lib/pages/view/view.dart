@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:okiben/pages/view/caution.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/cupertino.dart';
 
 // void main() {
 //   runApp(ViewPageHome());
@@ -28,6 +29,9 @@ class ViewPage extends StatefulWidget {
 }
 
 class _ViewPageState extends State<ViewPage> {
+  bool _switchTrueValue = true;
+  bool _switchFalseValue = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,12 +167,19 @@ class _ViewPageState extends State<ViewPage> {
                           children: [
                             // ----------------------------------------------------- 学校にあるもの 始　-----------------------------------------------------
                             Row(children: [
-                              Container(
-                                child: Image.asset(
-                                    'assets/images/switch/switch_on.png'),
-                                width: 40,
+                              Transform.scale(
+                                child: CupertinoSwitch(
+                                  value: _switchTrueValue,
+                                  onChanged: (bool value) {
+                                    // スイッチの状態を変更しないようにする
+                                    setState(() {
+                                      _switchTrueValue = true;
+                                    });
+                                  },
+                                  activeColor: Color(0xff64c466),
+                                ),
+                                scale: 0.8,
                               ),
-                              SizedBox(width: 10),
                               Text(
                                 '学校にあるもの',
                                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -222,12 +233,19 @@ class _ViewPageState extends State<ViewPage> {
                             // ----------------------------------------------------- 家にあるもの 始　-----------------------------------------------------
                             SizedBox(height: 15),
                             Row(children: [
-                              Container(
-                                child: Image.asset(
-                                    'assets/images/switch/switch_off.png'),
-                                width: 40,
+                              Transform.scale(
+                                child: CupertinoSwitch(
+                                  value: _switchFalseValue,
+                                  onChanged: (bool value) {
+                                    // スイッチの状態を変更しないようにする
+                                    setState(() {
+                                      _switchFalseValue = false;
+                                    });
+                                  },
+                                  activeColor: Color(0xff64c466),
+                                ),
+                                scale: 0.8,
                               ),
-                              SizedBox(width: 10),
                               Text(
                                 '家にあるもの',
                                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
