@@ -6,6 +6,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:okiben/main.dart';
+import 'package:okiben/customs.dart';
 
 void main() {
   runApp(SettingPageHome());
@@ -64,14 +65,21 @@ class _SettingPageState extends State<SettingPage> {
           platform: DevicePlatform.iOS,
           sections: [
             SettingsSection(
-              title: const Text('画面モード'),
+              title: Text(
+                '画面モード',
+                style: Theme.of(context).brightness == Brightness.light
+                  ? settingSectionTitleLight()
+                  : settingSectionTitleDark(),
+              ),
               tiles: <SettingsTile>[
                 SettingsTile.switchTile(
                   leading: Icon(Icons.dark_mode_outlined),
                   title: const Text('ダークモードにする'),
-                  description: const Text(
+                  description: Text(
                     'この設定が"オフ"でライトモード、"オン"でダークモードになります。',
-                    style: TextStyle(fontSize: 12),
+                    style: Theme.of(context).brightness == Brightness.light
+                      ? settingDescriptionLight()
+                      : settingDescriptionDark(),
                   ),
                   initialValue: Provider.of<ThemeModel>(context).isDarkMode,
                   onToggle: (value) {
@@ -87,7 +95,12 @@ class _SettingPageState extends State<SettingPage> {
               ],
             ),
             SettingsSection(
-              title: const Text('このアプリの使い方'),
+              title: Text(
+                'このアプリの使い方',
+                style: Theme.of(context).brightness == Brightness.light
+                  ? settingSectionTitleLight()
+                  : settingSectionTitleDark(),
+              ),
               tiles: <SettingsTile>[
                 SettingsTile(
                   leading: Icon(Icons.looks_one_outlined),
@@ -124,20 +137,30 @@ class _SettingPageState extends State<SettingPage> {
               ],
             ),
             SettingsSection(
-              title: const Text('Danger Zone (!操作に要注意!)'),
+              title: Text(
+                'Danger Zone (!操作に要注意!)',
+                style: Theme.of(context).brightness == Brightness.light
+                  ? settingSectionTitleLight()
+                  : settingSectionTitleDark(),
+              ),
               tiles: <SettingsTile>[
                 SettingsTile.navigation(
                   leading: Icon(Icons.delete_sweep_outlined),
                   title: const Text('登録中のアイテムを一括削除'),
-                  description: const Text(
+                  description: Text(
                     'この操作を実行すると、登録されている全てのアイテムが一括削除されます。',
-                    style: TextStyle(fontSize: 12),
+                    style: Theme.of(context).brightness == Brightness.light
+                      ? settingDescriptionLight()
+                      : settingDescriptionDark(),
                   ),
                   onPressed: (context) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
+                          backgroundColor: Theme.of(context).brightness == Brightness.light
+                            ? Colors.white // ライトモードの色
+                            : dialogBackColor(), // ダークモードの色
                           title: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [

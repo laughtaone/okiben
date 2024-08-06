@@ -40,6 +40,9 @@ class StartPageHome extends StatelessWidget {
           backgroundColor: Color(0xfff0f0f0),
         ),
         fontFamily: 'IBM_Plex_Sans_JP',
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Color(0xfff0f0f0),
+        ),
       ),
 
       // ダークモード時
@@ -52,6 +55,9 @@ class StartPageHome extends StatelessWidget {
           backgroundColor: Color(0xFF3a3a3a),
         ),
         fontFamily: 'IBM_Plex_Sans_JP',
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Color(0xFF202020),
+        ),
       ),
       themeMode: themeModel.isDarkMode ? ThemeMode.dark : ThemeMode.light,
     );
@@ -98,7 +104,6 @@ class _StartPageWidgetState extends State<StartPageWidget> {
         ],
         currentIndex: _currentIndex, // 現在のインデックスを設定
         onTap: _onTap, // タップ時に呼ばれるメソッドを設定
-        backgroundColor: Color(0xFF202020),
       ),
     );
   }

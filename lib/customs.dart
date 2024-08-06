@@ -88,6 +88,43 @@ double viewScrollBarThicknessSize() {
 
 // ダイアログの背景色(ダークモード時)
 Color dialogBackColor() {
-  final dialogBackColorDark = Color(0xff666666);
+  final dialogBackColorDark = Color(0xff555555);
   return dialogBackColorDark;
+}
+
+
+// 設定のセクションタイトルの文字スタイル(ライトモード時)
+TextStyle settingSectionTitleLight() {
+  return TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
+}
+
+// 設定のセクションタイトルの文字スタイル(ダークモード時)
+TextStyle settingSectionTitleDark() {
+  return TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+}
+
+
+
+// 設定のキャプションの文字スタイル(ライトモード時)
+TextStyle settingDescriptionLight() {
+  return TextStyle(
+    fontSize: 12,
+    color: Colors.black,
+  );
+}
+
+// 設定のキャプションの文字スタイル(ダークモード時)
+TextStyle settingDescriptionDark() {
+  return TextStyle(
+    fontSize: 12,
+    color: Color(0xffcccccc),
+  );
 }
