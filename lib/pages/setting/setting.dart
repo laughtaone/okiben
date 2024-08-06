@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
+import 'package:okiben/main.dart';
 
 void main() {
   runApp(SettingPageHome());
@@ -72,8 +73,16 @@ class _SettingPageState extends State<SettingPage> {
                     'この設定が"オフ"でライトモード、"オン"でダークモードになります。',
                     style: TextStyle(fontSize: 12),
                   ),
-                  initialValue: true,
-                  onToggle: (value) {},
+                  initialValue: Provider.of<ThemeModel>(context).isDarkMode,
+                  onToggle: (value) {
+                    if (value) {
+                      // ダークモードに切り替え
+                      Provider.of<ThemeModel>(context, listen: false).setDarkMode();
+                    } else {
+                      // ライトモードに切り替え
+                      Provider.of<ThemeModel>(context, listen: false).setLightMode();
+                    }
+                  },
                 )
               ],
             ),

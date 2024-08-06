@@ -10,8 +10,11 @@ import 'package:flutter/services.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => OkibenManageModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => OkibenManageModel()),
+        ChangeNotifierProvider(create: (context) => ThemeModel()),
+      ],
       child: StartPageHome(),
     ),
   );
@@ -22,6 +25,7 @@ class StartPageHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeModel = Provider.of<ThemeModel>(context); // ここでThemeModelを取得
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: StartPageWidget(),
@@ -49,7 +53,8 @@ class StartPageHome extends StatelessWidget {
         ),
         fontFamily: 'IBM_Plex_Sans_JP',
       ),
-      themeMode: ThemeMode.system, // システムの設定に従ってテーマを切り替える
+      // themeMode: ThemeMode.system, // システムの設定に従ってテーマを切り替える
+      themeMode: themeModel.isDarkMode ? ThemeMode.dark : ThemeMode.light,
     );
   }
 }
@@ -96,5 +101,21 @@ class _StartPageWidgetState extends State<StartPageWidget> {
         onTap: _onTap, // タップ時に呼ばれるメソッドを設定
       ),
     );
+  }
+}
+
+class ThemeModel extends ChangeNotifier {
+  bool _isDarkMode = false;
+
+  bool get isDarkMode => _isDarkMode;
+
+  void setDarkMode() {
+    _isDarkMode = true;
+    notifyListeners();
+  }
+
+  void setLightMode() {
+    _isDarkMode = false;
+    notifyListeners();
   }
 }

@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:okiben/pages/setting/setting.dart';
+import 'package:okiben/main.dart';
 
 // void main() {
 //   runApp(OkibenManagePageHome());
@@ -106,6 +107,7 @@ class OkibenManageModel extends ChangeNotifier {
     notifyListeners();
   }
 }
+
 
 class _OkibenManagePageState extends State<OkibenManagePage> {
   var _editItemText = '';
