@@ -126,7 +126,8 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
         ),
         backgroundColor:
             Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
-        leading: IconButton(
+        actions: [
+          IconButton(
             icon: Icon(
               Icons.settings,
               color: Colors.black87,
@@ -141,6 +142,7 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                 ),
               );
             }),
+        ],
       ),
       body: Consumer<OkibenManageModel>(builder: (context, model, child) {
         return Padding(
