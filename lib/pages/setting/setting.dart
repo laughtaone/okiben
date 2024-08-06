@@ -3,6 +3,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:provider/provider.dart';
+import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 
 void main() {
   runApp(SettingPageHome());
@@ -110,10 +112,76 @@ class _SettingPageState extends State<SettingPage> {
               title: const Text('Danger Zone (!操作に要注意!)'),
               tiles: <SettingsTile>[
                 SettingsTile.navigation(
-                  leading: Icon(Icons.delete_sweep_outlined), // ← 追加
+                  leading: Icon(Icons.delete_sweep_outlined),
                   title: const Text('登録中のアイテムを一括削除'),
-                  trailing: const Icon(Icons.chevron_right_outlined), // ← 追加
-                  onPressed: null,
+                  onPressed: (context) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.error_outlined,
+                                size: 25,
+                                color: Colors.red,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                '確認',
+                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                              ),
+                            ],
+                          ),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(text: 'この操作を実行すると、登録されているアイテムが'),
+                                  TextSpan(text: '全て完全に削除',style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
+                                  TextSpan(text: 'されます'),
+                                ],style: TextStyle(fontSize: 16),
+                              )),
+                              Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(text: 'また、実行後の'),
+                                  TextSpan(text: '取り消しは完全にできません',style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
+                                  TextSpan(text: '。'),
+                                ],style: TextStyle(fontSize: 16),
+                              )),
+                              SizedBox(height: 20),
+                              Text('本当に削除しますか？', style: TextStyle(fontSize: 16),),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                // 一括削除の処理をここに記述
+                                Provider.of<OkibenManageModel>(context, listen: false).clearItemList();
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('削除'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                'キャンセル',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
               ],
             ),

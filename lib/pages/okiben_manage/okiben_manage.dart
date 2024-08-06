@@ -99,6 +99,12 @@ class OkibenManageModel extends ChangeNotifier {
     _saveItemList();
     notifyListeners();
   }
+
+  void clearItemList() {
+    _itemList.clear();
+    _saveItemList();
+    notifyListeners();
+  }
 }
 
 class _OkibenManagePageState extends State<OkibenManagePage> {
