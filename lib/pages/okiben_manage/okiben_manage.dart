@@ -42,7 +42,7 @@ class OkibenManageModel extends ChangeNotifier {
     },
     {
       'name': '確率の教科書',
-      'memo': '来週の確率の授業で必要！来週の確率の授業で必要！来週の確率の授業で必要！',
+      'memo': '来週の確率の授業で必要！',
       'isOkiben': false,
       'imagePath': 'assets/images/big_image_sample.png'
     },

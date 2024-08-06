@@ -184,7 +184,7 @@ class _SettingPageState extends State<SettingPage> {
                                 TextSpan(children: [
                                   TextSpan(text: 'この操作を実行すると、登録されているアイテムが'),
                                   TextSpan(text: '全て完全に削除',style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
-                                  TextSpan(text: 'されます'),
+                                  TextSpan(text: 'されます。'),
                                 ],style: TextStyle(fontSize: 16),
                               )),
                               Text.rich(
