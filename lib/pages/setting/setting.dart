@@ -37,7 +37,9 @@ class _SettingPageState extends State<SettingPage> {
             children: [
               Icon(
                 Icons.settings,
-                color: Colors.black,
+                color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.black87 // ライトモードの色
+                  : Colors.white, // ダークモードの色
               ),
               SizedBox(width: 5),
               Text(
@@ -91,7 +93,11 @@ class _SettingPageState extends State<SettingPage> {
                   leading: Icon(Icons.looks_3_outlined),
                   title: RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.light
+                          ? Color(0xff666666) // ライトモードの色
+                          : Colors.white, // ダークモードの色
+                      ),
                       children: <TextSpan>[
                         TextSpan(text: '各アイテムについて、アイテムをタップ後、\n'),
                         TextSpan(text: '・名前を編集するには「編集」ボタン\n'),

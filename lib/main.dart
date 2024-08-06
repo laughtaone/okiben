@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:okiben/pages/view/view.dart';
+import 'package:okiben/pages/setting/setting.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart'; // 追加
+import 'package:flutter/services.dart';
+
 
 
 void main() {
@@ -23,6 +25,8 @@ class StartPageHome extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: StartPageWidget(),
+
+      // ライトモード時
       theme: ThemeData(
         brightness: Brightness.light,
         colorScheme: ColorScheme.light(
@@ -30,10 +34,22 @@ class StartPageHome extends StatelessWidget {
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: Color(0xfff0f0f0),
-          ),
+        ),
         fontFamily: 'IBM_Plex_Sans_JP',
       ),
-      themeMode: ThemeMode.light,
+
+      // ダークモード時
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme.dark(
+          primary: Color(0xFFf0f0f0),
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFF0f0f0f),
+        ),
+        fontFamily: 'IBM_Plex_Sans_JP',
+      ),
+      themeMode: ThemeMode.system, // システムの設定に従ってテーマを切り替える
     );
   }
 }

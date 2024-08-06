@@ -114,6 +114,9 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).brightness == Brightness.light
+        ? Colors.white // ライトモードの色
+        : Colors.black26, // ダークモードの色,
       appBar: AppBar(
         centerTitle: true,
         title: Row(
@@ -122,7 +125,9 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
           children: [
             Icon(
               Icons.shopping_bag,
-              color: Colors.black,
+              color: Theme.of(context).brightness == Brightness.light
+              ? Colors.black // ライトモードの色
+              : Colors.white, // ダークモードの色
             ),
             SizedBox(width: 5),
             Text(
@@ -136,7 +141,9 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
           IconButton(
             icon: Icon(
               Icons.settings,
-              color: Colors.black87,
+              color: Theme.of(context).brightness == Brightness.light
+                ? Colors.black87 // ライトモードの色
+                : Colors.white, // ダークモードの色
               size: 26,
             ),
             onPressed: () {

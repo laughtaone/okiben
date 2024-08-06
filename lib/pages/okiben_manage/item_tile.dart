@@ -156,8 +156,19 @@ class OkibenItemTile extends StatelessWidget {
                                 Icon(
                                   Icons.edit_outlined,
                                   size: 40,
+                                  color: Theme.of(context).brightness == Brightness.light
+                                      ? Colors.white // ライトモードの色
+                                      : Colors.black87, // ダークモードの色
                                 ),
-                                Text('編集', style: TextStyle(fontSize: 20))
+                                Text(
+                                  '編集',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Theme.of(context).brightness == Brightness.light
+                                      ? Colors.white // ライトモードの色
+                                      : Colors.black87, // ダークモードの色
+                                  )
+                                )
                               ],
                             ),
                             style: TextButton.styleFrom(
@@ -243,8 +254,19 @@ class OkibenItemTile extends StatelessWidget {
                                 Icon(
                                   Icons.local_offer_outlined,
                                   size: 40,
+                                  color: Theme.of(context).brightness == Brightness.light
+                                      ? Colors.white // ライトモードの色
+                                      : Colors.black87, // ダークモードの色
                                 ),
-                                Text('メモ', style: TextStyle(fontSize: 20))
+                                Text(
+                                  'メモ',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Theme.of(context).brightness == Brightness.light
+                                      ? Colors.white // ライトモードの色
+                                      : Colors.black87, // ダークモードの色
+                                  )
+                                )
                               ],
                             ),
                             style: TextButton.styleFrom(
@@ -289,7 +311,12 @@ class OkibenItemTile extends StatelessWidget {
                                           SizedBox(height: 11),
                                           Text(
                                             '削除するアイテム名',
-                                            style: TextStyle(fontSize: 15, color: Colors.black),
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Theme.of(context).brightness == Brightness.light
+                                                ? Colors.black // ライトモードの色
+                                                : Colors.white, // ダークモードの色
+                                            ),
                                           ),
                                           SizedBox(height: 5),
                                           Container(
@@ -299,7 +326,9 @@ class OkibenItemTile extends StatelessWidget {
                                                 width: 0.5,
                                               ),
                                               borderRadius: BorderRadius.circular(10),
-                                              color: Colors.white,
+                                              color: Theme.of(context).brightness == Brightness.light
+                                                ? Colors.white // ライトモードの色
+                                                : Color(0xff666666), // ダークモードの色
                                             ),
                                             child: Center(
                                               child: Text(
@@ -345,8 +374,19 @@ class OkibenItemTile extends StatelessWidget {
                                 Icon(
                                   Icons.delete_outlined,
                                   size: 40,
+                                  color: Theme.of(context).brightness == Brightness.light
+                                      ? Colors.white // ライトモードの色
+                                      : Colors.black87, // ダークモードの色
                                 ),
-                                Text('削除', style: TextStyle(fontSize: 20))
+                                Text(
+                                  '削除',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Theme.of(context).brightness == Brightness.light
+                                      ? Colors.white // ライトモードの色
+                                      : Colors.black87, // ダークモードの色
+                                  )
+                                )
                               ],
                             ),
                             style: TextButton.styleFrom(

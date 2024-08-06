@@ -37,7 +37,9 @@ class _ViewPageState extends State<ViewPage> {
           children: [
             Icon(
               Icons.location_on_outlined,
-              color: Colors.black54,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.black87 // ライトモードの色
+                  : Colors.white, // ダークモードの色
             ),
             SizedBox(width: 5),
             Text('ビュー'),
@@ -84,7 +86,11 @@ class _ViewPageState extends State<ViewPage> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8), color: Color(0xffededed)),
+                        borderRadius: BorderRadius.circular(8),
+                        color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.white // ライトモードの色
+                          : Color(0xff555555), // ダークモードの色
+                      ),
                       padding: EdgeInsets.fromLTRB(10,8,8,8),
                       margin: EdgeInsets.only(left: 0, right: 0),
                       child: Column(
@@ -98,7 +104,9 @@ class _ViewPageState extends State<ViewPage> {
                                   child: Icon(
                                     Icons.check,
                                     size: 20,
-                                    color: Colors.black,
+                                    color: Theme.of(context).brightness == Brightness.light
+                                      ? Colors.black // ライトモードの色
+                                      : Colors.white, // ダークモードの色
                                   ),
                                 ),
                                 Expanded(
@@ -122,7 +130,9 @@ class _ViewPageState extends State<ViewPage> {
                                   child: Icon(
                                     Icons.check,
                                     size: 20,
-                                    color: Colors.black,
+                                    color: Theme.of(context).brightness == Brightness.light
+                                      ? Colors.black // ライトモードの色
+                                      : Colors.white, // ダークモードの色
                                   ),
                                 ),
                                 Expanded(
@@ -176,7 +186,9 @@ class _ViewPageState extends State<ViewPage> {
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
+                                      color: Theme.of(context).brightness == Brightness.light
+                                        ? Colors.white // ライトモードの色
+                                        : Color(0xff666666), // ダークモードの色
                                     ),
                                     child: Scrollbar(
                                       thumbVisibility: true,
@@ -192,7 +204,10 @@ class _ViewPageState extends State<ViewPage> {
                                             itemListCopy['name'] ?? '名前なし',
                                             style: TextStyle(
                                               fontSize: 20,
-                                              color: Colors.black),
+                                              color: Theme.of(context).brightness == Brightness.light
+                                                ? Colors.black
+                                                : Colors.white,
+                                            ),
                                           );
                                           } else {
                                           return SizedBox.shrink();// この条件分岐に到達することはあり得ないけどnull safetyのために書く
@@ -230,7 +245,9 @@ class _ViewPageState extends State<ViewPage> {
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
+                                      color: Theme.of(context).brightness == Brightness.light
+                                        ? Colors.white // ライトモードの色
+                                        : Color(0xff666666), // ダークモードの色
                                     ),
                                     child: Scrollbar(
                                       thumbVisibility: true,
@@ -245,8 +262,11 @@ class _ViewPageState extends State<ViewPage> {
                                               return Text(
                                                 itemListCopy['name'] ?? '名前なし',
                                                 style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.black),
+                                                  fontSize: 20,
+                                                  color: Theme.of(context).brightness == Brightness.light
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                                ),
                                               );
                                             } else {
                                               return SizedBox.shrink();// この条件分岐に到達することはあり得ないがnull safetyのために書く
