@@ -104,7 +104,7 @@ class _SettingPageState extends State<SettingPage> {
               tiles: <SettingsTile>[
                 SettingsTile(
                   leading: Icon(Icons.looks_one_outlined),
-                  title: const Text('管理したいアイテムを「置き勉管理」タブに追加する'),
+                  title: const Text('管理したいアイテムを「置き勉管理」タブの右下の＋ボタンから追加する'),
                 ),
                 SettingsTile(
                   leading: Icon(Icons.looks_two_outlined),
