@@ -104,7 +104,7 @@ class _SettingPageState extends State<SettingPage> {
                     text: TextSpan(
                       style: TextStyle(
                         color: Theme.of(context).brightness == Brightness.light
-                          ? Color(0xff666666) // ライトモードの色
+                          ? Colors.black // ライトモードの色
                           : Colors.white, // ダークモードの色
                       ),
                       children: <TextSpan>[
@@ -129,6 +129,10 @@ class _SettingPageState extends State<SettingPage> {
                 SettingsTile.navigation(
                   leading: Icon(Icons.delete_sweep_outlined),
                   title: const Text('登録中のアイテムを一括削除'),
+                  description: const Text(
+                    'この操作を実行すると、登録されている全てのアイテムが一括削除されます。',
+                    style: TextStyle(fontSize: 12),
+                  ),
                   onPressed: (context) {
                     showDialog(
                       context: context,

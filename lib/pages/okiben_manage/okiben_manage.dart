@@ -108,7 +108,6 @@ class OkibenManageModel extends ChangeNotifier {
   }
 }
 
-
 class _OkibenManagePageState extends State<OkibenManagePage> {
   var _editItemText = '';
   var _finalItemText = '';
@@ -117,8 +116,8 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light
-        ? Colors.white // ライトモードの色
-        : Colors.black26, // ダークモードの色,
+          ? Colors.white // ライトモードの色
+          : Colors.black26, // ダークモードの色,
       appBar: AppBar(
         centerTitle: true,
         title: Row(
@@ -128,8 +127,8 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
             Icon(
               Icons.shopping_bag,
               color: Theme.of(context).brightness == Brightness.light
-              ? Colors.black // ライトモードの色
-              : Colors.white, // ダークモードの色
+                  ? Colors.black // ライトモードの色
+                  : Colors.white, // ダークモードの色
             ),
             SizedBox(width: 5),
             Text(
@@ -141,22 +140,22 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
             Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.settings,
-              color: Theme.of(context).brightness == Brightness.light
-                ? Colors.black87 // ライトモードの色
-                : Colors.white, // ダークモードの色
-              size: 26,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SettingPage(),
-                  fullscreenDialog: true,
-                ),
-              );
-            }),
+              icon: Icon(
+                Icons.settings,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black87 // ライトモードの色
+                    : Colors.white, // ダークモードの色
+                size: 26,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingPage(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              }),
         ],
       ),
       body: Consumer<OkibenManageModel>(builder: (context, model, child) {
@@ -199,6 +198,9 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
             builder: (context) {
               return AlertDialog(
                 title: Text('新しいアイテムを追加'),
+                backgroundColor: Theme.of(context).brightness == Brightness.light
+                  ? Colors.white // ライトモードの色
+                  : dialogBackColor(), // ダークモードの色
                 content: TextField(
                   // controller: controller,
                   decoration: InputDecoration(labelText: 'アイテムの名前を入力'),
@@ -224,11 +226,13 @@ class _OkibenManagePageState extends State<OkibenManagePage> {
                       setState(() {
                         _finalItemText = _editItemText; //編集用を保存用に
                       });
-                      Provider.of<OkibenManageModel>(context, listen: false)
-                          .addItem(
-                              _finalItemText); // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
+                      if (_finalItemText.isNotEmpty) {
+                        Provider.of<OkibenManageModel>(context, listen: false)
+                            .addItem(
+                                _finalItemText); // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
+                        print('_finalItemTextは$_finalItemText');
+                      }
                       Navigator.pop(context);
-                      print('_finalItemTextは$_finalItemText');
                     },
                   ),
                 ],

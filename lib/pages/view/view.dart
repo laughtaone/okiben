@@ -88,7 +88,7 @@ class _ViewPageState extends State<ViewPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.white // ライトモードの色
+                          ? Color(0xffededed) // ライトモードの色
                           : Color(0xff555555), // ダークモードの色
                       ),
                       padding: EdgeInsets.fromLTRB(10,8,8,8),

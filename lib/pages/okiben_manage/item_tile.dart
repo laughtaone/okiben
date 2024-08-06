@@ -81,6 +81,9 @@ class OkibenItemTile extends StatelessWidget {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: Text("操作"),
+                backgroundColor: Theme.of(context).brightness == Brightness.light
+                  ? Colors.white // ライトモードの色
+                  : dialogBackColor(), // ダークモードの色
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -98,6 +101,9 @@ class OkibenItemTile extends StatelessWidget {
                                   builder: (BuildContext context) {
                                     String newName = title;
                                     return AlertDialog(
+                                      backgroundColor: Theme.of(context).brightness == Brightness.light
+                                        ? Colors.white // ライトモードの色
+                                        : dialogBackColor(), // ダークモードの色
                                       title: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -156,17 +162,13 @@ class OkibenItemTile extends StatelessWidget {
                                 Icon(
                                   Icons.edit_outlined,
                                   size: 40,
-                                  color: Theme.of(context).brightness == Brightness.light
-                                      ? Colors.white // ライトモードの色
-                                      : Colors.black87, // ダークモードの色
+                                  color: Colors.black87,
                                 ),
                                 Text(
                                   '編集',
                                   style: TextStyle(
                                     fontSize: 20,
-                                    color: Theme.of(context).brightness == Brightness.light
-                                      ? Colors.white // ライトモードの色
-                                      : Colors.black87, // ダークモードの色
+                                    color: Colors.black87,
                                   )
                                 )
                               ],
@@ -195,6 +197,9 @@ class OkibenItemTile extends StatelessWidget {
                                   builder: (BuildContext context) {
                                     String newMemo = memo;
                                     return AlertDialog(
+                                      backgroundColor: Theme.of(context).brightness == Brightness.light
+                                        ? Colors.white // ライトモードの色
+                                        : dialogBackColor(), // ダークモードの色
                                       title: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -254,17 +259,13 @@ class OkibenItemTile extends StatelessWidget {
                                 Icon(
                                   Icons.local_offer_outlined,
                                   size: 40,
-                                  color: Theme.of(context).brightness == Brightness.light
-                                      ? Colors.white // ライトモードの色
-                                      : Colors.black87, // ダークモードの色
+                                  color: Colors.black87,
                                 ),
                                 Text(
                                   'メモ',
                                   style: TextStyle(
                                     fontSize: 20,
-                                    color: Theme.of(context).brightness == Brightness.light
-                                      ? Colors.white // ライトモードの色
-                                      : Colors.black87, // ダークモードの色
+                                    color: Colors.black87,
                                   )
                                 )
                               ],
@@ -298,6 +299,9 @@ class OkibenItemTile extends StatelessWidget {
                                   barrierDismissible: false,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
+                                      backgroundColor: Theme.of(context).brightness == Brightness.light
+                                        ? Colors.white // ライトモードの色
+                                        : dialogBackColor(), // ダークモードの色
                                       title: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -322,7 +326,9 @@ class OkibenItemTile extends StatelessWidget {
                                           Container(
                                             decoration: BoxDecoration(
                                               border: Border.all(
-                                                color: Colors.black38,
+                                                color: Theme.of(context).brightness == Brightness.light
+                                                  ? Colors.black // ライトモードの色
+                                                  : Colors.white, // ダークモードの色
                                                 width: 0.5,
                                               ),
                                               borderRadius: BorderRadius.circular(10),
@@ -374,17 +380,13 @@ class OkibenItemTile extends StatelessWidget {
                                 Icon(
                                   Icons.delete_outlined,
                                   size: 40,
-                                  color: Theme.of(context).brightness == Brightness.light
-                                      ? Colors.white // ライトモードの色
-                                      : Colors.black87, // ダークモードの色
+                                  color: Colors.black87,
                                 ),
                                 Text(
                                   '削除',
                                   style: TextStyle(
                                     fontSize: 20,
-                                    color: Theme.of(context).brightness == Brightness.light
-                                      ? Colors.white // ライトモードの色
-                                      : Colors.black87, // ダークモードの色
+                                    color: Colors.black87,
                                   )
                                 )
                               ],

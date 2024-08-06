@@ -49,11 +49,10 @@ class StartPageHome extends StatelessWidget {
           primary: Color(0xFFf0f0f0),
         ),
         appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xFF0f0f0f),
+          backgroundColor: Color(0xFF3a3a3a),
         ),
         fontFamily: 'IBM_Plex_Sans_JP',
       ),
-      // themeMode: ThemeMode.system, // システムの設定に従ってテーマを切り替える
       themeMode: themeModel.isDarkMode ? ThemeMode.dark : ThemeMode.light,
     );
   }
@@ -99,6 +98,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
         ],
         currentIndex: _currentIndex, // 現在のインデックスを設定
         onTap: _onTap, // タップ時に呼ばれるメソッドを設定
+        backgroundColor: Color(0xFF202020),
       ),
     );
   }

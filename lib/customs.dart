@@ -84,3 +84,10 @@ double viewScrollBarThicknessSize() {
   final viewScrollBarThicknessSize = 2.0;
   return viewScrollBarThicknessSize;
 }
+
+
+// ダイアログの背景色(ダークモード時)
+Color dialogBackColor() {
+  final dialogBackColorDark = Color(0xff666666);
+  return dialogBackColorDark;
+}
