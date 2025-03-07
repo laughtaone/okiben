@@ -1,35 +1,19 @@
 // 置き勉管理画面
-// flutter run -d chrome lib/pages/okiben_manage/okiben_manage.dart
-
 import 'package:flutter/material.dart';
 import 'package:okiben/customs.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:okiben/pages/okiben_manage/item_tile.dart';
-import 'package:okiben/pages/view/view.dart';
-import 'package:okiben/pages/view/caution.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:okiben/pages/setting/setting.dart';
-import 'package:okiben/main.dart';
 
-// void main() {
-//   runApp(OkibenManagePageHome());
-// }
 
-// class OkibenManagePageHome extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: OkibenManagePage(),
-//     );
-//   }
-// }
 
 class OkibenManagePage extends StatefulWidget {
+  const OkibenManagePage({super.key});
+
   @override
-  _OkibenManagePageState createState() => _OkibenManagePageState();
+  OkibenManagePageState createState() => OkibenManagePageState();
 }
 
 class OkibenManageModel extends ChangeNotifier {
@@ -108,7 +92,7 @@ class OkibenManageModel extends ChangeNotifier {
   }
 }
 
-class _OkibenManagePageState extends State<OkibenManagePage> {
+class OkibenManagePageState extends State<OkibenManagePage> {
   var _editItemText = '';
   var _finalItemText = '';
 

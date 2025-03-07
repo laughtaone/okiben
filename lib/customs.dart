@@ -54,7 +54,7 @@ TextStyle okibenItemDialogActionsTextStyle(String textColor) {
 }
 
 Size itemTileOperateButtonSize() {
-  final itemTileOperateButtonSize = Size(80, 90);
+  final itemTileOperateButtonSize = Size(80, 110);
   return itemTileOperateButtonSize;
 }
 
@@ -65,7 +65,7 @@ Color itemTileOperateButtonColor() {
 
 Color itemTileOperateEditButtonColor() {
   // final itemTileOperateButtonColor = Color(0xffe0e0ff);
-  final itemTileOperateButtonColor = Color(0xffe0e0ff);
+  final itemTileOperateButtonColor = Color(0xffe3f1fc);
   return itemTileOperateButtonColor;
 }
 
