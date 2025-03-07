@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:okiben/components/comp_close_circle_button.dart';
+import 'package:okiben/components/comp_save_button.dart';
 import 'package:okiben/customs.dart';
 import 'package:okiben/pages/okiben_manage/sub_comps/comp_operation_tile.dart';
 
@@ -44,6 +45,7 @@ class OkibenItemTileState extends State<OkibenItemTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(vertical: okibenItemTileMergeTBSize()),
       child: OutlinedButton(
         child: Center(
           child: ListTile(
@@ -58,6 +60,7 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                     fontSize: okibenItemTileTitleSize()
                   ),
                   softWrap: false,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   widget.memo,
@@ -119,7 +122,8 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                                           ? Colors.white // ライトモードの色
                                           : dialogBackColor(), // ダークモードの色
                                         content: SizedBox(
-                                          width: 250,
+                                          width: 300,
+                                          height: 350,
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment: MainAxisAlignment.start,
@@ -132,83 +136,88 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                                                   CompCloseCircleButton(onPressed: () => Navigator.pop(context))
                                                 ],
                                               ),
-                                              SizedBox(height: 15),
-                                              Container(
-                                                width: double.infinity,
-                                                height: 43,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  color: Color(0xffF3F3F3)
-                                                ),
-                                                padding: EdgeInsets.symmetric(horizontal: 17),
-                                                child: Center(
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: [
-                                                      Text(
-                                                        '元の名前',
-                                                        style: TextStyle(fontSize: 15, color: Colors.black),
-                                                        textAlign: TextAlign.center,
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  children: [
+                                                    Container(
+                                                      width: double.infinity,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(10),
+                                                        color: Theme.of(context).brightness == Brightness.light
+                                                          ? dialogLightColorDeep()
+                                                          : dialogBackColorLight(),
                                                       ),
-                                                      SizedBox(width: 10),
-                                                      Expanded(
-                                                        child: SelectableText(
-                                                          widget.title,
-                                                          style: TextStyle(fontSize: 16, color: Colors.black),
-                                                          textAlign: TextAlign.center,
+                                                      padding: EdgeInsets.symmetric(horizontal: 17, vertical: 10),
+                                                      child: Center(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            Text(
+                                                              '元の名前',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                                color: Theme.of(context).brightness == Brightness.light
+                                                                  ? Colors.black
+                                                                  : Colors.white,
+                                                              ),
+                                                              textAlign: TextAlign.center,
+                                                            ),
+                                                            SizedBox(width: 10),
+                                                            Expanded(
+                                                              child: Text(
+                                                                widget.title,
+                                                                style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight: FontWeight.bold
+                                                                ),
+                                                                textAlign: TextAlign.center,
+                                                                maxLines: 3,
+                                                                overflow: TextOverflow.ellipsis,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(height: 25),
-                                              SizedBox(
-                                                width: double.infinity,
-                                                child: Text('↓変更後の名前を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
-                                              ),
-                                              SizedBox(height: 2),
-                                              TextFormField(
-                                                style: TextStyle(fontSize: 16),
-                                                initialValue: widget.title,
-                                                decoration: InputDecoration(
-                                                  hintText: '未入力',
-                                                  hintStyle: const TextStyle(fontSize: 15),
-                                                  fillColor: const Color(0xfffefefe),
-                                                  filled: true,
-                                                ),
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    newName = value; // 変更後の名前を更新
-                                                  });
-                                                },
-                                              ),
-                                              SizedBox(height: 35),
-                                              SizedBox(
-                                                width: 150,
-                                                height: 55,
-                                                child: TextButton(
-                                                  onPressed: (newName.isNotEmpty && widget.title != newName)
-                                                    ? () => Navigator.pop(context, newName)
-                                                    : null,
-                                                  style: TextButton.styleFrom(
-                                                    disabledBackgroundColor: Color.fromRGBO(115, 115, 115, 0.1),
-                                                    backgroundColor: Color.fromRGBO(115, 115, 115, 1),
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(30),
                                                     ),
-                                                  ),
-                                                  child: Text(
-                                                    '保存',
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
+                                                    Column(children: [
+                                                      SizedBox(
+                                                        width: double.infinity,
+                                                        child: Text('↓変更後の名前を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                                                      ),
+                                                      SizedBox(height: 2),
+                                                      TextFormField(
+                                                        maxLines: null,
+                                                        keyboardType: TextInputType.text,
+                                                        style: TextStyle(fontSize: 16),
+                                                        initialValue: widget.title,
+                                                        decoration: InputDecoration(
+                                                          hintText: '未入力',
+                                                          hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),
+                                                          filled: true,
+                                                          // fillColor: const Color(0xfffefefe),
+                                                          fillColor: Theme.of(context).brightness == Brightness.light
+                                                            ? Color(0xfffefefe)
+                                                            : dialogBackColorLight()
+                                                        ),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            newName = value; // 変更後の名前を更新
+                                                          });
+                                                        },
+                                                      ),
+                                                    ]),
+                                                    // SizedBox(height: 35),
+                                                    CompSaveButton(
+                                                      onPressed: (newName.isNotEmpty && widget.title != newName)
+                                                        ? () => Navigator.pop(context, newName)
+                                                        : null,
+                                                      isDarkMode: (Theme.of(context).brightness == Brightness.light) ? false : true
+                                                    )
+                                                  ]
                                                 ),
-                                              ),
+                                              )
                                             ],
                                           ),
                                         ),
@@ -348,12 +357,12 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                                         ? Colors.white // ライトモードの色
                                         : Color(0xff666666), // ダークモードの色
                                     ),
+                                    height: 80,
                                     child: Center(
                                       child: Text(
                                         widget.title
                                       ),
                                     ),
-                                    height: 80,
                                   )
                                 ],
                               ),
@@ -388,7 +397,9 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                     },
                     icon: Icon(
                       Icons.delete_outline,
-                      color: Color(0xff808080),
+                      color: (Theme.of(context).brightness == Brightness.light)
+                        ? Color(0xff808080)
+                        : Color(0xffd0d0d0),
                     )
                   )
                 ],
@@ -399,20 +410,20 @@ class OkibenItemTileState extends State<OkibenItemTile> {
           );
         },
         style: OutlinedButton.styleFrom(
+          backgroundColor: Theme.of(context).brightness == Brightness.light
+            ? Color(0xfff3f3f3)
+            : dialogBackColorDeep(),
           padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
           fixedSize: Size(double.infinity, 95),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8), // 角丸
+            borderRadius: BorderRadius.circular(8)
           ),
           side: BorderSide(
-            color: itemTileColor(), //枠線の色
-            width: 1, //枠線の太さ
+            color: itemTileColor(),
+            width: 1,
           ),
         ),
       ),
-      margin: EdgeInsets.only(
-          top: okibenItemTileMergeTBSize(),
-          bottom: okibenItemTileMergeTBSize()),
     );
   }
 }

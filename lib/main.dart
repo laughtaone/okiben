@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:okiben/pages/view/view.dart';
-import 'package:okiben/pages/setting/setting.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 
 
 
@@ -21,7 +18,7 @@ void main() {
 }
 
 class StartPageHome extends StatelessWidget {
-  const StartPageHome({Key? key}) : super(key: key);
+  const StartPageHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +62,7 @@ class StartPageHome extends StatelessWidget {
 }
 
 class StartPageWidget extends StatefulWidget {
-  const StartPageWidget({Key? key}) : super(key: key);
+  const StartPageWidget({super.key});
 
   @override
   State<StartPageWidget> createState() => _StartPageWidgetState();
@@ -92,7 +89,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag),
             label: '置き勉管理',

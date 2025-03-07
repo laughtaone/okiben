@@ -8,26 +8,16 @@ import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:okiben/main.dart';
 import 'package:okiben/customs.dart';
 
-void main() {
-  runApp(SettingPageHome());
-}
 
-class SettingPageHome extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SettingPage(),
-    );
-  }
-}
 
 class SettingPage extends StatefulWidget {
+  const SettingPage({super.key});
+
   @override
-  _SettingPageState createState() => _SettingPageState();
+  SettingPageState createState() => SettingPageState();
 }
 
-class _SettingPageState extends State<SettingPage> {
+class SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +110,7 @@ class _SettingPageState extends State<SettingPage> {
                           ? Colors.black // ライトモードの色
                           : Colors.white, // ダークモードの色
                       ),
-                      children: <TextSpan>[
+                      children: const <TextSpan>[
                         TextSpan(text: '各アイテムについて、アイテムをタップ後、\n'),
                         TextSpan(text: '・名前を編集するには「編集」ボタン\n'),
                         TextSpan(text: '・メモを追加するには「メモ」ボタン\n'),
@@ -163,7 +153,7 @@ class _SettingPageState extends State<SettingPage> {
                             : dialogBackColor(), // ダークモードの色
                           title: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.error_outlined,
                                 size: 25,
@@ -179,7 +169,7 @@ class _SettingPageState extends State<SettingPage> {
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text.rich(
                                 TextSpan(children: [
                                   TextSpan(text: 'この操作を実行すると、登録されているアイテムが'),

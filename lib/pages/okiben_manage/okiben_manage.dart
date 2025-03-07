@@ -191,7 +191,7 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                   onChanged: (value) {
                     setState(() {
                       _editItemText = value;
-                      print('_editItemTextは$_editItemText');
+                      debugPrint('_editItemTextは$_editItemText');
                     });
                   },
                 ),
@@ -212,9 +212,11 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                       });
                       if (_finalItemText.isNotEmpty) {
                         Provider.of<OkibenManageModel>(context, listen: false)
-                            .addItem(
-                                _finalItemText); // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
-                        print('_finalItemTextは$_finalItemText');
+                          // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
+                          .addItem(
+                            _finalItemText
+                          );
+                        debugPrint('_finalItemTextは$_finalItemText');
                       }
                       Navigator.pop(context);
                     },

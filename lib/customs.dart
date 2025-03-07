@@ -1,15 +1,7 @@
 // フォント・色・大きさなどをこのファイルで指定して一括管理する
-
 import 'package:flutter/material.dart';
 
-// サンプル
-/*
-// BottomNavigationBarの各アイコンの色
-// Color bottomIconButtonColor() {
-//   final bottomIconButtonColor = Color(0xFF000000);
-//   return bottomIconButtonColor;
-// }
-*/
+
 
 Color itemTileColor() {
   final bottomIconButtonColor = Color(0xFF949494);
@@ -18,18 +10,15 @@ Color itemTileColor() {
 
 // OkibenItemTile系
 double okibenItemTileMergeTBSize() {
-  final okibenItemTileMergeTBSize = 10.0;
-  return okibenItemTileMergeTBSize;
+  return 10.0;
 }
 
 double okibenItemTileTitleSize() {
-  final okibenItemTileTitleSize = 23.0;
-  return okibenItemTileTitleSize;
+  return 23.0;
 }
 
 double okibenItemTileMemoSize() {
-  final okibenItemTileMemoSize = 13.0;
-  return okibenItemTileMemoSize;
+  return 13.0;
 }
 
 TextStyle okibenItemDialogActionsTextStyle(String textColor) {
@@ -54,43 +43,45 @@ TextStyle okibenItemDialogActionsTextStyle(String textColor) {
 }
 
 Size itemTileOperateButtonSize() {
-  final itemTileOperateButtonSize = Size(80, 110);
-  return itemTileOperateButtonSize;
+  return Size(80, 110);
 }
 
 Color itemTileOperateButtonColor() {
-  final itemTileOperateButtonColor = Color(0xffe0e0e0);
-  return itemTileOperateButtonColor;
+  return Color(0xffe0e0e0);
 }
 
 Color itemTileOperateEditButtonColor() {
-  // final itemTileOperateButtonColor = Color(0xffe0e0ff);
-  final itemTileOperateButtonColor = Color(0xffe3f1fc);
-  return itemTileOperateButtonColor;
+  return Color(0xffe3f1fc);
 }
 
 Color itemTileOperateMemoButtonColor() {
-  // final itemTileOperateButtonColor = Color(0xffffffd0);
-  final itemTileOperateButtonColor = Color(0xffe0e0ff);
-  return itemTileOperateButtonColor;
+  return Color(0xffe0e0ff);
 }
 
 Color itemTileOperateDeleteButtonColor() {
-  final itemTileOperateButtonColor = Color(0xffe0e0e0);
-  return itemTileOperateButtonColor;
+  return Color(0xffe0e0e0);
 }
 
 double viewScrollBarThicknessSize() {
-  final viewScrollBarThicknessSize = 2.0;
-  return viewScrollBarThicknessSize;
+  return 2.0;
 }
 
 
 // ダイアログの背景色(ダークモード時)
 Color dialogBackColor() {
-  final dialogBackColorDark = Color(0xff555555);
-  return dialogBackColorDark;
+  return Color(0xff555555);
 }
+Color dialogBackColorDeep() {
+  return Color(0xff333333);
+}
+Color dialogBackColorLight() {
+  return Color(0xff777777);
+}
+// ダイアログの背景色(ライトモード時)
+Color dialogLightColorDeep() {
+  return Color(0xfff3f3f3);
+}
+
 
 
 // 設定のセクションタイトルの文字スタイル(ライトモード時)

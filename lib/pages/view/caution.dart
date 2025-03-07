@@ -6,15 +6,12 @@ class CautionWidget extends StatelessWidget {
   final double textSize;
   final IconData? cautionIcon;
 
-  const CautionWidget(
-      {
-        Key? key,
-        required this.cautionText,
-        required this.backColor,
-        required this.textSize,
-        required this.cautionIcon
-      })
-      : super(key: key);
+  const CautionWidget({super.key,
+    required this.cautionText,
+    required this.backColor,
+    required this.textSize,
+    required this.cautionIcon
+  });
 
   @override
   Widget build(BuildContext context) {
