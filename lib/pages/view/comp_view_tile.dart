@@ -20,6 +20,7 @@ class CompViewTile extends StatefulWidget {
 
 class CompViewTileState extends State<CompViewTile> {
   int itemListCount = 0;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -30,6 +31,12 @@ class CompViewTileState extends State<CompViewTile> {
           element['isOkiben'] == widget.isInSchool)
       .length;
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -53,48 +60,49 @@ class CompViewTileState extends State<CompViewTile> {
         SizedBox(height: 2),
         Expanded(
           child: itemListCount == 0
-              ? Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text('該当する持ち物はありません'),
-              )
-              : Container(
-                padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black38,
-                    width: 1.0,
+            ? Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text('該当する持ち物はありません'),
+            )
+            : Container(
+              padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black38,
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(10),
+                color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.white
+                  : Color(0xff444444),
+              ),
+              child: Scrollbar(
+                thumbVisibility: true,
+                controller: _scrollController,
+                thickness: viewScrollBarThicknessSize(),
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: widget.itemList.length,
+                  itemBuilder: (context, index) {
+                    final itemListCopy = widget.itemList[index];
+                    if (itemListCopy['isOkiben'] == widget.isInSchool) {
+                    return Text(
+                      itemListCopy['name'] ?? '名前なし',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
+                      ),
+                    );
+                    } else {
+                      return SizedBox.shrink();// この条件分岐に到達することはあり得ないけどnull safetyのために書く
+                    }
+                  },
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.white
-                    : Color(0xff444444),
-                ),
-                child: Scrollbar(
-                  thumbVisibility: true,
-                  thickness: viewScrollBarThicknessSize(),
-                  child: ListView.builder(
-                    controller: ScrollController(),
-                    itemCount: widget.itemList.length,
-                    itemBuilder: (context, index) {
-                      final itemListCopy = widget.itemList[index];
-                      if (itemListCopy['isOkiben'] == widget.isInSchool) {
-                      return Text(
-                        itemListCopy['name'] ?? '名前なし',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Theme.of(context).brightness == Brightness.light
-                            ? Colors.black
-                            : Colors.white,
-                        ),
-                      );
-                      } else {
-                        return SizedBox.shrink();// この条件分岐に到達することはあり得ないけどnull safetyのために書く
-                      }
-                    },
-                    ),
-                ),
               ),
             ),
+        ),
 ]
     );
   }
