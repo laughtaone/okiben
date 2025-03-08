@@ -65,7 +65,7 @@ class CompViewTileState extends State<CompViewTile> {
               child: Text('該当する持ち物はありません'),
             )
             : Container(
-              padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+              padding: EdgeInsets.fromLTRB(10, 0, 4, 0),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.black38,
@@ -86,15 +86,22 @@ class CompViewTileState extends State<CompViewTile> {
                   itemBuilder: (context, index) {
                     final itemListCopy = widget.itemList[index];
                     if (itemListCopy['isOkiben'] == widget.isInSchool) {
-                    return Text(
-                      itemListCopy['name'] ?? '名前なし',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.black
-                          : Colors.white,
-                      ),
-                    );
+                      return Padding(
+                        padding: (index == 0)
+                          ? EdgeInsets.only(top: 10)
+                          : (index == widget.itemList.length - 1)
+                            ? EdgeInsets.only(bottom: 10)
+                            : EdgeInsets.zero,
+                        child: Text(
+                          itemListCopy['name'] ?? '名前なし',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.black
+                              : Colors.white,
+                          ),
+                        ),
+                      );
                     } else {
                       return SizedBox.shrink();// この条件分岐に到達することはあり得ないけどnull safetyのために書く
                     }

@@ -1,5 +1,7 @@
 // 置き勉管理画面
 import 'package:flutter/material.dart';
+import 'package:okiben/components/comp_common_button.dart';
+import 'package:okiben/components/comp_common_dialog.dart';
 import 'package:okiben/customs.dart';
 import 'package:okiben/pages/okiben_manage/item_tile.dart';
 import 'package:provider/provider.dart';
@@ -180,48 +182,53 @@ class OkibenManagePageState extends State<OkibenManagePage> {
           showDialog(
             context: context,
             builder: (context) {
-              return AlertDialog(
-                title: Text('新しいアイテムを追加'),
-                backgroundColor: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white // ライトモードの色
-                  : dialogBackColor(), // ダークモードの色
-                content: TextField(
-                  // controller: controller,
-                  decoration: InputDecoration(labelText: 'アイテムの名前を入力'),
-                  onChanged: (value) {
-                    setState(() {
-                      _editItemText = value;
-                      debugPrint('_editItemTextは$_editItemText');
-                    });
-                  },
-                ),
-                actions: [
-                  TextButton(
-                    child: Text('キャンセル'),
-                    onPressed: () {
-                      Navigator.pop(context); //画面を閉じる
-                    },
-                  ),
-                  TextButton(
-                    child: Text(
-                      '追加',
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _finalItemText = _editItemText; //編集用を保存用に
-                      });
-                      if (_finalItemText.isNotEmpty) {
-                        Provider.of<OkibenManageModel>(context, listen: false)
-                          // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
-                          .addItem(
-                            _finalItemText
-                          );
-                        debugPrint('_finalItemTextは$_finalItemText');
-                      }
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
+              String newItemName = '';
+              return StatefulBuilder(
+                builder: (context, setState) {
+                  return CompCommonDialog(
+                    title: 'アイテム追加',
+                    customContentMainAxisAlignment: MainAxisAlignment.spaceAround,
+                    customHeight: 225,
+                    contentChildren: [
+                      Column(children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: Text('↓変更後の名前を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                        ),
+                        SizedBox(height: 2),
+                        TextField(
+                          maxLines: null,
+                          keyboardType: TextInputType.text,
+                          onChanged: (value) {
+                            setState(() {
+                              newItemName = value;
+                            });
+                          },
+                        ),
+                      ]),
+                      CompCommonButton(
+                        buttonText: '追加',
+                        onPressed: (newItemName.isEmpty)
+                          ? null
+                          : () {
+                            setState(() {
+                              _finalItemText = newItemName; //編集用を保存用に
+                            });
+                            if (_finalItemText.isNotEmpty) {
+                              Provider.of<OkibenManageModel>(context, listen: false)
+                                // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
+                                .addItem(
+                                  _finalItemText
+                                );
+                              debugPrint('_finalItemTextは$_finalItemText');
+                            }
+                            Navigator.pop(context);
+                          },
+                        isDarkMode: Theme.of(context).brightness == Brightness.dark ? true : false,
+                      )
+                    ]
+                  );
+                }
               );
             },
           );
