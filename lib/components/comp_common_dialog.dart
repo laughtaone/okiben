@@ -19,7 +19,7 @@ class CompCommonDialog extends StatefulWidget {
   final List<Widget> contentChildren;
   final List<Widget>? actionsChildren;
   final double customWidth;
-  final double customHeight;
+  final double? customHeight;
   final MainAxisAlignment customContentMainAxisAlignment;
 
   @override

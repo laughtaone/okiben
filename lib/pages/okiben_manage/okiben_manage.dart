@@ -21,20 +21,21 @@ class OkibenManagePage extends StatefulWidget {
 }
 
 class OkibenManageModel extends ChangeNotifier {
-  List<Map<String, dynamic>> _itemList = [
-    {
-      'name': '数学の教科書',
-      'memo': 'Aくんに貸した',
-      'isOkiben': true,
-      'imagePath': 'assets/images/bread.png'
-    },
-    {
-      'name': '英語の教科書',
-      'memo': '来週の授業で必要！',
-      'isOkiben': false,
-      'imagePath': 'assets/images/big_image_sample.png'
-    },
-  ];
+  // List<Map<String, dynamic>> _itemList = [
+  //   {
+  //     'name': '数学の教科書',
+  //     'memo': 'Aくんに貸した',
+  //     'isOkiben': true,
+  //     'imagePath': 'assets/images/bread.png'
+  //   },
+  //   {
+  //     'name': '英語の教科書',
+  //     'memo': '来週の授業で必要！',
+  //     'isOkiben': false,
+  //     'imagePath': 'assets/images/big_image_sample.png'
+  //   },
+  // ];
+  List<Map<String, dynamic>> _itemList = [];
 
   OkibenManageModel() {
     load();
@@ -137,6 +138,16 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                 final itemListCopy = model.itemList[index];
                 return Column(
                   children: [
+                    (index == 0)
+                      ? SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          '全${model.itemList.length}アイテム (置き勉 ${model.itemList.where((element) => element['isOkiben']).length}点 | 家 ${model.itemList.where((element) => !element['isOkiben']).length}点) ',
+                          style: TextStyle(fontSize: 15),
+                          textAlign: TextAlign.right,
+                        ),
+                      )
+                      : Container(),
                     OkibenItemTile(
                       image: 'assets/images/bread.png',
                       title: itemListCopy['name'],
@@ -174,7 +185,7 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                   return CompCommonDialog(
                     title: 'アイテム追加',
                     customContentMainAxisAlignment: MainAxisAlignment.spaceAround,
-                    customHeight: 225,
+                    customHeight: null,
                     contentChildren: [
                       Column(children: [
                         SizedBox(
@@ -192,6 +203,7 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                           },
                         ),
                       ]),
+                      SizedBox(height: 40),
                       CompCommonButton(
                         buttonText: '追加',
                         onPressed: (newItemName.isEmpty)
@@ -209,7 +221,8 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                             Navigator.pop(context);
                           },
                         isDarkMode: Theme.of(context).brightness == Brightness.dark ? true : false,
-                      )
+                      ),
+                      SizedBox(height: 10),
                     ]
                   );
                 }

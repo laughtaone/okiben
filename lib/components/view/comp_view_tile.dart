@@ -43,20 +43,30 @@ class CompViewTileState extends State<CompViewTile> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(children: [
-          Transform.scale(
-            scale: 0.8,
-            child: CupertinoSwitch(
-              value: widget.isInSchool,
-              onChanged: (_) {},
-              activeTrackColor: Color(0xff64c466),
-            ),
-          ),
-          Text(
-            '${(widget.isInSchool ? '学校' : '家')}にあるもの',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          )
-        ]),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(children: [
+              Transform.scale(
+                scale: 0.8,
+                child: CupertinoSwitch(
+                  value: widget.isInSchool,
+                  onChanged: (_) {},
+                  activeTrackColor: Color(0xff64c466),
+                ),
+              ),
+              Text(
+                '${(widget.isInSchool ? '学校' : '家')}にあるもの',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              )
+            ]),
+            Text(
+              '${widget.itemList.where((element) => (widget.isInSchool) ? element['isOkiben'] : !element['isOkiben']).length.toString()}点',
+              style: TextStyle(fontSize: 17),
+            )
+          ],
+        ),
         SizedBox(height: 2),
         Expanded(
           child: itemListCount == 0
