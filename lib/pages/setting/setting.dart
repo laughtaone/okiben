@@ -6,7 +6,7 @@ import 'package:okiben/components/comp_common_button.dart';
 import 'package:okiben/components/comp_common_dialog.dart';
 import 'package:okiben/functions/func_open_url.dart';
 import 'package:okiben/pages/setting/theme_setting_page.dart';
-import 'package:okiben/pages/setting/use_packages_page.dart';
+import 'package:okiben/pages/setting/use_packages/use_packages_page.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
@@ -168,7 +168,7 @@ class SettingPageState extends State<SettingPage> {
                 ),
                 title: const Text(
                   '登録中のアイテムを一括削除',
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
                 description: Column(
                   children: [
@@ -200,12 +200,12 @@ class SettingPageState extends State<SettingPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children:  [
+                                  children: const [
                                     SizedBox(height: 2),
                                     Row(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.min,
-                                      children: const [
+                                      children: [
                                         Icon(Icons.error_outlined, size: 23, color: Colors.red),
                                         SizedBox(width: 5),
                                         Padding(
@@ -219,21 +219,21 @@ class SettingPageState extends State<SettingPage> {
                                     ),
                                     SizedBox(height: 5),
                                     Text.rich(
-                                      TextSpan(children: const [
+                                      TextSpan(children: [
                                         TextSpan(text: '全て完全に削除',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
                                         TextSpan(text: 'されます'),
                                       ],style: TextStyle(
                                         fontSize: 16,
-                                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black
+                                        color: Colors.black
                                       )
                                     )),
                                     Text.rich(
-                                      TextSpan(children: const [
+                                      TextSpan(children: [
                                         TextSpan(text: '実行後の'),
                                         TextSpan(text: '取り消しはできません',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
                                       ],style: TextStyle(
                                         fontSize: 16,
-                                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black
+                                        color: Colors.black
                                       )
                                     )),
                                   ],
