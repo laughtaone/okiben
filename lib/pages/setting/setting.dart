@@ -1,19 +1,18 @@
 // 設定画面
-// flutter run -d chrome lib/pages/setting/setting.dart
-
 import 'package:flutter/material.dart';
 import 'package:okiben/components/comp_common_appbar.dart';
+import 'package:okiben/functions/func_theme.dart';
+import 'package:okiben/pages/setting/theme_setting_page.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
-import 'package:okiben/main.dart';
 import 'package:okiben/customs.dart';
+import 'package:okiben/main.dart';
 
 
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
-
   @override
   SettingPageState createState() => SettingPageState();
 }
@@ -21,6 +20,8 @@ class SettingPage extends StatefulWidget {
 class SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
+    final String? themeSetting = Provider.of<ThemeModel>(context).themeMode.toString().split('.').last;
+
     return Scaffold(
       appBar: CompCommonAppbar(
         icon: Icons.settings,
@@ -32,32 +33,38 @@ class SettingPageState extends State<SettingPage> {
         sections: [
           SettingsSection(
             title: Text(
-              '画面モード',
+              '外観モード',
               style: Theme.of(context).brightness == Brightness.light
                 ? settingSectionTitleLight()
                 : settingSectionTitleDark(),
             ),
             tiles: <SettingsTile>[
-              SettingsTile.switchTile(
-                leading: Icon(Icons.dark_mode_outlined),
-                title: const Text('ダークモードにする'),
+              SettingsTile.navigation(
+                leading: Icon(Icons.light_mode_outlined),
+                title: const Text('外観モード'),
+                value: Text(
+                  themeSetting == 'system'
+                    ? '端末に合わせる'
+                    : themeSetting == 'light'
+                      ? 'ライトモード'
+                      : 'ダークモード',
+                ),
                 description: Text(
-                  'この設定が"オフ"でライトモード、"オン"でダークモードになります。',
+                  '画面全体の配色をカスタマイズできます。',
                   style: Theme.of(context).brightness == Brightness.light
                     ? settingDescriptionLight()
                     : settingDescriptionDark(),
                 ),
-                initialValue: Provider.of<ThemeModel>(context).isDarkMode,
-                onToggle: (value) {
-                  if (value) {
-                    // ダークモードに切り替え
-                    Provider.of<ThemeModel>(context, listen: false).setDarkMode();
-                  } else {
-                    // ライトモードに切り替え
-                    Provider.of<ThemeModel>(context, listen: false).setLightMode();
-                  }
-                },
-              )
+                onPressed: (_) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ThemeSettingPage();
+                      },
+                    ),
+                  );
+                }
+              ),
             ],
           ),
           SettingsSection(

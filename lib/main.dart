@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:okiben/functions/func_theme.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:okiben/pages/view/view.dart';
 import 'package:provider/provider.dart';
 
 
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  String? themeMode = await funcLoadTheme(); // funcLoadThemeを呼び出してテーマモードを取得
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => OkibenManageModel()),
-        ChangeNotifierProvider(create: (context) => ThemeModel()),
+        ChangeNotifierProvider(create: (context) => ThemeModel(themeMode)),
       ],
       child: StartPageHome(),
     ),
@@ -56,7 +60,7 @@ class StartPageHome extends StatelessWidget {
           backgroundColor: Color(0xFF202020),
         ),
       ),
-      themeMode: themeModel.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      themeMode: themeModel.themeMode,
     );
   }
 }
@@ -70,7 +74,6 @@ class StartPageWidget extends StatefulWidget {
 
 
 class _StartPageWidgetState extends State<StartPageWidget> {
-  // const _StartPageWidgetState({Key? key}) : super(key: key);
   var _currentIndex = 0;
 
   var _pages = <Widget>[
@@ -107,17 +110,32 @@ class _StartPageWidgetState extends State<StartPageWidget> {
 }
 
 class ThemeModel extends ChangeNotifier {
-  bool _isDarkMode = false;
+  late ThemeMode _themeMode;
 
-  bool get isDarkMode => _isDarkMode;
+  ThemeModel(String? themeMode) {
+    if (themeMode == 'dark') {
+      _themeMode = ThemeMode.dark;
+    } else if (themeMode == 'light') {
+      _themeMode = ThemeMode.light;
+    } else {
+      _themeMode = ThemeMode.system;
+    }
+  }
+
+  ThemeMode get themeMode => _themeMode;
 
   void setDarkMode() {
-    _isDarkMode = true;
+    _themeMode = ThemeMode.dark;
     notifyListeners();
   }
 
   void setLightMode() {
-    _isDarkMode = false;
+    _themeMode = ThemeMode.light;
+    notifyListeners();
+  }
+
+  void setSystemMode() {
+    _themeMode = ThemeMode.system;
     notifyListeners();
   }
 }

@@ -8,11 +8,15 @@ class CompCommonAppbar extends StatelessWidget implements PreferredSizeWidget {
     required this.icon,
     required this.title,
     this.isCloseButton=false,
+    this.isDisplayBackButton=false,
+    this.isDisplayRightButton=true
   });
 
   final IconData icon;
   final String title;
   final bool isCloseButton;
+  final bool isDisplayBackButton;
+  final bool isDisplayRightButton;
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -36,32 +40,34 @@ class CompCommonAppbar extends StatelessWidget implements PreferredSizeWidget {
           Text(title),
         ],
       ),
-      automaticallyImplyLeading: false, // 左側の閉じるボタン非表示
+      automaticallyImplyLeading: isDisplayBackButton, // 左側の閉じるボタン
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
-      actions: [
-        IconButton(
-          icon: Icon(
-            (isCloseButton) ? Icons.close : Icons.settings,
-            color: Theme.of(context).brightness == Brightness.light
-              ? Colors.black87
-              : Colors.white,
-            size: 26,
-          ),
-          onPressed: () {
-            if (isCloseButton) {
-              Navigator.pop(context);
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SettingPage(),
-                  fullscreenDialog: true,
-                ),
-              );
+      actions: (isDisplayRightButton)
+        ? [
+          IconButton(
+            icon: Icon(
+              (isCloseButton) ? Icons.close : Icons.settings,
+              color: Theme.of(context).brightness == Brightness.light
+                ? Colors.black87
+                : Colors.white,
+              size: 26,
+            ),
+            onPressed: () {
+              if (isCloseButton) {
+                Navigator.pop(context);
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingPage(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              }
             }
-          }
-        )
-      ],
+          )
+        ]
+        : [SizedBox.shrink()]
     );
   }
 }
