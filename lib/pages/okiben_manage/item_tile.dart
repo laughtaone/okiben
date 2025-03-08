@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:okiben/components/comp_close_circle_button.dart';
 import 'package:okiben/components/comp_common_dialog.dart';
-import 'package:okiben/components/comp_save_button.dart';
+import 'package:okiben/components/comp_common_button.dart';
 import 'package:okiben/components/comp_target_display.dart';
 import 'package:okiben/customs.dart';
 import 'package:okiben/components/comp_operation_tile.dart';
@@ -152,7 +152,8 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                                                   },
                                                 ),
                                               ]),
-                                              CompSaveButton(
+                                              CompCommonButton(
+                                                buttonText: '保存',
                                                 onPressed: (newName.isNotEmpty && widget.title != newName)
                                                   ? () => Navigator.pop(context, newName)
                                                   : null,
@@ -233,7 +234,8 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                                                   },
                                                 ),
                                               ]),
-                                              CompSaveButton(
+                                              CompCommonButton(
+                                                buttonText: '保存',
                                                 onPressed: (newMemo.isNotEmpty && widget.title != newMemo)
                                                   ? () => Navigator.pop(context, newMemo)
                                                   : null,
@@ -265,80 +267,45 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                     onPressed: () {
                       Navigator.pop(context);
                       showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: Theme.of(context).brightness == Brightness.light
-                                ? Colors.white
-                                : dialogBackColor(),
-                              title: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: [
-                                  Text("削除"),
-                                  SizedBox(height: 6),
-                                  Text(
-                                    '本当に削除しますか？',
-                                    style: TextStyle(fontSize: 19),
-                                  ),
-                                  SizedBox(height: 11),
-                                  Text(
-                                    '削除するアイテム名',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Theme.of(context).brightness == Brightness.light
-                                        ? Colors.black
-                                        : Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Theme.of(context).brightness == Brightness.light
-                                          ? Colors.black
-                                          : Colors.white,
-                                        width: 0.5,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Theme.of(context).brightness == Brightness.light
-                                        ? Colors.white
-                                        : Color(0xff666666),
-                                    ),
-                                    height: 80,
-                                    child: Center(
-                                      child: Text(
-                                        widget.title
-                                      ),
-                                    ),
-                                  )
-                                ],
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return CompCommonDialog(
+                            customHeight: 250,
+                            customContentMainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            title: '削除',
+                            contentChildren: [
+                              Text(
+                                '本当に削除しますか？',
+                                style: TextStyle(fontSize: 19),
                               ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context),
-                                  child: Text(
-                                    'キャンセル',
-                                    style:
-                                        okibenItemDialogActionsTextStyle(''),
-                                  ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    CompTargetDisplay(
+                                      title: '削除対象',
+                                      displayText: widget.title,
+                                    ),
+                                    CompCommonButton(
+                                      buttonText: '完全に削除',
+                                      customButtonColor: ( Theme.of(context).brightness == Brightness.light)
+                                        ? Color.fromARGB(255, 234, 89, 89)
+                                        : Color.fromARGB(255, 136, 66, 66),
+                                      customWidth: 200,
+                                      isDarkMode: (Theme.of(context).brightness == Brightness.light) ? false : true,
+                                      onPressed: () {
+                                        widget.delete(widget.indexNum); // 要素を削除する関数を呼び出す
+                                        Navigator.pop(context);
+                                      }
+                                    )
+                                  ]
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    widget.delete(widget.indexNum); // 要素を削除する関数を呼び出す
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    '完全に削除',
-                                    style:
-                                      okibenItemDialogActionsTextStyle('red'),
-                                  ),
-                                ),
-                              ],
-                            );
-                          }).then((newName) {
+                              ),
+                            ]
+                          );
+                        }
+                      ).then((newName) {
                         if (newName != null && newName.isNotEmpty) {
                           widget.onNameChanged(newName);
                         }
