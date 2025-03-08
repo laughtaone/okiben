@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:okiben/components/comp_common_appbar.dart';
 import 'package:okiben/components/comp_common_button.dart';
 import 'package:okiben/components/comp_common_dialog.dart';
+import 'package:okiben/components/comp_fake_add_button.dart';
 import 'package:okiben/customs.dart';
 import 'package:okiben/functions/func_load_item_list.dart';
 import 'package:okiben/pages/okiben_manage/item_tile.dart';
@@ -107,34 +108,57 @@ class OkibenManagePageState extends State<OkibenManagePage> {
       body: Consumer<OkibenManageModel>(builder: (context, model, child) {
         return Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-          child: ListView.builder(
-            itemCount: model.itemList.length,
-            itemBuilder: (context, index) {
-              final itemListCopy = model.itemList[index];
-              return Column(
-                children: [
-                  OkibenItemTile(
-                    image: 'assets/images/bread.png',
-                    title: itemListCopy['name'],
-                    value: itemListCopy['isOkiben'],
-                    memo: itemListCopy['memo'],
-                    indexNum: index,
-                    onChanged: (newValue) {
-                      model.toggleSwitch(index, newValue);
-                    },
-                    onNameChanged: (String newName) {
-                      model.updateItemTitle(index, newName); // タイトルを更新
-                    },
-                    onMemoChanged: (String newMemo) {
-                      model.updateItemMemo(index, newMemo); // メモを更新
-                    },
-                    delete: (int index) {
-                      model.removeItem(index);
-                    },
-                  ),
+          child: (model.itemList.isEmpty)
+            ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('🫥', style: TextStyle(fontSize: 60)),
+                  Text('アイテムがありません', style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 30),
+                  Wrap(
+                    alignment :WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                    Text('右下の', style: TextStyle(fontSize: 15)),
+                    CompFakeAddButton(sizeOneSide: 36, customBorderRadius: 10, customHorizontalMargin: 6),
+                    Text('ボタンを押して'),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Text('アイテムを追加してください', style: TextStyle(fontSize: 15)),
+                    )
+                  ])
                 ],
-              );
-            },
+              ),
+            )
+            : ListView.builder(
+              itemCount: model.itemList.length,
+              itemBuilder: (context, index) {
+                final itemListCopy = model.itemList[index];
+                return Column(
+                  children: [
+                    OkibenItemTile(
+                      image: 'assets/images/bread.png',
+                      title: itemListCopy['name'],
+                      value: itemListCopy['isOkiben'],
+                      memo: itemListCopy['memo'],
+                      indexNum: index,
+                      onChanged: (newValue) {
+                        model.toggleSwitch(index, newValue);
+                      },
+                      onNameChanged: (String newName) {
+                        model.updateItemTitle(index, newName); // タイトルを更新
+                      },
+                      onMemoChanged: (String newMemo) {
+                        model.updateItemMemo(index, newMemo); // メモを更新
+                      },
+                      delete: (int index) {
+                        model.removeItem(index);
+                      },
+                    ),
+                  ],
+                );
+              },
           ),
         );
       }),
@@ -181,9 +205,7 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                               Provider.of<OkibenManageModel>(context, listen: false)
                                 .addItem(
                                   _finalItemText
-                                );
-                              debugPrint('_finalItemTextは$_finalItemText');
-                            }
+                                );                            }
                             Navigator.pop(context);
                           },
                         isDarkMode: Theme.of(context).brightness == Brightness.dark ? true : false,

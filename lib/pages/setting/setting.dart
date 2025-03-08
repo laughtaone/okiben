@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:okiben/components/comp_common_appbar.dart';
 import 'package:okiben/components/comp_common_button.dart';
 import 'package:okiben/components/comp_common_dialog.dart';
+import 'package:okiben/components/comp_fake_add_button.dart';
 import 'package:okiben/functions/func_open_url.dart';
 import 'package:okiben/pages/setting/theme_setting_page.dart';
 import 'package:okiben/pages/setting/use_packages/use_packages_page.dart';
@@ -87,22 +88,9 @@ class SettingPageState extends State<SettingPage> {
                 leading: Icon(Icons.looks_one_outlined),
                 title: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
+                  children: const [
                     Text('アイテムを「置き勉管理」タブの右下の'),
-                    Container(
-                      width: 20,
-                      height: 20,
-                      margin: const EdgeInsets.symmetric(horizontal: 3),
-                      decoration: BoxDecoration(
-                        color: addIconButtonColor(isDarkMode:  Theme.of(context).brightness == Brightness.dark),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(child: Icon(
-                        Icons.add_outlined,
-                        size: 18,
-                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black
-                      ))
-                    ),
+                    CompFakeAddButton(sizeOneSide: 20),
                     Text('ボタンから追加します')
                   ],
                 )

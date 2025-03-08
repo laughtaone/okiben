@@ -17,7 +17,5 @@ Future<String?> funcLoadTheme() async {
 // 書き込み関数
 Future<bool> funcWriteTheme(String theme) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  debugPrint(await funcLoadTheme());
   return await prefs.setString('theme', theme);
 }
