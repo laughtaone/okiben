@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:okiben/components/comp_common_appbar.dart';
 import 'package:okiben/components/comp_common_button.dart';
 import 'package:okiben/components/comp_common_dialog.dart';
+import 'package:okiben/customs.dart';
 import 'package:okiben/functions/func_load_item_list.dart';
 import 'package:okiben/pages/okiben_manage/item_tile.dart';
 import 'package:provider/provider.dart';
@@ -21,14 +22,14 @@ class OkibenManagePage extends StatefulWidget {
 class OkibenManageModel extends ChangeNotifier {
   List<Map<String, dynamic>> _itemList = [
     {
-      'name': 'OSの教科書',
+      'name': '数学の教科書',
       'memo': 'Aくんに貸した',
       'isOkiben': true,
       'imagePath': 'assets/images/bread.png'
     },
     {
-      'name': '確率の教科書',
-      'memo': '来週の確率の授業で必要！',
+      'name': '英語の教科書',
+      'memo': '来週の授業で必要！',
       'isOkiben': false,
       'imagePath': 'assets/images/big_image_sample.png'
     },
@@ -138,6 +139,7 @@ class OkibenManagePageState extends State<OkibenManagePage> {
         );
       }),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: addIconButtonColor(isDarkMode:  Theme.of(context).brightness == Brightness.dark),
         onPressed: () {
           showDialog(
             context: context,
@@ -153,7 +155,7 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                       Column(children: [
                         SizedBox(
                           width: double.infinity,
-                          child: Text('↓変更後の名前を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                          child: Text('↓追加するアイテム名を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
                         ),
                         SizedBox(height: 2),
                         TextField(
@@ -175,8 +177,8 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                               _finalItemText = newItemName; //編集用を保存用に
                             });
                             if (_finalItemText.isNotEmpty) {
+                              // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
                               Provider.of<OkibenManageModel>(context, listen: false)
-                                // OkibenManageModel().addItem(_finalItemText);では、Providerを通じて操作してないからダメ
                                 .addItem(
                                   _finalItemText
                                 );

@@ -12,9 +12,9 @@ class CompViewInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(10),
         color: Theme.of(context).brightness == Brightness.light
-          ? Color(0xffededed)
+          ? Color(0xfff5f5f5)
           : Color(0xff303030),
       ),
       padding: EdgeInsets.fromLTRB(10,8,8,8),

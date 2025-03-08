@@ -1,4 +1,5 @@
 // 設定画面
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:okiben/components/comp_common_appbar.dart';
 import 'package:okiben/functions/func_theme.dart';
@@ -77,35 +78,69 @@ class SettingPageState extends State<SettingPage> {
             tiles: <SettingsTile>[
               SettingsTile(
                 leading: Icon(Icons.looks_one_outlined),
-                title: const Text('管理したいアイテムを「置き勉管理」タブの右下の＋ボタンから追加する'),
+                title: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Text('アイテムを「置き勉管理」タブの右下の'),
+                    Container(
+                      width: 20,
+                      height: 20,
+                      margin: const EdgeInsets.symmetric(horizontal: 3),
+                      decoration: BoxDecoration(
+                        color: addIconButtonColor(isDarkMode:  Theme.of(context).brightness == Brightness.dark),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Center(child: Icon(
+                        Icons.add_outlined,
+                        size: 18,
+                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black
+                      ))
+                    ),
+                    Text('ボタンから追加します')
+                  ],
+                )
               ),
               SettingsTile(
                 leading: Icon(Icons.looks_two_outlined),
-                title: const Text(
-                    '追加したアイテムを置き勉したらスイッチをオンに、置き勉していなかったらスイッチをオフにする'),
-              ),
-              SettingsTile(
-                leading: Icon(Icons.looks_3_outlined),
-                title: RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.light
-                        ? Colors.black
-                        : Colors.white,
-                    ),
-                    children: const <TextSpan>[
-                      TextSpan(text: '各アイテムについて、アイテムをタップ後、\n'),
-                      TextSpan(text: '・名前を編集するには「編集」ボタン\n'),
-                      TextSpan(text: '・メモを追加するには「メモ」ボタン\n'),
-                      TextSpan(text: '・削除するには「削除」ボタン\n'),
-                      TextSpan(text: 'を押す'),
-                    ],
-                  ),
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('追加したアイテムを'),
+                    SizedBox(height: 5),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      SizedBox(width: 170, child: Center(child: Text('置き勉したら'))),
+                      Transform.scale(
+                        scale: 0.8,
+                        child: CupertinoSwitch(
+                          value: true,
+                          onChanged: (_) {},
+                          activeTrackColor: Color(0xff64c466),
+                        ),
+                      )
+                    ]),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      SizedBox(width: 170, child: Center(child: Text('置き勉しなかったら'))),
+                      Transform.scale(
+                        scale: 0.8,
+                        child: CupertinoSwitch(
+                          value: false,
+                          onChanged: (_) {},
+                          activeTrackColor: Color(0xff64c466),
+                        ),
+                      )
+                    ]),
+                    SizedBox(height: 5),
+                    const Text('にします')
+                  ],
                 ),
               ),
               SettingsTile(
+                leading: Icon(Icons.looks_3_outlined),
+                title: const Text('各アイテムをタップすると「編集」「メモ」「削除」の操作ができます')
+              ),
+              SettingsTile(
                 leading: Icon(Icons.looks_4_outlined),
-                title: const Text('各アイテムの"置き勉状況"を一覧で見たい時は「ビュー」タブから見る'),
+                title: const Text('各アイテムの置き勉状況は「ビュー」タブから一覧で見ることができます')
               ),
             ],
           ),

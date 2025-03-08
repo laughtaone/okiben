@@ -51,7 +51,7 @@ Color itemTileOperateButtonColor() {
 }
 
 Color itemTileOperateEditButtonColor({isDartMode=false}) {
-  return (isDartMode) ? Color(0xffbac4ca) : Color(0xfff1faff);
+  return (isDartMode) ? Color(0xffbac4ca) : Color(0xffeaf4fa);
 }
 
 Color itemTileOperateMemoButtonColor() {
@@ -118,4 +118,9 @@ TextStyle settingDescriptionDark() {
     fontSize: 12,
     color: Color(0xffcccccc),
   );
+}
+
+// 追加ボタンの色
+Color addIconButtonColor({isDarkMode=false}) {
+  return (isDarkMode) ? Color(0xffe0e0e0) : Color(0xff404040);
 }
