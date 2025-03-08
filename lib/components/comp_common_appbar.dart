@@ -7,10 +7,12 @@ class CompCommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CompCommonAppbar({super.key,
     required this.icon,
     required this.title,
+    this.isCloseButton=false,
   });
 
   final IconData icon;
   final String title;
+  final bool isCloseButton;
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -34,24 +36,29 @@ class CompCommonAppbar extends StatelessWidget implements PreferredSizeWidget {
           Text(title),
         ],
       ),
+      automaticallyImplyLeading: false, // 左側の閉じるボタン非表示
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
       actions: [
         IconButton(
           icon: Icon(
-            Icons.settings,
+            (isCloseButton) ? Icons.close : Icons.settings,
             color: Theme.of(context).brightness == Brightness.light
               ? Colors.black87
               : Colors.white,
             size: 26,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SettingPage(),
-                fullscreenDialog: true,
-              ),
-            );
+            if (isCloseButton) {
+              Navigator.pop(context);
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingPage(),
+                  fullscreenDialog: true,
+                ),
+              );
+            }
           }
         )
       ],
