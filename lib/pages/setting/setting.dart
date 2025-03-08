@@ -184,7 +184,8 @@ class SettingPageState extends State<SettingPage> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      bool isUnlocked = false;                      return StatefulBuilder(
+                      bool isUnlocked = false;
+                      return StatefulBuilder(
                         builder: (context, setState) {
                           return CompCommonDialog(
                             customHeight: 300,
@@ -194,18 +195,18 @@ class SettingPageState extends State<SettingPage> {
                                 width: double.infinity,
                                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                                 decoration: BoxDecoration(
-                                  color: Color(0xffffedf0),
+                                  color: (Theme.of(context).brightness == Brightness.light) ? Color(0xffffedf0) :Color(0xff603A40),
                                   borderRadius: BorderRadius.circular(15)
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     SizedBox(height: 2),
                                     Row(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.min,
-                                      children: [
+                                      children: const [
                                         Icon(Icons.error_outlined, size: 23, color: Colors.red),
                                         SizedBox(width: 5),
                                         Padding(
@@ -219,21 +220,21 @@ class SettingPageState extends State<SettingPage> {
                                     ),
                                     SizedBox(height: 5),
                                     Text.rich(
-                                      TextSpan(children: [
-                                        TextSpan(text: '全て完全に削除',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
+                                      TextSpan(children: const [
+                                        TextSpan(text: '全て完全に削除',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red)),
                                         TextSpan(text: 'されます'),
                                       ],style: TextStyle(
                                         fontSize: 16,
-                                        color: Colors.black
+                                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
                                       )
                                     )),
                                     Text.rich(
-                                      TextSpan(children: [
+                                      TextSpan(children: const [
                                         TextSpan(text: '実行後の'),
                                         TextSpan(text: '取り消しはできません',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
                                       ],style: TextStyle(
                                         fontSize: 16,
-                                        color: Colors.black
+                                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
                                       )
                                     )),
                                   ],
@@ -245,7 +246,11 @@ class SettingPageState extends State<SettingPage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Text('本当に削除しますか？', style: TextStyle(fontSize: 18)),
+                                    const Column(children: [
+                                      SizedBox(height: 3),
+                                      Text('本当に削除しますか？', style: TextStyle(fontSize: 18)),
+                                      Text('(下のボタンを押すと確認なしに削除を実行します)', style: TextStyle(fontSize: 11)),
+                                    ]),
                                     CompCommonButton(
                                       buttonText: '完全に削除',
                                       onPressed: (isUnlocked)
