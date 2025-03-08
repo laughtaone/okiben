@@ -25,7 +25,7 @@ class SettingPage extends StatefulWidget {
 class SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    final String? themeSetting = Provider.of<ThemeModel>(context).themeMode.toString().split('.').last;
+    final String themeSetting = Provider.of<ThemeModel>(context).themeMode.toString().split('.').last;
 
     return Scaffold(
       appBar: CompCommonAppbar(
@@ -184,9 +184,7 @@ class SettingPageState extends State<SettingPage> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      bool isUnlocked = false;
-                      int unlockCount = 0;
-                      return StatefulBuilder(
+                      bool isUnlocked = false;                      return StatefulBuilder(
                         builder: (context, setState) {
                           return CompCommonDialog(
                             customHeight: 300,
@@ -258,21 +256,31 @@ class SettingPageState extends State<SettingPage> {
                                         }
                                         : null,
                                       isDarkMode: Theme.of(context).brightness == Brightness.dark,
+                                      customButtonColor: (Theme.of(context).brightness == Brightness.light) ? Color(0xffcc3d3d) : Color(0xffcc3d3d),
                                       customWidth: 200,
                                     )
                                   ]
                                 ),
                               ),
-                          
+
                               TextButton(
-                                onPressed: () {},
-                                onLongPress: () {
-                                  setState(() {
+                                onPressed: (isUnlocked)
+                                  ? null
+                                  : () {},
+                                onLongPress: (isUnlocked)
+                                  ? null
+                                  : () {
+                                    setState(() {
                                     isUnlocked = true;
-                                  });
-                                },
+                                    });
+                                  },
                                 style: TextButton.styleFrom(
-                                  backgroundColor: Color(0xffECECEC),
+                                  backgroundColor: (Theme.of(context).brightness == Brightness.light)
+                                    ? Color(0xffE0E0E0)
+                                    : Color(0xff666666),
+                                  disabledBackgroundColor: (Theme.of(context).brightness == Brightness.light)
+                                    ? Color(0xffF7F7F7)
+                                    : Color(0xff464646),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)
                                   )
@@ -282,11 +290,11 @@ class SettingPageState extends State<SettingPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: const [
-                                    Icon(Icons.lock_outline, color: Colors.black),
+                                    Icon(Icons.lock_outline),
                                     SizedBox(width: 5),
                                     Padding(
                                       padding: EdgeInsets.only(top: 4),
-                                      child: Text('ロック解除 (長押し)', style: TextStyle(color: Colors.black)),
+                                      child: Text('ロック解除 (長押し)'),
                                     ),
                                   ],
                                 )
