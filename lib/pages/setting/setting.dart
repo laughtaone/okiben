@@ -2,13 +2,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:okiben/components/comp_common_appbar.dart';
-import 'package:okiben/functions/func_theme.dart';
+import 'package:okiben/components/comp_common_button.dart';
+import 'package:okiben/components/comp_common_dialog.dart';
+import 'package:okiben/functions/func_open_url.dart';
 import 'package:okiben/pages/setting/theme_setting_page.dart';
+import 'package:okiben/pages/setting/use_packages_page.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:okiben/customs.dart';
 import 'package:okiben/main.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 
@@ -32,6 +36,7 @@ class SettingPageState extends State<SettingPage> {
       body: SettingsList(
         platform: DevicePlatform.iOS,
         sections: [
+          // ---------------------------- 外観モード ------------------------------
           SettingsSection(
             title: Text(
               '外観モード',
@@ -68,6 +73,8 @@ class SettingPageState extends State<SettingPage> {
               ),
             ],
           ),
+          // --------------------------------------------------------------------
+          // ------------------------- このアプリの使い方 --------------------------
           SettingsSection(
             title: Text(
               'このアプリの使い方',
@@ -144,6 +151,8 @@ class SettingPageState extends State<SettingPage> {
               ),
             ],
           ),
+          // --------------------------------------------------------------------
+          // --------------------------- Danger Zone ----------------------------
           SettingsSection(
             title: Text(
               'Danger Zone (!操作に要注意!)',
@@ -153,81 +162,134 @@ class SettingPageState extends State<SettingPage> {
             ),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
-                leading: Icon(Icons.delete_sweep_outlined),
-                title: const Text('登録中のアイテムを一括削除'),
-                description: Text(
-                  'この操作を実行すると、登録されている全てのアイテムが一括削除されます。',
-                  style: Theme.of(context).brightness == Brightness.light
-                    ? settingDescriptionLight()
-                    : settingDescriptionDark(),
+                leading: Icon(
+                  Icons.delete_sweep_outlined,
+                  color: Colors.red
+                ),
+                title: const Text(
+                  '登録中のアイテムを一括削除',
+                  style: TextStyle(color: Colors.red),
+                ),
+                description: Column(
+                  children: [
+                    Text(
+                      'この操作を実行すると、登録されている全てのアイテムが一括削除されます。',
+                      style: Theme.of(context).brightness == Brightness.light
+                        ? settingDescriptionLight()
+                        : settingDescriptionDark(),
+                    )
+                  ],
                 ),
                 onPressed: (context) {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        backgroundColor: Theme.of(context).brightness == Brightness.light
-                          ? Colors.white
-                          : dialogBackColor(),
-                        title: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            Icon(
-                              Icons.error_outlined,
-                              size: 25,
-                              color: Colors.red,
-                            ),
-                            SizedBox(width: 10),
-                            Text(
-                              '確認',
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
-                            ),
-                          ],
-                        ),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text.rich(
-                              TextSpan(children: [
-                                TextSpan(text: 'この操作を実行すると、登録されているアイテムが'),
-                                TextSpan(text: '全て完全に削除',style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
-                                TextSpan(text: 'されます。'),
-                              ],style: TextStyle(fontSize: 16),
-                            )),
-                            Text.rich(
-                              TextSpan(children: [
-                                TextSpan(text: 'また、実行後の'),
-                                TextSpan(text: '取り消しは完全にできません',style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
-                                TextSpan(text: '。'),
-                              ],style: TextStyle(fontSize: 16),
-                            )),
-                            SizedBox(height: 20),
-                            Text('本当に削除しますか？', style: TextStyle(fontSize: 16),),
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              // 一括削除の処理をここに記述
-                              Provider.of<OkibenManageModel>(context, listen: false).clearItemList();
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('削除'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(
-                              'キャンセル',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red
+                      bool isUnlocked = false;
+                      int unlockCount = 0;
+                      return StatefulBuilder(
+                        builder: (context, setState) {
+                          return CompCommonDialog(
+                            customHeight: 300,
+                            title: '確認',
+                            contentChildren: [
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                decoration: BoxDecoration(
+                                  color: Color(0xffffedf0),
+                                  borderRadius: BorderRadius.circular(15)
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    SizedBox(height: 2),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(Icons.error_outlined, size: 23, color: Colors.red),
+                                        SizedBox(width: 5),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 4),
+                                          child: Text(
+                                            '警告',
+                                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text.rich(
+                                      TextSpan(children: [
+                                        TextSpan(text: '全て完全に削除',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
+                                        TextSpan(text: 'されます'),
+                                      ],style: TextStyle(fontSize: 16),
+                                    )),
+                                    Text.rich(
+                                      TextSpan(children: [
+                                        TextSpan(text: '実行後の'),
+                                        TextSpan(text: '取り消しはできません',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
+                                      ],style: TextStyle(fontSize: 16),
+                                    )),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ),
-                        ],
+                          
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text('本当に削除しますか？', style: TextStyle(fontSize: 18)),
+                                    CompCommonButton(
+                                      buttonText: '完全に削除',
+                                      onPressed: (isUnlocked)
+                                        ? () {
+                                          // 一括削除の処理をここに記述
+                                          Provider.of<OkibenManageModel>(context, listen: false).clearItemList();
+                                          Navigator.of(context).pop();
+                                        }
+                                        : null,
+                                      isDarkMode:  Theme.of(context).brightness == Brightness.dark,
+                                      customButtonColor: Color(0xffcc3d3d),
+                                      customWidth: 200,
+                                    )
+                                  ]
+                                ),
+                              ),
+                          
+                              TextButton(
+                                onPressed: () {},
+                                onLongPress: () {
+
+                                  setState(() {
+                                    isUnlocked = true;
+                                  });
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Color(0xffECECEC),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                  )
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: const [
+                                    Icon(Icons.lock_outline),
+                                    SizedBox(width: 5),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 4),
+                                      child: Text('ロック解除 (長押し)'),
+                                    ),
+                                  ],
+                                )
+                              )
+                            ],
+                          );
+                        }
                       );
                     },
                   );
@@ -235,6 +297,97 @@ class SettingPageState extends State<SettingPage> {
               ),
             ],
           ),
+          // --------------------------------------------------------------------
+          // --------------------------- 開発者について ----------------------------
+          SettingsSection(
+            title: Text(
+                '開発者について',
+              style: Theme.of(context).brightness == Brightness.light
+                ? settingSectionTitleLight()
+                : settingSectionTitleDark(),
+            ),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: const FaIcon(FontAwesomeIcons.github),
+                title: const Text('GitHub'),
+                value: const Text('@laughtaone'),
+                onPressed: (BuildContext context) async {
+                  await funcOpenUrl('https://www.github.com/laughtaone/');
+                },
+              ),
+              SettingsTile.navigation(
+                leading: const FaIcon(FontAwesomeIcons.xTwitter),
+                title: const Text('X'),
+                value: const Text('@laughtaone'),
+                onPressed: (BuildContext context) async {
+                  await funcOpenUrl('https://x.com/laughtaone/');
+                },
+              ),
+              SettingsTile.navigation(
+                leading: const FaIcon(FontAwesomeIcons.appStoreIos),
+                title: const Text('開発者 その他アプリ'),
+                onPressed: (BuildContext context) async {
+                  await funcOpenUrl('https://apps.apple.com/us/developer/taichi-usuba/id1798659459');
+                },
+              ),
+            ],
+          ),
+          // --------------------------------------------------------------------
+          // --------------------------- アプリについて ----------------------------
+          SettingsSection(
+            title: Text(
+              'アプリについて',
+              style: Theme.of(context).brightness == Brightness.light
+                ? settingSectionTitleLight()
+                : settingSectionTitleDark(),
+            ),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: const Icon(Icons.description_outlined),
+                title: const Text('利用規約'),
+                onPressed: (BuildContext context) async {
+                  await funcOpenUrl('https://laughtaone.notion.site/okiben-1b0b5b93908181ff9708cf490a5226ed?pvs=4');
+                },
+              ),
+              SettingsTile.navigation(
+                leading: const Icon(Icons.description_outlined),
+                title: const Text('プライバシーポリシー'),
+                onPressed: (BuildContext context) async {
+                  await funcOpenUrl('https://laughtaone.notion.site/okiben-1b0b5b93908181f983eaff351ba2d06b?pvs=4');
+                },
+              ),
+              SettingsTile.navigation(
+                leading: const Icon(Icons.book_outlined),
+                title: const Text('使用パッケージ'),
+                onPressed: (BuildContext context)  {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => UsePackagesPage()
+                  ));
+                },
+              ),
+            ],
+          ),
+          // --------------------------------------------------------------------
+          // -------------------------- アプリバージョン ---------------------------
+            SettingsSection(
+              title: Text(
+                'アプリバージョン',
+                style: Theme.of(context).brightness == Brightness.light
+                  ? settingSectionTitleLight()
+                  : settingSectionTitleDark(),
+              ),
+              tiles: <SettingsTile>[
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.tag_outlined),
+                  title: const Text('アプリバージョン'),
+                  value: const Text('1.0'),
+                  onPressed: (BuildContext context) async {
+                    await funcOpenUrl('https://laughtaone.notion.site/okiben-1b0b5b93908181d0b8e7e7d71066e384?pvs=4');
+                  },
+                ),
+              ],
+            ),
+            // --------------------------------------------------------------------
         ],
       )
     );

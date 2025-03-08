@@ -21,6 +21,8 @@ dependencies:
   provider: ^6.1.2
   shared_preferences: ^2.3.1
   settings_ui: ^2.0.2
+  font_awesome_flutter: ^10.8.0
+  url_launcher: ^6.3.1
 
 
 flutter_native_splash:
