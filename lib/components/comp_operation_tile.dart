@@ -26,7 +26,7 @@ class CompOperationTileState extends State<CompOperationTile> {
     return TextButton(
       onPressed: widget.onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: itemTileOperateEditButtonColor(),
+        backgroundColor: itemTileOperateEditButtonColor(isDartMode:  Theme.of(context).brightness == Brightness.light ? false : true),
         fixedSize: itemTileOperateButtonSize(),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),

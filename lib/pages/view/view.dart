@@ -1,8 +1,8 @@
 // ビュー画面
 import 'package:flutter/material.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
-import 'package:okiben/pages/view/comp_view_info.dart';
-import 'package:okiben/pages/view/comp_view_tile.dart';
+import 'package:okiben/components/view/comp_view_info.dart';
+import 'package:okiben/components/view/comp_view_tile.dart';
 import 'package:provider/provider.dart';
 
 

@@ -5,9 +5,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:okiben/components/comp_close_circle_button.dart';
+import 'package:okiben/components/comp_common_dialog.dart';
 import 'package:okiben/components/comp_save_button.dart';
+import 'package:okiben/components/comp_target_display.dart';
 import 'package:okiben/customs.dart';
-import 'package:okiben/pages/okiben_manage/sub_comps/comp_operation_tile.dart';
+import 'package:okiben/components/comp_operation_tile.dart';
 
 
 
@@ -85,233 +87,180 @@ class OkibenItemTileState extends State<OkibenItemTile> {
             context: context,
             barrierDismissible: false,
             builder: (BuildContext context) {
-              return AlertDialog(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("操作"),
-                    CompCloseCircleButton(onPressed: () => Navigator.pop(context))
-                  ],
-                ),
-                backgroundColor: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white // ライトモードの色
-                  : dialogBackColor(), // ダークモードの色
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // =================================================================== 編集ボタン部分 始 ===================================================================
-                        Expanded(
-                          child: CompOperationTile(
-                            buttonText: '編集',
-                            icon: Icons.edit_outlined,
-                            // ----------------------------------------- 編集ダイアログ -----------------------------------------
-                            onPressed: () {
-                              Navigator.pop(context);
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  String newName = widget.title;
-                                  return StatefulBuilder(
-                                    builder: (context, setState) { // StatefulBuilder で Dialog 内の setState を有効化
-                                      return AlertDialog(
-                                        backgroundColor: Theme.of(context).brightness == Brightness.light
-                                          ? Colors.white // ライトモードの色
-                                          : dialogBackColor(), // ダークモードの色
-                                        content: SizedBox(
-                                          width: 300,
-                                          height: 350,
+              return CompCommonDialog(
+                title: '操作',
+                contentChildren: [
+                  CompTargetDisplay(
+                    title: '操作対象',
+                    displayText: widget.title,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // =================================================================== 編集ボタン部分 始 ===================================================================
+                      Expanded(
+                        child: CompOperationTile(
+                          buttonText: '編集',
+                          icon: Icons.edit_outlined,
+                          // ----------------------------------------- 編集ダイアログ -----------------------------------------
+                          onPressed: () {
+                            Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                String newName = widget.title;
+                                return StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return CompCommonDialog(
+                                      customHeight: 250,
+                                      customWidth: 300,
+                                      customContentMainAxisAlignment: MainAxisAlignment.start,
+                                      title: '編集',
+                                      contentChildren: [
+                                        Expanded(
                                           child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                                             children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  Text("編集", style: TextStyle(fontSize: 22)),
-                                                  CompCloseCircleButton(onPressed: () => Navigator.pop(context))
-                                                ],
+                                              CompTargetDisplay(
+                                                title: '元の名前',
+                                                displayText: widget.title,
                                               ),
-                                              Expanded(
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    Container(
-                                                      width: double.infinity,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(10),
-                                                        color: Theme.of(context).brightness == Brightness.light
-                                                          ? dialogLightColorDeep()
-                                                          : dialogBackColorLight(),
-                                                      ),
-                                                      padding: EdgeInsets.symmetric(horizontal: 17, vertical: 10),
-                                                      child: Center(
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                          children: [
-                                                            Text(
-                                                              '元の名前',
-                                                              style: TextStyle(
-                                                                fontSize: 15,
-                                                                color: Theme.of(context).brightness == Brightness.light
-                                                                  ? Colors.black
-                                                                  : Colors.white,
-                                                              ),
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                            SizedBox(width: 10),
-                                                            Expanded(
-                                                              child: Text(
-                                                                widget.title,
-                                                                style: TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight: FontWeight.bold
-                                                                ),
-                                                                textAlign: TextAlign.center,
-                                                                maxLines: 3,
-                                                                overflow: TextOverflow.ellipsis,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Column(children: [
-                                                      SizedBox(
-                                                        width: double.infinity,
-                                                        child: Text('↓変更後の名前を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
-                                                      ),
-                                                      SizedBox(height: 2),
-                                                      TextFormField(
-                                                        maxLines: null,
-                                                        keyboardType: TextInputType.text,
-                                                        style: TextStyle(fontSize: 16),
-                                                        initialValue: widget.title,
-                                                        decoration: InputDecoration(
-                                                          hintText: '未入力',
-                                                          hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),
-                                                          filled: true,
-                                                          // fillColor: const Color(0xfffefefe),
-                                                          fillColor: Theme.of(context).brightness == Brightness.light
-                                                            ? Color(0xfffefefe)
-                                                            : dialogBackColorLight()
-                                                        ),
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            newName = value; // 変更後の名前を更新
-                                                          });
-                                                        },
-                                                      ),
-                                                    ]),
-                                                    // SizedBox(height: 35),
-                                                    CompSaveButton(
-                                                      onPressed: (newName.isNotEmpty && widget.title != newName)
-                                                        ? () => Navigator.pop(context, newName)
-                                                        : null,
-                                                      isDarkMode: (Theme.of(context).brightness == Brightness.light) ? false : true
-                                                    )
-                                                  ]
+                                              Column(children: [
+                                                SizedBox(
+                                                  width: double.infinity,
+                                                  child: Text('↓変更後の名前を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
                                                 ),
+                                                SizedBox(height: 2),
+                                                TextFormField(
+                                                  maxLines: null,
+                                                  keyboardType: TextInputType.text,
+                                                  style: TextStyle(fontSize: 16),
+                                                  initialValue: widget.title,
+                                                  decoration: InputDecoration(
+                                                    hintText: '未入力',
+                                                    hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),
+                                                    filled: true,
+                                                    fillColor: Theme.of(context).brightness == Brightness.light
+                                                      ? Color(0xfffefefe)
+                                                      : dialogBackColorLight()
+                                                  ),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      newName = value; // 変更後の名前を更新
+                                                    });
+                                                  },
+                                                ),
+                                              ]),
+                                              CompSaveButton(
+                                                onPressed: (newName.isNotEmpty && widget.title != newName)
+                                                  ? () => Navigator.pop(context, newName)
+                                                  : null,
+                                                isDarkMode: (Theme.of(context).brightness == Brightness.light) ? false : true
                                               )
-                                            ],
+                                            ]
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              ).then((newName) {
-                                if (newName != null && newName.isNotEmpty) {
-                                  widget.onNameChanged(newName);
-                                }
-                              });
-                            },
-                            // ------------------------------------------------------------------------------------------------
-                          )
-                        ),
-                        // =================================================================== 編集ボタン部分 終 ===================================================================
-
-                        SizedBox(width: 12),
-
-                        // =================================================================== メモボタン部分 始 ===================================================================
-                        Expanded(
-                          child: CompOperationTile(
-                            buttonText: 'メモ',
-                            icon: Icons.local_offer_outlined,
-                            onPressed: () {
-                              Navigator.pop(context);
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext context) {
-                                    String newMemo = widget.memo;
-                                    return AlertDialog(
-                                      backgroundColor: Theme.of(context).brightness == Brightness.light
-                                        ? Colors.white // ライトモードの色
-                                        : dialogBackColor(), // ダークモードの色
-                                      title: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text("メモ"),
-                                          SizedBox(height: 6),
-                                          Text(
-                                            '元のメモ：${widget.memo}',
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                      content: TextFormField(
-                                        style: TextStyle(fontSize: 23),
-                                        initialValue: widget.memo,
-                                        decoration: InputDecoration(
-                                          labelText: '変更後の名前を入力'
-                                        ),
-                                        onChanged: (value) {
-                                          newMemo = value; // テキストフィールドの変更を反映
-                                        },
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () => Navigator.pop(context),
-                                          child: Text(
-                                            'キャンセル',
-                                            style: okibenItemDialogActionsTextStyle('red'),
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(
-                                                context, newMemo); // 新しい名前を返す
-                                          },
-                                          child: Text(
-                                            '保存',
-                                            style:
-                                                okibenItemDialogActionsTextStyle(
-                                                    ''),
-                                          ),
-                                        ),
-                                      ],
+                                        )
+                                      ]
                                     );
-                                  }).then((newMemo) {
-                                if (newMemo != null && newMemo.isNotEmpty) {
-                                  widget.onMemoChanged(newMemo);
-                                }
-                              });
-                            }
-                          )
+                                  },
+                                );
+                              },
+                            ).then((newName) {
+                              if (newName != null && newName.isNotEmpty) {
+                                widget.onNameChanged(newName);
+                              }
+                            });
+                          },
+                          // ------------------------------------------------------------------------------------------------
                         )
-                        // =================================================================== メモボタン部分 終 ===================================================================
-                      ],
-                    )
-                  ],
-                ),
-                actions: [
+                      ),
+                      // =================================================================== 編集ボタン部分 終 ===================================================================
+              
+                      SizedBox(width: 12),
+              
+                      // =================================================================== メモボタン部分 始 ===================================================================
+                      Expanded(
+                        child: CompOperationTile(
+                          buttonText: 'メモ',
+                          icon: Icons.local_offer_outlined,
+                          onPressed: () {
+                            Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                String newMemo = widget.memo;
+                                return StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return CompCommonDialog(
+                                      customHeight: 250,
+                                      customWidth: 300,
+                                      customContentMainAxisAlignment: MainAxisAlignment.start,
+                                      title: '編集',
+                                      contentChildren: [
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              CompTargetDisplay(
+                                                title: '元のメモ',
+                                                displayText: widget.memo,
+                                              ),
+                                              Column(children: [
+                                                SizedBox(
+                                                  width: double.infinity,
+                                                  child: Text('↓変更後のメモを入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                                                ),
+                                                SizedBox(height: 2),
+                                                TextFormField(
+                                                  maxLines: null,
+                                                  keyboardType: TextInputType.text,
+                                                  style: TextStyle(fontSize: 16),
+                                                  initialValue: widget.title,
+                                                  decoration: InputDecoration(
+                                                    hintText: '未入力',
+                                                    hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),
+                                                    filled: true,
+                                                    fillColor: Theme.of(context).brightness == Brightness.light
+                                                      ? Color(0xfffefefe)
+                                                      : dialogBackColorLight()
+                                                  ),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      newMemo = value;
+                                                    });
+                                                  },
+                                                ),
+                                              ]),
+                                              CompSaveButton(
+                                                onPressed: (newMemo.isNotEmpty && widget.title != newMemo)
+                                                  ? () => Navigator.pop(context, newMemo)
+                                                  : null,
+                                                isDarkMode: (Theme.of(context).brightness == Brightness.light) ? false : true
+                                              )
+                                            ]
+                                          ),
+                                        )
+                                      ]
+                                    );
+                                  },
+                                );
+                              },
+                            ).then((newMemo) {
+                              if (newMemo != null && newMemo.isNotEmpty) {
+                                widget.onNameChanged(newMemo);
+                              }
+                            });
+                          }
+                        )
+                      )
+                      // =================================================================== メモボタン部分 終 ===================================================================
+                    ],
+                  )
+                ],
+                actionsChildren: [
+                  // =================================================================== 削除ボタン部分 始 ===================================================================
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -321,8 +270,8 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: Theme.of(context).brightness == Brightness.light
-                                ? Colors.white // ライトモードの色
-                                : dialogBackColor(), // ダークモードの色
+                                ? Colors.white
+                                : dialogBackColor(),
                               title: Column(
                                 crossAxisAlignment:
                                     CrossAxisAlignment.start,
@@ -339,8 +288,8 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                                     style: TextStyle(
                                       fontSize: 15,
                                       color: Theme.of(context).brightness == Brightness.light
-                                        ? Colors.black // ライトモードの色
-                                        : Colors.white, // ダークモードの色
+                                        ? Colors.black
+                                        : Colors.white,
                                     ),
                                   ),
                                   SizedBox(height: 5),
@@ -348,14 +297,14 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: Theme.of(context).brightness == Brightness.light
-                                          ? Colors.black // ライトモードの色
-                                          : Colors.white, // ダークモードの色
+                                          ? Colors.black
+                                          : Colors.white,
                                         width: 0.5,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
                                       color: Theme.of(context).brightness == Brightness.light
-                                        ? Colors.white // ライトモードの色
-                                        : Color(0xff666666), // ダークモードの色
+                                        ? Colors.white
+                                        : Color(0xff666666),
                                     ),
                                     height: 80,
                                     child: Center(
@@ -402,9 +351,8 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                         : Color(0xffd0d0d0),
                     )
                   )
-                ],
-                // ),
-                // ],
+                  // =================================================================== 削除ボタン部分 終 ===================================================================
+                ]
               );
             },
           );

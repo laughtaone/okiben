@@ -43,15 +43,15 @@ TextStyle okibenItemDialogActionsTextStyle(String textColor) {
 }
 
 Size itemTileOperateButtonSize() {
-  return Size(80, 110);
+  return Size(80, 120);
 }
 
 Color itemTileOperateButtonColor() {
   return Color(0xffe0e0e0);
 }
 
-Color itemTileOperateEditButtonColor() {
-  return Color(0xffe3f1fc);
+Color itemTileOperateEditButtonColor({isDartMode=false}) {
+  return (isDartMode) ? Color(0xffbac4ca) : Color(0xfff1faff);
 }
 
 Color itemTileOperateMemoButtonColor() {
@@ -72,7 +72,7 @@ Color dialogBackColor() {
   return Color(0xff555555);
 }
 Color dialogBackColorDeep() {
-  return Color(0xff333333);
+  return Color(0xff444444);
 }
 Color dialogBackColorLight() {
   return Color(0xff777777);
