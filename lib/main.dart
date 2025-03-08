@@ -76,7 +76,7 @@ class StartPageWidget extends StatefulWidget {
 class _StartPageWidgetState extends State<StartPageWidget> {
   var _currentIndex = 0;
 
-  var _pages = <Widget>[
+  final _pages = <Widget>[
     OkibenManagePage(),
     ViewPage()
   ];

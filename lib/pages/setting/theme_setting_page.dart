@@ -21,7 +21,7 @@ class ThemeSettingPage extends StatefulWidget {
 class ThemeSettingPageState extends State<ThemeSettingPage> {
   @override
   Widget build(BuildContext context) {
-    final String? themeSetting = Provider.of<ThemeModel>(context).themeMode.toString().split('.').last;
+    final String themeSetting = Provider.of<ThemeModel>(context).themeMode.toString().split('.').last;
 
     return Scaffold(
       appBar: CompCommonAppbar(
@@ -44,7 +44,7 @@ class ThemeSettingPageState extends State<ThemeSettingPage> {
             tiles: <SettingsTile>[
               SettingsTile(
                 title: const Text('端末に合わせる'),
-                value: (themeSetting == 'system' || themeSetting == null)
+                value: (themeSetting == 'system')
                   ? checkIcon
                   : null,
                 onPressed: (_) async {
@@ -86,7 +86,7 @@ class ThemeSettingPageState extends State<ThemeSettingPage> {
 
                 // ---------------------- 末尾の説明文 ----------------------
                 description: Text(
-                  (themeSetting == 'system' || themeSetting == null)
+                  (themeSetting == 'system')
                     ? '端末の設定に合わせてライトモードまたはダークモードを適用します'
                     : (themeSetting == 'light')
                       ? '常にライトモードで表示します'

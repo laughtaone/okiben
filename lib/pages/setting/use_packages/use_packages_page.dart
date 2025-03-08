@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:okiben/components/comp_common_appbar.dart';
 import 'package:okiben/functions/func_open_url.dart';
@@ -69,8 +68,8 @@ class UsePackagesPageState extends State<UsePackagesPage> {
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('[${item['name'] ?? ''}]', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    Text(item['licence'] ?? '', style: const TextStyle(fontSize: 13)),
+                    Text('[${item['name'] ?? ''}]', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    Text(item['licence'] ?? '', style: TextStyle(fontSize: 13)),
                   ],
                 ),
               ),

@@ -1,10 +1,6 @@
 // 置き勉管理画面 の教材のボタン部分
-// okiben_manage.dartで利用
-// flutter run -d chrome lib/pages/okiben_manage/okiben_manage.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:okiben/components/comp_close_circle_button.dart';
 import 'package:okiben/components/comp_common_dialog.dart';
 import 'package:okiben/components/comp_common_button.dart';
 import 'package:okiben/components/comp_target_display.dart';
@@ -49,39 +45,6 @@ class OkibenItemTileState extends State<OkibenItemTile> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: okibenItemTileMergeTBSize()),
       child: OutlinedButton(
-        child: Center(
-          child: ListTile(
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  widget.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: okibenItemTileTitleSize()
-                  ),
-                  softWrap: false,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  widget.memo,
-                  style: TextStyle(
-                    fontSize: okibenItemTileMemoSize()
-                  ),
-                  maxLines: 2,
-                )
-              ],
-            ),
-            trailing: Transform.scale(
-              scale: 1.3,
-              child: CupertinoSwitch(
-                value: widget.value,
-                onChanged: widget.onChanged,
-              ),
-            ),
-          ),
-        ),
         onPressed: () {
           showDialog(
             context: context,
@@ -336,6 +299,39 @@ class OkibenItemTileState extends State<OkibenItemTile> {
           side: BorderSide(
             color: itemTileColor(),
             width: 1,
+          ),
+        ),
+        child: Center(
+          child: ListTile(
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: okibenItemTileTitleSize()
+                  ),
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  widget.memo,
+                  style: TextStyle(
+                    fontSize: okibenItemTileMemoSize()
+                  ),
+                  maxLines: 2,
+                )
+              ],
+            ),
+            trailing: Transform.scale(
+              scale: 1.3,
+              child: CupertinoSwitch(
+                value: widget.value,
+                onChanged: widget.onChanged,
+              ),
+            ),
           ),
         ),
       ),
