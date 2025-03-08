@@ -91,7 +91,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
+            icon: Icon(Icons.tune_outlined),
             label: '置き勉管理',
           ),
           BottomNavigationBarItem(

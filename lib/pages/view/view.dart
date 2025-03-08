@@ -1,5 +1,6 @@
 // ビュー画面
 import 'package:flutter/material.dart';
+import 'package:okiben/components/comp_common_appbar.dart';
 import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
 import 'package:okiben/components/view/comp_view_info.dart';
 import 'package:okiben/components/view/comp_view_tile.dart';
@@ -20,22 +21,9 @@ class ViewPageState extends State<ViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.location_on_outlined,
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.black87 // ライトモードの色
-                  : Colors.white, // ダークモードの色
-            ),
-            SizedBox(width: 5),
-            Text('ビュー'),
-          ],
-        ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
+      appBar: CompCommonAppbar(
+        icon: Icons.location_on_outlined,
+        title: 'ビュー'
       ),
       body: Consumer<OkibenManageModel>(
         builder: (context, model, child) {

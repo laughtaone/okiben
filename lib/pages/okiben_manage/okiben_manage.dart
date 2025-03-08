@@ -1,13 +1,13 @@
 // 置き勉管理画面
 import 'package:flutter/material.dart';
+import 'package:okiben/components/comp_common_appbar.dart';
 import 'package:okiben/components/comp_common_button.dart';
 import 'package:okiben/components/comp_common_dialog.dart';
-import 'package:okiben/customs.dart';
+import 'package:okiben/functions/func_load_item_list.dart';
 import 'package:okiben/pages/okiben_manage/item_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:okiben/pages/setting/setting.dart';
 
 
 
@@ -35,18 +35,14 @@ class OkibenManageModel extends ChangeNotifier {
   ];
 
   OkibenManageModel() {
-    _loadItemList();
+    load();
   }
 
   List<Map<String, dynamic>> get itemList => _itemList;
 
-  void _loadItemList() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? itemListString = prefs.getString('itemList');
-    if (itemListString != null) {
-      _itemList = List<Map<String, dynamic>>.from(json.decode(itemListString));
-      notifyListeners();
-    }
+  void load() async {
+    _itemList = await funcLoadItemList();
+    notifyListeners();
   }
 
   void _saveItemList() async {
@@ -95,54 +91,17 @@ class OkibenManageModel extends ChangeNotifier {
 }
 
 class OkibenManagePageState extends State<OkibenManagePage> {
-  var _editItemText = '';
   var _finalItemText = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light
-          ? Colors.white // ライトモードの色
-          : Colors.black26, // ダークモードの色,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.shopping_bag,
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.black // ライトモードの色
-                  : Colors.white, // ダークモードの色
-            ),
-            SizedBox(width: 5),
-            Text(
-              '置き勉管理',
-            ),
-          ],
-        ),
-        backgroundColor:
-            Theme.of(context).appBarTheme.backgroundColor, // Themeから色を取得
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.settings,
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.black87 // ライトモードの色
-                    : Colors.white, // ダークモードの色
-                size: 26,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SettingPage(),
-                    fullscreenDialog: true,
-                  ),
-                );
-              }),
-        ],
+        ? Colors.white
+        : Colors.black26,
+      appBar: CompCommonAppbar(
+        icon: Icons.tune_outlined,
+        title: '置き勉管理'
       ),
       body: Consumer<OkibenManageModel>(builder: (context, model, child) {
         return Padding(
@@ -159,8 +118,9 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                     value: itemListCopy['isOkiben'],
                     memo: itemListCopy['memo'],
                     indexNum: index,
-                    onChanged: (newValue) =>
-                        model.toggleSwitch(index, newValue),
+                    onChanged: (newValue) {
+                      model.toggleSwitch(index, newValue);
+                    },
                     onNameChanged: (String newName) {
                       model.updateItemTitle(index, newName); // タイトルを更新
                     },

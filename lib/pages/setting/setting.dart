@@ -30,8 +30,8 @@ class SettingPageState extends State<SettingPage> {
               Icon(
                 Icons.settings,
                 color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.black87 // ライトモードの色
-                  : Colors.white, // ダークモードの色
+                  ? Colors.black87
+                  : Colors.white,
               ),
               SizedBox(width: 5),
               Text(
@@ -107,8 +107,8 @@ class SettingPageState extends State<SettingPage> {
                     text: TextSpan(
                       style: TextStyle(
                         color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.black // ライトモードの色
-                          : Colors.white, // ダークモードの色
+                          ? Colors.black
+                          : Colors.white,
                       ),
                       children: const <TextSpan>[
                         TextSpan(text: '各アイテムについて、アイテムをタップ後、\n'),
@@ -149,8 +149,8 @@ class SettingPageState extends State<SettingPage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           backgroundColor: Theme.of(context).brightness == Brightness.light
-                            ? Colors.white // ライトモードの色
-                            : dialogBackColor(), // ダークモードの色
+                            ? Colors.white
+                            : dialogBackColor(),
                           title: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: const [
