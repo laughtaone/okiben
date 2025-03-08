@@ -202,12 +202,12 @@ class SettingPageState extends State<SettingPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children:  [
                                     SizedBox(height: 2),
                                     Row(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.min,
-                                      children: [
+                                      children: const [
                                         Icon(Icons.error_outlined, size: 23, color: Colors.red),
                                         SizedBox(width: 5),
                                         Padding(
@@ -221,21 +221,27 @@ class SettingPageState extends State<SettingPage> {
                                     ),
                                     SizedBox(height: 5),
                                     Text.rich(
-                                      TextSpan(children: [
+                                      TextSpan(children: const [
                                         TextSpan(text: '全て完全に削除',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
                                         TextSpan(text: 'されます'),
-                                      ],style: TextStyle(fontSize: 16),
+                                      ],style: TextStyle(
+                                        fontSize: 16,
+                                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black
+                                      )
                                     )),
                                     Text.rich(
-                                      TextSpan(children: [
+                                      TextSpan(children: const [
                                         TextSpan(text: '実行後の'),
                                         TextSpan(text: '取り消しはできません',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, decoration: TextDecoration.underline,decorationColor: Colors.red,)),
-                                      ],style: TextStyle(fontSize: 16),
+                                      ],style: TextStyle(
+                                        fontSize: 16,
+                                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black
+                                      )
                                     )),
                                   ],
                                 ),
                               ),
-                          
+
                               Expanded(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -251,8 +257,7 @@ class SettingPageState extends State<SettingPage> {
                                           Navigator.of(context).pop();
                                         }
                                         : null,
-                                      isDarkMode:  Theme.of(context).brightness == Brightness.dark,
-                                      customButtonColor: Color(0xffcc3d3d),
+                                      isDarkMode: Theme.of(context).brightness == Brightness.dark,
                                       customWidth: 200,
                                     )
                                   ]
@@ -262,7 +267,6 @@ class SettingPageState extends State<SettingPage> {
                               TextButton(
                                 onPressed: () {},
                                 onLongPress: () {
-
                                   setState(() {
                                     isUnlocked = true;
                                   });
@@ -278,11 +282,11 @@ class SettingPageState extends State<SettingPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: const [
-                                    Icon(Icons.lock_outline),
+                                    Icon(Icons.lock_outline, color: Colors.black),
                                     SizedBox(width: 5),
                                     Padding(
                                       padding: EdgeInsets.only(top: 4),
-                                      child: Text('ロック解除 (長押し)'),
+                                      child: Text('ロック解除 (長押し)', style: TextStyle(color: Colors.black)),
                                     ),
                                   ],
                                 )
