@@ -102,8 +102,8 @@ class SettingPageState extends State<SettingPage> {
                   children: [
                     const Text('追加したアイテムを'),
                     SizedBox(height: 5),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      SizedBox(width: 170, child: Center(child: Text('置き勉したら'))),
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                      SizedBox(width: 170, child: Text('・置き勉したら')),
                       Transform.scale(
                         scale: 0.8,
                         child: CupertinoSwitch(
@@ -113,8 +113,8 @@ class SettingPageState extends State<SettingPage> {
                         ),
                       )
                     ]),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      SizedBox(width: 170, child: Center(child: Text('置き勉しなかったら'))),
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                      SizedBox(width: 170, child: Text('・置き勉しなかったら')),
                       Transform.scale(
                         scale: 0.8,
                         child: CupertinoSwitch(
