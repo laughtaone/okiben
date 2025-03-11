@@ -97,8 +97,6 @@ class OkibenManageModel extends ChangeNotifier {
 }
 
 class OkibenManagePageState extends State<OkibenManagePage> {
-  var _finalItemText = '';
-
   // -------------- 追加するアイテム名スクロールバー用 --------------
   final ScrollController _scrollController = ScrollController();
   // ----------------------------------------------------------
@@ -220,89 +218,94 @@ class OkibenManagePageState extends State<OkibenManagePage> {
           bool isSEModel = (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height - 16 / 9).abs() < 1.22;
           double focusedDialogHeight = (isSEModel) ? 0.85 : 0.75;
           double unfocusedDialogHeight = (isSEModel) ? 0.5 : 0.4;
+          String finalItemText = '';
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
-            backgroundColor: Colors.white,
+            backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Color(0xff303030),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
             builder: (context) {
-              return CompUpDialog(
-                keyboardHeight: keyboardHeight,
-                initialChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
-                minChildSize: 0.3,
-                maxChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
-                dialogTitle: '📚アイテム追加',
-                dialogChildren: [
-                  SizedBox(height: 5),
-                  // - - - - - - 追加するアイテム名を入力 - - - - - -
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 7),
-                    width: double.infinity,
-                    child: Text('↓追加するアイテム名を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
-                  ),
-                  // - - - - - - - - - - - - - - - - - - - - - - -
-                  // - - - - - - - - テキストフィールド - - - - - - -
-                  Container(
-                    constraints: BoxConstraints(maxHeight: 100),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(17)
-                    ),
-                    padding: const EdgeInsets.only(right: 4),
-                    child: Scrollbar(
-                      controller: _scrollController,
-                      thumbVisibility: true,
-                      child: SingleChildScrollView(
-                        controller: _scrollController,
-                        child: Column(
-                          children: [
-                            SizedBox(height: 10),
-                            TextField(
-                              maxLines: null,
-                              keyboardType: TextInputType.text,
-                              focusNode: _focusNode,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 20)
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  newItemName = value;
-                                });
-                              },
+              return StatefulBuilder(
+                builder: (context, setState) {
+                  return CompUpDialog(
+                    keyboardHeight: keyboardHeight,
+                    initialChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
+                    minChildSize: 0.3,
+                    maxChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
+                    dialogTitle: '📚アイテム追加',
+                    dialogChildren: [
+                      SizedBox(height: 5),
+                      // - - - - - - 追加するアイテム名を入力 - - - - - -
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 7),
+                        width: double.infinity,
+                        child: Text('↓追加するアイテム名を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                      ),
+                      // - - - - - - - - - - - - - - - - - - - - - - -
+                      // - - - - - - - - テキストフィールド - - - - - - -
+                      Container(
+                        constraints: BoxConstraints(maxHeight: 100),
+                        decoration: BoxDecoration(
+                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey[200] : Color(0xff555555),
+                          borderRadius: BorderRadius.circular(17)
+                        ),
+                        padding: const EdgeInsets.only(right: 4),
+                        child: Scrollbar(
+                          controller: _scrollController,
+                          thumbVisibility: true,
+                          child: SingleChildScrollView(
+                            controller: _scrollController,
+                            child: Column(
+                              children: [
+                                SizedBox(height: 10),
+                                TextField(
+                                  maxLines: null,
+                                  keyboardType: TextInputType.text,
+                                  focusNode: _focusNode,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(horizontal: 20)
+                                  ),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      newItemName = value;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 10),
+                              ],
                             ),
-                            SizedBox(height: 10),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  // - - - - - - - - - - - - - - - - - - - - - - -
-                  SizedBox(height: 30),
-                  // - - - - - - - - - 追加ボタン - - - - - - - - - -
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 90),
-                    child: CompCommonButton(
-                      buttonText: '追加',
-                      onPressed: (newItemName.isEmpty)
-                        ? null
-                        : () {
-                          setState(() {
-                            _finalItemText = newItemName;
-                          });
-                          if (_finalItemText.isNotEmpty) {
-                            Provider.of<OkibenManageModel>(context, listen: false).addItem(_finalItemText);
-                          }
-                          Navigator.pop(context);
-                        },
-                      isDarkMode: Theme.of(context).brightness == Brightness.dark ? true : false,
-                    ),
-                  ),
-                  SizedBox(height: 30)
-                  // - - - - - - - - - - - - - - - - - - - - - - -
-                ]
+                      // - - - - - - - - - - - - - - - - - - - - - - -
+                      SizedBox(height: 30),
+                      // - - - - - - - - - 追加ボタン - - - - - - - - - -
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 90),
+                        child: CompCommonButton(
+                          buttonText: '追加',
+                          onPressed: (newItemName.isEmpty)
+                            ? null
+                            : () {
+                              setState(() {
+                                finalItemText = newItemName;
+                              });
+                              if (finalItemText.isNotEmpty) {
+                                Provider.of<OkibenManageModel>(context, listen: false).addItem(finalItemText);
+                              }
+                              Navigator.pop(context);
+                            },
+                          isDarkMode: Theme.of(context).brightness == Brightness.dark ? true : false,
+                        ),
+                      ),
+                      SizedBox(height: 30)
+                      // - - - - - - - - - - - - - - - - - - - - - - -
+                    ]
+                  );
+                }
               );
             },
           );

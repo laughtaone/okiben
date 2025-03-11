@@ -27,7 +27,7 @@ class CompCommonButton extends StatelessWidget {
           ? customButtonColor
           : (!isDarkMode)
             ? Color.fromRGBO(85, 85, 85, 1)
-            : Color.fromRGBO(140, 140, 140, 1),
+            : Color.fromRGBO(130, 130, 130, 1),
         disabledBackgroundColor: (customButtonColor != null)
           ? customButtonColor!.withValues(alpha: 0.5)
           : (!isDarkMode)
