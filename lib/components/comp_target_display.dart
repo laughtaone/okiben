@@ -20,8 +20,8 @@ class CompTargetDisplay extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Theme.of(context).brightness == Brightness.light
-          ? dialogLightColorDeep()
-          : dialogBackColorLight(),
+          ? Color(0xfff8f8f8)
+          : Color(0xff3a3a3a),
       ),
       padding: EdgeInsets.symmetric(horizontal: 17, vertical: 10),
       child: Center(

@@ -96,6 +96,9 @@ class OkibenManageModel extends ChangeNotifier {
   }
 }
 
+
+
+
 class OkibenManagePageState extends State<OkibenManagePage> {
   // -------------- 追加するアイテム名スクロールバー用 --------------
   final ScrollController _scrollController = ScrollController();
