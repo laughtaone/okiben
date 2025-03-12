@@ -14,8 +14,8 @@ class CompDialogBar extends StatelessWidget {
       child: Divider(
         color: Colors.grey,
         thickness: 3,
-        indent: 135,
-        endIndent: 135,
+        indent: 140,
+        endIndent: 140,
       ),
     );
   }

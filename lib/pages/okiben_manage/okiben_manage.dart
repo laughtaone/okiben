@@ -1,10 +1,7 @@
 // 置き勉管理画面
 import 'package:flutter/material.dart';
-import 'package:okiben/components/comp_close_circle_button.dart';
 import 'package:okiben/components/comp_common_appbar.dart';
 import 'package:okiben/components/comp_common_button.dart';
-import 'package:okiben/components/comp_common_dialog.dart';
-import 'package:okiben/components/comp_dialog_bar.dart';
 import 'package:okiben/components/comp_fake_add_button.dart';
 import 'package:okiben/components/comp_up_dialog.dart';
 import 'package:okiben/customs.dart';
@@ -301,7 +298,6 @@ class OkibenManagePageState extends State<OkibenManagePage> {
                               }
                               Navigator.pop(context);
                             },
-                          isDarkMode: Theme.of(context).brightness == Brightness.dark ? true : false,
                         ),
                       ),
                       SizedBox(height: 30)

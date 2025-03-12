@@ -35,6 +35,15 @@ class CompUpDialog extends StatelessWidget {
         expand: false,
         builder: (context, scrollController) {
           return Container(
+            decoration: BoxDecoration(
+              color: (Theme.of(context).brightness == Brightness.light)
+                ? Color(0xffffffff)
+                : Color(0xff303030),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25),
+                topRight: Radius.circular(25),
+              )
+            ),
             padding: EdgeInsets.fromLTRB(15, 15, 15, (keyboardHeight > 0) ? keyboardHeight + 200 : 15),
             child: Column(
               children: [

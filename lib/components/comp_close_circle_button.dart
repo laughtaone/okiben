@@ -16,7 +16,9 @@ class CompCloseCircleButton extends StatelessWidget {
     return IconButton(
       onPressed: onPressed,
       style: IconButton.styleFrom(
-        backgroundColor: Color(0xffe0e0e0)
+        backgroundColor: (Theme.of(context).brightness == Brightness.light)
+          ? Color(0xffe0e0e0)
+          : Color(0xffa0a0a0)
       ),
       icon: Icon(Icons.close, size: customIconSize, color: Color(0xff000000))
     );

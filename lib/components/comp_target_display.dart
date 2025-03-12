@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class CompTargetDisplay extends StatelessWidget {
   const CompTargetDisplay({super.key,
     required this.title,
-    required this.displayText
+    required this.displayText,
+    
   });
 
   final String title;
