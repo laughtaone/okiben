@@ -7,6 +7,8 @@ import 'package:okiben/components/comp_target_display.dart';
 import 'package:okiben/components/comp_up_dialog.dart';
 import 'package:okiben/customs.dart';
 import 'package:okiben/components/comp_operation_tile.dart';
+import 'package:okiben/pages/okiben_manage/okiben_manage.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -42,6 +44,41 @@ class OkibenItemTile extends StatefulWidget {
 
 
 class OkibenItemTileState extends State<OkibenItemTile> {
+  // -------------- 追加するアイテム名スクロールバー用 --------------
+  final ScrollController _scrollController = ScrollController();
+  // ----------------------------------------------------------
+  // ------------ 追加するアイテム名 テキストフィールド用 ------------
+  bool isSelectTextField = false;
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        setState(() {
+          isSelectTextField = true;
+        });
+      } else {
+        setState(() {
+          isSelectTextField = false;
+        });
+      }
+    });
+  }
+  // ----------------------------------------------------------
+  // ------------------------ dispose系 ------------------------
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _focusNode.dispose();  // 不要になったFocusNodeを解放
+    super.dispose();
+  }
+  // ----------------------------------------------------------
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +90,6 @@ class OkibenItemTileState extends State<OkibenItemTile> {
           bool isSEModel = (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height - 16 / 9).abs() < 1.22;
           double focusedDialogHeight = (isSEModel) ? 0.9 : 0.8;
           double unfocusedDialogHeight = (isSEModel) ? 0.6 : 0.5;
-          bool isSelectTextField = false;
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -69,7 +105,7 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                     initialChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
                     minChildSize: 0.4,
                     maxChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
-                    dialogTitle: '🖋️ 操作',
+                    dialogTitle: '⚒️ 操作',
                     dialogChildren: [
                       CompTargetDisplay(
                         title: '操作対象',
@@ -81,6 +117,127 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                         buttonText: '編集',
                         icon: Icons.edit_outlined,
                         // ----------------------------------------- 編集ダイアログ -----------------------------------------
+                        onPressed: () {
+                          String newName = '';
+                          double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+                          bool isSEModel = (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height - 16 / 9).abs() < 1.22;
+                          double focusedDialogHeight = (isSEModel) ? 0.92 : 0.82;
+                          double unfocusedDialogHeight = (isSEModel) ? 0.6 : 0.5;
+                          String finalItemText = '';
+                          Navigator.pop(context);
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Color(0xff303030),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                            ),
+                            builder: (context) {
+                              return StatefulBuilder(
+                                builder: (context, setState) {
+                                  return CompUpDialog(
+                                    keyboardHeight: keyboardHeight,
+                                    initialChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
+                                    minChildSize: 0.4,
+                                    maxChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
+                                    dialogTitle: '✏️ 編集',
+                                    dialogChildren: [
+                                      CompTargetDisplay(
+                                        title: '元の名前',
+                                        displayText: widget.title,
+                                      ),
+                                      SizedBox(height: 10),
+                                      // - - - - - - 変更後のアイテム名を入力 - - - - - -
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(vertical: 7),
+                                        width: double.infinity,
+                                        child: Text('↓ 変更後のアイテム名を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                                      ),
+                                      // - - - - - - - - - - - - - - - - - - - - - - -
+                                      // - - - - - - - - テキストフィールド - - - - - - -
+                                      Container(
+                                        constraints: BoxConstraints(maxHeight: 100),
+                                        decoration: BoxDecoration(
+                                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey[200] : Color(0xff555555),
+                                          borderRadius: BorderRadius.circular(17)
+                                        ),
+                                        padding: const EdgeInsets.only(right: 4),
+                                        child: Scrollbar(
+                                          controller: _scrollController,
+                                          thumbVisibility: true,
+                                          child: SingleChildScrollView(
+                                            controller: _scrollController,
+                                            child: Column(
+                                              children: [
+                                                SizedBox(height: 10),
+                                                // TextField(
+                                                //   maxLines: null,
+                                                //   keyboardType: TextInputType.text,
+                                                //   focusNode: _focusNode,
+                                                //   decoration: InputDecoration(
+                                                //     border: InputBorder.none,
+                                                //     contentPadding: const EdgeInsets.symmetric(horizontal: 20)
+                                                //   ),
+                                                //   onChanged: (value) {
+                                                //     setState(() {
+                                                //       newItemName = value;
+                                                //     });
+                                                //   },
+                                                // ),
+                                                TextFormField(
+                                                  maxLines: null,
+                                                  keyboardType: TextInputType.text,
+                                                  focusNode: _focusNode,
+                                                  style: TextStyle(fontSize: 16),
+                                                  initialValue: widget.title,
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                                                    hintText: '未入力',
+                                                    hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),
+                                                  ),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      newName = value; // 変更後の名前を更新
+                                                    });
+                                                  },
+                                                ),
+                                                SizedBox(height: 10),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      // - - - - - - - - - - - - - - - - - - - - - - -
+                                      SizedBox(height: 30),
+                                      // - - - - - - - - - 変更ボタン - - - - - - - - - -
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 90),
+                                        child: CompCommonButton(
+                                          buttonText: '変更',
+                                          onPressed: (newName.isNotEmpty && widget.title != newName)
+                                            ? () => Navigator.pop(context, newName)
+                                            : null,
+                                          isDarkMode: (Theme.of(context).brightness == Brightness.light) ? false : true
+                                        ),
+                                      ),
+                                      SizedBox(height: 30)
+                                      // - - - - - - - - - - - - - - - - - - - - - - -
+                                    ]
+                                  );
+                                }
+                              );
+                            },
+                          ).then((newName) {
+                            if (newName != null && newName.isNotEmpty) {
+                              widget.onNameChanged(newName);
+                            }
+                          });
+                        }
+
+
+
+                        /*
                         onPressed: () {
                           Navigator.pop(context);
                           showDialog(
@@ -146,6 +303,7 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                             }
                           });
                         },
+                        */
                         // ------------------------------------------------------------------------------------------------
                       ),
                       // ======================================================================================================================================================

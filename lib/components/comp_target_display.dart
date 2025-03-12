@@ -1,6 +1,5 @@
 // 対象とするものを表示するコンポーネント
 import 'package:flutter/material.dart';
-import 'package:okiben/customs.dart';
 
 
 
