@@ -363,7 +363,7 @@ class SettingPageState extends State<SettingPage> {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.tag_outlined),
                   title: const Text('アプリバージョン'),
-                  value: const Text('1.0.2'),
+                  value: const Text('1.0.3'),
                   onPressed: (BuildContext context) async {
                     await funcOpenUrl('https://laughtaone.notion.site/okiben-1b0b5b93908181d0b8e7e7d71066e384?pvs=4');
                   },

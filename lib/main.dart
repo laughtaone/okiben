@@ -102,8 +102,8 @@ class _StartPageWidgetState extends State<StartPageWidget> {
             label: 'ビュー',
           ),
         ],
-        currentIndex: _currentIndex, // 現在のインデックスを設定
-        onTap: _onTap, // タップ時に呼ばれるメソッドを設定
+        currentIndex: _currentIndex,    // 現在のインデックスを設定
+        onTap: _onTap,                  // タップ時に呼ばれるメソッドを設定
       ),
     );
   }

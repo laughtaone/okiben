@@ -109,224 +109,235 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                         title: '操作対象',
                         displayText: widget.title,
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
+
+                      Row(children: [
                       // =================================================================== 編集ボタン部分 始 ===================================================================
-                      CompOperationTile(
-                        buttonText: '編集',
-                        icon: Icons.edit_outlined,
-                        // ----------------------------------------- 編集ダイアログ -----------------------------------------
-                        onPressed: () {
-                          String newName = '';
-                          double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-                          bool isSEModel = (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height - 16 / 9).abs() < 1.22;
-                          double focusedDialogHeight = (isSEModel) ? 0.92 : 0.82;
-                          double unfocusedDialogHeight = (isSEModel) ? 0.6 : 0.5;
-                          Navigator.pop(context);
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                            ),
-                            builder: (context) {
-                              return StatefulBuilder(
-                                builder: (context, setState) {
-                                  return CompUpDialog(
-                                    keyboardHeight: keyboardHeight,
-                                    initialChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
-                                    minChildSize: 0.4,
-                                    maxChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
-                                    dialogTitle: '✏️ 編集',
-                                    dialogChildren: [
-                                      CompTargetDisplay(
-                                        title: '元の名前',
-                                        displayText: widget.title,
-                                      ),
-                                      SizedBox(height: 10),
-                                      // - - - - - - 変更後のアイテム名を入力 - - - - - -
-                                      Container(
-                                        margin: const EdgeInsets.symmetric(vertical: 7),
-                                        width: double.infinity,
-                                        child: Text('↓ 変更後のアイテム名を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
-                                      ),
-                                      // - - - - - - - - - - - - - - - - - - - - - - -
-                                      // - - - - - - - - テキストフィールド - - - - - - -
-                                      Container(
-                                        constraints: BoxConstraints(maxHeight: 100),
-                                        decoration: BoxDecoration(
-                                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey[200] : Color(0xff555555),
-                                          borderRadius: BorderRadius.circular(17)
+                      Expanded(
+                        child: CompOperationTile(
+                          buttonText: '✏️ 編集',
+                          detailText: 'アイテム名を編集',
+                          centerText: widget.title,
+                          // ----------------------------------------- 編集ダイアログ -----------------------------------------
+                          onPressed: () {
+                            String newName = '';
+                            double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+                            bool isSEModel = (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height - 16 / 9).abs() < 1.22;
+                            double focusedDialogHeight = (isSEModel) ? 0.92 : 0.82;
+                            double unfocusedDialogHeight = (isSEModel) ? 0.6 : 0.5;
+                            Navigator.pop(context);
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                              ),
+                              builder: (context) {
+                                return StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return CompUpDialog(
+                                      keyboardHeight: keyboardHeight,
+                                      initialChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
+                                      minChildSize: 0.4,
+                                      maxChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
+                                      dialogTitle: '✏️ 編集',
+                                      dialogChildren: [
+                                        CompTargetDisplay(
+                                          title: '元の名前',
+                                          displayText: widget.title,
                                         ),
-                                        padding: const EdgeInsets.only(right: 4),
-                                        child: Scrollbar(
-                                          controller: _scrollController,
-                                          thumbVisibility: true,
-                                          child: SingleChildScrollView(
+                                        SizedBox(height: 10),
+                                        // - - - - - - 変更後のアイテム名を入力 - - - - - -
+                                        Container(
+                                          margin: const EdgeInsets.symmetric(vertical: 7),
+                                          width: double.infinity,
+                                          child: Text('↓ 変更後のアイテム名を入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                                        ),
+                                        // - - - - - - - - - - - - - - - - - - - - - - -
+                                        // - - - - - - - - テキストフィールド - - - - - - -
+                                        Container(
+                                          constraints: BoxConstraints(maxHeight: 100),
+                                          decoration: BoxDecoration(
+                                            color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey[200] : Color(0xff555555),
+                                            borderRadius: BorderRadius.circular(17)
+                                          ),
+                                          padding: const EdgeInsets.only(right: 4),
+                                          child: Scrollbar(
                                             controller: _scrollController,
-                                            child: Column(
-                                              children: [
-                                                SizedBox(height: 10),
-                                                TextFormField(
-                                                  maxLines: null,
-                                                  keyboardType: TextInputType.text,
-                                                  focusNode: _focusNode,
-                                                  style: TextStyle(fontSize: 16),
-                                                  initialValue: widget.title,
-                                                  decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                    contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                                                    hintText: '未入力',
-                                                    hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),
+                                            thumbVisibility: true,
+                                            child: SingleChildScrollView(
+                                              controller: _scrollController,
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(height: 10),
+                                                  TextFormField(
+                                                    maxLines: null,
+                                                    keyboardType: TextInputType.text,
+                                                    focusNode: _focusNode,
+                                                    style: TextStyle(fontSize: 16),
+                                                    initialValue: widget.title,
+                                                    decoration: InputDecoration(
+                                                      border: InputBorder.none,
+                                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                                                      hintText: '未入力',
+                                                      hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        newName = value; // 変更後の名前を更新
+                                                      });
+                                                    },
                                                   ),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      newName = value; // 変更後の名前を更新
-                                                    });
-                                                  },
-                                                ),
-                                                SizedBox(height: 10),
-                                              ],
+                                                  SizedBox(height: 10),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      // - - - - - - - - - - - - - - - - - - - - - - -
-                                      SizedBox(height: 30),
-                                      // - - - - - - - - - 変更ボタン - - - - - - - - - -
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 90),
-                                        child: CompCommonButton(
-                                          buttonText: '変更',
-                                          onPressed: (newName.isNotEmpty && widget.title != newName)
-                                            ? () => Navigator.pop(context, newName)
-                                            : null,
+                                        // - - - - - - - - - - - - - - - - - - - - - - -
+                                        SizedBox(height: 30),
+                                        // - - - - - - - - - 変更ボタン - - - - - - - - - -
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 90),
+                                          child: CompCommonButton(
+                                            buttonText: '変更',
+                                            onPressed: (newName.isNotEmpty && widget.title != newName)
+                                              ? () => Navigator.pop(context, newName)
+                                              : null,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 30)
-                                      // - - - - - - - - - - - - - - - - - - - - - - -
-                                    ]
-                                  );
-                                }
-                              );
-                            },
-                          ).then((newName) {
-                            if (newName != null && newName.isNotEmpty) {
-                              widget.onNameChanged(newName);
-                            }
-                          });
-                        }
-                        // ------------------------------------------------------------------------------------------------
+                                        SizedBox(height: 30)
+                                        // - - - - - - - - - - - - - - - - - - - - - - -
+                                      ]
+                                    );
+                                  }
+                                );
+                              },
+                            ).then((newName) {
+                              if (newName != null && newName.isNotEmpty) {
+                                widget.onNameChanged(newName);
+                              }
+                            });
+                          }
+                          // ------------------------------------------------------------------------------------------------
+                        ),
                       ),
                       // ======================================================================================================================================================
+
+                      SizedBox(width: 10),
 
                       // =================================================================== メモボタン部分 始 ===================================================================
-                      CompOperationTile(
-                        buttonText: 'メモ',
-                        icon: Icons.local_offer_outlined,
-                        onPressed: () {
-                          String newMemo = '';
-                          double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-                          bool isSEModel = (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height - 16 / 9).abs() < 1.22;
-                          double focusedDialogHeight = (isSEModel) ? 0.92 : 0.82;
-                          double unfocusedDialogHeight = (isSEModel) ? 0.6 : 0.5;
-                          Navigator.pop(context);
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                            ),
-                            builder: (context) {
-                              return StatefulBuilder(
-                                builder: (context, setState) {
-                                  return CompUpDialog(
-                                    keyboardHeight: keyboardHeight,
-                                    initialChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
-                                    minChildSize: 0.4,
-                                    maxChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
-                                    dialogTitle: '📋 メモ',
-                                    dialogChildren: [
-                                      CompTargetDisplay(
-                                        title: '元のメモ',
-                                        displayText: widget.memo,
-                                      ),
-                                      SizedBox(height: 10),
-                                      // - - - - - - - 変更後のメモを入力 - - - - - - - -
-                                      Container(
-                                        margin: const EdgeInsets.symmetric(vertical: 7),
-                                        width: double.infinity,
-                                        child: Text('↓ 変更後のメモを入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
-                                      ),
-                                      // - - - - - - - - - - - - - - - - - - - - - - -
-                                      // - - - - - - - - テキストフィールド - - - - - - -
-                                      Container(
-                                        constraints: BoxConstraints(maxHeight: 100),
-                                        decoration: BoxDecoration(
-                                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey[200] : Color(0xff555555),
-                                          borderRadius: BorderRadius.circular(17)
+                      Expanded(
+                        child: CompOperationTile(
+                          buttonText: '📋 メモ',
+                          detailText: (widget.memo.isEmpty) ? 'メモを追加' : 'メモを編集',
+                          centerText: widget.memo,
+                          onPressed: () {
+                            String newMemo = '';
+                            double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+                            bool isSEModel = (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height - 16 / 9).abs() < 1.22;
+                            double focusedDialogHeight = (isSEModel) ? 0.92 : 0.82;
+                            double unfocusedDialogHeight = (isSEModel) ? 0.6 : 0.5;
+                            Navigator.pop(context);
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                              ),
+                              builder: (context) {
+                                return StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return CompUpDialog(
+                                      keyboardHeight: keyboardHeight,
+                                      initialChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
+                                      minChildSize: 0.4,
+                                      maxChildSize: (isSelectTextField) ? focusedDialogHeight : unfocusedDialogHeight,
+                                      dialogTitle: '📋 メモ',
+                                      dialogChildren: [
+                                        CompTargetDisplay(
+                                          title: '元のメモ',
+                                          displayText: widget.memo,
                                         ),
-                                        padding: const EdgeInsets.only(right: 4),
-                                        child: Scrollbar(
-                                          controller: _scrollController,
-                                          thumbVisibility: true,
-                                          child: SingleChildScrollView(
+                                        SizedBox(height: 10),
+                                        // - - - - - - - 変更後のメモを入力 - - - - - - - -
+                                        Container(
+                                          margin: const EdgeInsets.symmetric(vertical: 7),
+                                          width: double.infinity,
+                                          child: Text('↓ 変更後のメモを入力', style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                                        ),
+                                        // - - - - - - - - - - - - - - - - - - - - - - -
+                                        // - - - - - - - - テキストフィールド - - - - - - -
+                                        Container(
+                                          constraints: BoxConstraints(maxHeight: 100),
+                                          decoration: BoxDecoration(
+                                            color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey[200] : Color(0xff555555),
+                                            borderRadius: BorderRadius.circular(17)
+                                          ),
+                                          padding: const EdgeInsets.only(right: 4),
+                                          child: Scrollbar(
                                             controller: _scrollController,
-                                            child: Column(
-                                              children: [
-                                                SizedBox(height: 10),
-                                                TextFormField(
-                                                  maxLines: null,
-                                                  keyboardType: TextInputType.text,
-                                                  focusNode: _focusNode,
-                                                  style: TextStyle(fontSize: 16),
-                                                  initialValue: widget.memo,
-                                                  decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                    contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                                                    hintText: '未入力',
-                                                    hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),
+                                            thumbVisibility: true,
+                                            child: SingleChildScrollView(
+                                              controller: _scrollController,
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(height: 10),
+                                                  TextFormField(
+                                                    maxLines: null,
+                                                    keyboardType: TextInputType.text,
+                                                    focusNode: _focusNode,
+                                                    style: TextStyle(fontSize: 16),
+                                                    initialValue: widget.memo,
+                                                    decoration: InputDecoration(
+                                                      border: InputBorder.none,
+                                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                                                      hintText: '未入力',
+                                                      hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        newMemo = value;
+                                                      });
+                                                    },
                                                   ),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      newMemo = value;
-                                                    });
-                                                  },
-                                                ),
-                                                SizedBox(height: 10),
-                                              ],
+                                                  SizedBox(height: 10),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      // - - - - - - - - - - - - - - - - - - - - - - -
-                                      SizedBox(height: 30),
-                                      // - - - - - - - - - 変更ボタン - - - - - - - - - -
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 90),
-                                        child: CompCommonButton(
-                                          buttonText: '変更',
-                                          onPressed: (newMemo.isNotEmpty && widget.memo != newMemo)
-                                            ? () => Navigator.pop(context, newMemo)
-                                            : null,
+                                        // - - - - - - - - - - - - - - - - - - - - - - -
+                                        SizedBox(height: 30),
+                                        // - - - - - - - - - 変更ボタン - - - - - - - - - -
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 90),
+                                          child: CompCommonButton(
+                                            buttonText: '変更',
+                                            onPressed: (newMemo.isNotEmpty && widget.memo != newMemo)
+                                              ? () => Navigator.pop(context, newMemo)
+                                              : null,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 30)
-                                      // - - - - - - - - - - - - - - - - - - - - - - -
-                                    ]
-                                  );
-                                }
-                              );
-                            },
-                          ).then((newMemo) {
-                            if (newMemo != null && newMemo.isNotEmpty) {
-                              widget.onMemoChanged(newMemo);
-                            }
-                          });
-                        }
+                                        SizedBox(height: 30)
+                                        // - - - - - - - - - - - - - - - - - - - - - - -
+                                      ]
+                                    );
+                                  }
+                                );
+                              },
+                            ).then((newMemo) {
+                              if (newMemo != null && newMemo.isNotEmpty) {
+                                widget.onMemoChanged(newMemo);
+                              }
+                            });
+                          }
+                        ),
                       ),
                       // ======================================================================================================================================================
+                      ]),
 
-                      SizedBox(width: 80),
+                      SizedBox(height: 30),
 
                       // =================================================================== 削除ボタン部分 始 ===================================================================
                       Padding(
@@ -394,12 +405,18 @@ class OkibenItemTileState extends State<OkibenItemTile> {
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.delete_outline),
+                            children: [
+                              Icon(
+                                Icons.delete_outline,
+                                color: (Theme.of(context).brightness == Brightness.light) ? Color(0xff505050) : Color(0xffc5c5c5)
+                              ),
                               SizedBox(width: 5),
                               Padding(
                                 padding: EdgeInsets.only(top: 3),
-                                child: Text('削除'),
+                                child: Text(
+                                  '削除',
+                                  style: TextStyle(color: (Theme.of(context).brightness == Brightness.light) ? Color(0xff505050) : Color(0xffc5c5c5))
+                                ),
                               ),
                             ],
                           ),

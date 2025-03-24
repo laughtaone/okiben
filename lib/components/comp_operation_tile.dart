@@ -6,48 +6,71 @@ import 'package:flutter/material.dart';
 class CompOperationTile extends StatelessWidget {
   const CompOperationTile({super.key,
     required this.buttonText,
-    required this.icon,
-    required this.onPressed
+    required this.onPressed,
+    this.detailText = '',
+    this.centerText = ''
   });
 
   final String buttonText;
-  final IconData icon;
   final void Function() onPressed;
+  final String detailText;
+  final String centerText;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
           backgroundColor: (Theme.of(context).brightness == Brightness.light)
-            ? Color(0xffe8e8e8)
+            ? Color(0xffeeeeee)
             : Color(0xff464646),
-          fixedSize: Size(double.infinity, 70),
+          fixedSize: Size(double.infinity, 130),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 13),
-          child: Row(
-            children: [
-              Icon(icon, size: 23),
-              Expanded(
-                child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // -------------- ヘッダー --------------
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                buttonText,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+                )
+              ),
+            ),
+            // --------------------------------------
+            // ------------- 真ん中の要素 -------------
+            Row(
+              children: [
+                Flexible(child: Center(
                   child: Text(
-                    buttonText,
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold
-                    )
+                    centerText,
+                    style: TextStyle(fontSize: 12),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
+                )),
+              ]
+            ),
+            // --------------------------------------
+            // -------------- フッター ---------------
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(child: Text(detailText, style: TextStyle(fontSize: 13), maxLines: 1, overflow: TextOverflow.ellipsis)),
+                Icon(Icons.chevron_right_outlined, size: 20)
+              ]
+            )
+            // --------------------------------------
+          ]
+        )
       ),
     );
   }

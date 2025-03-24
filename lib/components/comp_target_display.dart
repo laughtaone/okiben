@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 class CompTargetDisplay extends StatelessWidget {
   const CompTargetDisplay({super.key,
     required this.title,
-    required this.displayText,
-    
+    required this.displayText
   });
 
   final String title;
@@ -18,9 +17,9 @@ class CompTargetDisplay extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).brightness == Brightness.light
-          ? Color(0xfff8f8f8)
+        borderRadius: BorderRadius.circular(12),
+        color: (Theme.of(context).brightness == Brightness.light)
+          ? Color(0xfff5f5f5)
           : Color(0xff3a3a3a),
       ),
       padding: EdgeInsets.symmetric(horizontal: 17, vertical: 10),
